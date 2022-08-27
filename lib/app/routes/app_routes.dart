@@ -9,6 +9,7 @@ abstract class Routes {
   static const SEARCH = _Paths.SEARCH;
   static const INDEX = _Paths.INDEX;
   static const DETAIL_SEARCH = _Paths.DETAIL_SEARCH;
+  static const ANIME_TEST = _Paths.ANIME_TEST;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const SEARCH = '/search';
   static const INDEX = '/index';
   static const DETAIL_SEARCH = '/detail-search';
+  static const ANIME_TEST = '/anime-test';
 }
