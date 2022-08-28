@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 // import 'package:my_anime_list/app/data/model/anime_model.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_anime_list/app/data/model/anime_search.dart';
 
 // void main() async {
 //   List<Anime> anime = [];
@@ -89,18 +90,34 @@ import 'package:http/http.dart' as http;
 //   }
 // }
 
+// void main() async {
+//   List<dynamic> nimek = [];
+//   Map<String, dynamic> page = {};
+//   List<dynamic> pagination = [];
+//   Uri url = Uri.parse('https://api.jikan.moe/v4/anime?letter=a');
+//   var response = await http.get(url);
+//   if (response.statusCode == 200) {
+//     Map<String, dynamic> data = json.decode(response.body);
+//     nimek = data["data"].map((e) => Animes.fromJson(e)).toList();
+//     page = data["pagination"];
+//     // debugPrint(page.toString());
+//   } else {
+//     return null;
+//   }
+// }
+
 void main() async {
-  List<dynamic> nimek = [];
-  Map<String, dynamic> page = {};
-  List<dynamic> pagination = [];
-  Uri url = Uri.parse('https://api.jikan.moe/v4/anime?letter=a');
-  var response = await http.get(url);
-  if (response.statusCode == 200) {
-    Map<String, dynamic> data = json.decode(response.body);
-    nimek = data["data"].map((e) => Animes.fromJson(e)).toList();
-    page = data["pagination"];
-    // debugPrint(page.toString());
-  } else {
-    return null;
-  }
+  List<dynamic> resultAnime = [];
+  Map<String, dynamic> pageSearch = {};
+
+  Uri link = Uri.parse('https://api.jikan.moe/v4/anime?q=naruto');
+  var hasil = await http.get(link);
+  //! Masukkan data ke dalam variable
+  var data = json.decode(hasil.body);
+  resultAnime = data["data"].map((e) => AnimeSearch.fromJson(e)).toList();
+  debugPrint(resultAnime[24].title.toString());
+  pageSearch = data["pagination"];
+  debugPrint(pageSearch["has_next_page"].toString());
+  // update();
+  //! cek data nya apakah null atau tidak
 }

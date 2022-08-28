@@ -11,6 +11,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class HomeController extends GetxController {
   late TextEditingController searchController;
   Map<String, dynamic> page = {};
+  Map<String, dynamic> pageSearch = {};
+  RefreshController refreshControllerSearch =
+      RefreshController(initialRefresh: true);
   RefreshController refreshControllerA =
       RefreshController(initialRefresh: true);
   RefreshController refreshControllerB =
@@ -65,7 +68,8 @@ class HomeController extends GetxController {
       RefreshController(initialRefresh: true);
 
   int currentPage = 1;
-  List<AnimeSearch> resultAnime = [];
+  int hal = 1;
+  List<dynamic> resultAnime = [];
   Rx<int> selectIndex = 0.obs;
   List<dynamic> animeIndexA = [].obs;
   List<dynamic> animeIndexB = [].obs;
@@ -99,20 +103,19 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<List<AnimeSearch>> searchAnime(String keyword) async {
-    Uri link = Uri.parse('https://api.jikan.moe/v4/anime?q=$keyword');
+  Future<Map<String, dynamic>?> searchAnime(String keyword, int p) async {
+    Uri link = Uri.parse('https://api.jikan.moe/v4/anime?q=$keyword&page=$p');
     var hasil = await http.get(link);
     //! Masukkan data ke dalam variable
-    List? data = (json.decode(hasil.body) as Map<String, dynamic>)["data"];
-    // update();
-    //! cek data nya apakah null atau tidak
-    if (data == null || data.isEmpty) {
-      return resultAnime = [];
-    } else {
-      update();
-      resultAnime = data.map((e) => AnimeSearch?.fromJson(e)).toList();
-      return resultAnime;
+    Map<String, dynamic>? data = (json.decode(hasil.body));
+    if (data == null) {
+      return null;
     }
+    var tempData = data["data"]?.map((e) => Animes?.fromJson(e)).toList() ?? {};
+    resultAnime.addAll(tempData);
+    pageSearch = data["pagination"];
+    update();
+    return data;
   }
 
   Future<Map<String, dynamic>?> indexAnime(String letter, int hal) async {
@@ -738,6 +741,37 @@ class HomeController extends GetxController {
         return refreshControllerZ.refreshCompleted();
       } else {
         return refreshControllerZ.refreshFailed();
+      }
+    }
+  }
+
+  void refreshSearch(String key) async {
+    if (refreshControllerSearch.initialRefresh == true) {
+      hal = 1;
+      if (key == "") {
+        key = "naruto";
+        await searchAnime(key, hal);
+        update();
+      } else if (key != "" || key.isNotEmpty) {
+        await searchAnime(key, hal);
+        update();
+      }
+      return refreshControllerSearch.refreshCompleted();
+    } else {
+      return refreshControllerSearch.refreshFailed();
+    }
+  }
+
+  void loadSearch(String key) async {
+    if (key == "") {
+      key == "Naruto";
+      if (pageSearch["has_next_page"] == true) {
+        hal = hal + 1;
+        await searchAnime(key, currentPage);
+        update();
+        return refreshControllerSearch.loadComplete();
+      } else {
+        return refreshControllerSearch.loadNoData();
       }
     }
   }

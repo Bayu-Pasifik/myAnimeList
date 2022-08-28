@@ -2,10 +2,11 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:my_anime_list/app/data/model/anime_model.dart' as ani;
-import 'package:my_anime_list/app/data/model/anime_search.dart' as aniSearch;
+// import 'package:my_anime_list/app/data/model/anime_model.dart' as ani;
+import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
 import 'package:my_anime_list/app/resource/anime_index.dart';
-import 'package:my_anime_list/app/routes/app_pages.dart';
+// import 'package:my_anime_list/app/routes/app_pages.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -14,140 +15,122 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     List<Widget> widgets = [
       // ! home page
-      Center(
+      const Center(
         child: Text('Home'),
       ),
-      // FutureBuilder<List<ani.Anime?>>(
-      //   // future: Future.delayed(Duration(seconds: 1)),
-      //   future: controller.allAnime(),
-      //   builder: (context, snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.waiting) {
-      //       return Center(
-      //           child: LoadingAnimationWidget.staggeredDotsWave(
-      //               color: Colors.white, size: 10));
-      //     }
-      //     if (snapshot.data!.isEmpty) {
-      //       return const Center(
-      //         child: Text('Data tidak ditemukan'),
-      //       );
-      //     }
-      //     return ListView(
-      //       children: [
-      //         ListView.builder(
-      //           physics: const NeverScrollableScrollPhysics(),
-      //           shrinkWrap: true,
-      //           itemCount: snapshot.data!.length,
-      //           itemBuilder: (context, index) {
-      //             ani.Anime? anime = snapshot.data![index];
-      //             return GestureDetector(
-      //               onTap: () {
-      //                 Get.toNamed(Routes.DETAIL_ANIME, arguments: anime);
-      //               },
-      //               child: Material(
-      //                 elevation: 10,
-      //                 child: ListTile(
-      //                   contentPadding: const EdgeInsets.all(20),
-      //                   title: Text("${anime?.title}"),
-      //                   trailing: Text("${anime?.episodes} Episode"),
-      //                   subtitle: Text("${anime?.type}"),
-      //                   leading: Image.network(
-      //                     anime?.images?['jpg']?.smallImageUrl ?? '',
-      //                     fit: BoxFit.contain,
-      //                   ),
-      //                 ),
-      //               ),
-      //             );
-      //           },
-      //         ),
-      //       ],
-      //     );
-      //   },
-      // ),
       // ! search page
-      Padding(
-        padding: const EdgeInsets.all(15),
-        child: ListView(
-          children: [
-            TextField(
-              onChanged: (value) => controller.searchAnime(value),
-              controller: controller.searchController,
-              decoration: const InputDecoration(
-                  labelText: "Search",
-                  hintText: 'Search Anime',
-                  border: OutlineInputBorder()),
-            ),
-            const SizedBox(height: 10),
-            GetBuilder<HomeController>(
-              builder: (c) => FutureBuilder<List<aniSearch.AnimeSearch?>>(
-                future: c.searchAnime(c.searchController.text),
-                builder: (context, snapshot) {
-                  if (snapshot.data == null) {
-                    return Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                            color: Colors.white, size: 100));
-                  }
-                  if (snapshot.connectionState == ConnectionState.none) {
-                    return Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                            color: Colors.white, size: 100));
-                  }
-                  if (snapshot.connectionState == ConnectionState.none) {
-                    return const Center(child: Text("Connect to internet"));
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                            color: Colors.blue, size: 100),
-                      ),
-                    );
-                  }
-                  if (snapshot.data!.isEmpty) {
-                    return const Center(
-                      child: Text('Tidak ada hasil'),
-                    );
-                  }
-                  return ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
+      GetBuilder<HomeController>(
+        builder: (c) {
+          return SafeArea(
+              child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                TextField(
+                  controller: c.searchController,
+                  decoration: const InputDecoration(
+                      labelText: "Search",
+                      hintText: 'Search Anime',
+                      border: OutlineInputBorder()),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                        onPressed: (() {
+                          c.refreshSearch(c.searchController.text);
+                        }),
+                        child: const Text("Search")),
+                  ],
+                ),
+                Expanded(
+                    child: SmartRefresher(
+                  controller: c.refreshControllerSearch,
+                  enablePullDown: true,
+                  enablePullUp: true,
+                  onRefresh: () => c.refreshSearch(c.searchController.text),
+                  onLoading: () => c.loadSearch(c.searchController.text),
+                  footer: CustomFooter(
+                    builder: (context, mode) {
+                      if (mode == LoadStatus.loading) {
+                        return LoadingAnimationWidget.inkDrop(
+                            color: Color.fromARGB(255, 6, 98, 173), size: 50);
+                      }
+                      return const SizedBox(
+                        height: 5,
+                        width: 5,
+                      );
+                    },
+                  ),
+                  child: GridView.builder(
                     shrinkWrap: true,
-                    itemCount: snapshot.data?.length ?? 0,
+                    padding: const EdgeInsets.all(10),
+                    itemCount: c.resultAnime.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 0.8,
+                            crossAxisSpacing: 40,
+                            mainAxisExtent: 200,
+                            mainAxisSpacing: 20),
                     itemBuilder: (context, index) {
-                      aniSearch.AnimeSearch? anime = snapshot.data![index];
-                      return GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Routes.DETAIL_SEARCH, arguments: anime);
-                        },
-                        child: Material(
-                          elevation: 10,
-                          child: ListTile(
-                            contentPadding: const EdgeInsets.all(20),
-                            title: Text("${anime?.title}"),
-                            trailing: Text("${anime?.episodes} Episode"),
-                            subtitle: Text("${anime?.type}"),
-                            leading: Image.network(
-                              anime?.images?['jpg']?.smallImageUrl ?? '',
-                              fit: BoxFit.contain,
+                      ani.Animes animes = c.resultAnime[index];
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: 200,
+                              height: 300,
+                              color: Colors.blue,
                             ),
-                          ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    width: 200,
+                                    height: 250,
+                                    child: Image.network(
+                                      "${animes.images?["jpg"]?.imageUrl ?? 'Kosong'}",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  "${animes.title}",
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      overflow: TextOverflow.ellipsis,
+                                      color: Colors.white),
+                                ),
+                                Text(
+                                  "${animes.status}",
+                                  style: const TextStyle(
+                                      fontSize: 15, color: Colors.white),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
                       );
                     },
-                  );
-                },
-              ),
+                  ),
+                )),
+              ],
             ),
-          ],
-        ),
+          ));
+        },
       ),
+
       // ! index page
       const DefaultTabController(length: 26, child: AnimeIndex())
     ];
     return Scaffold(
-        // appBar: AppBar(
-        //   title: const Text('Anime Page'),
-        //   centerTitle: true,
-        // ),
         body: GetBuilder<HomeController>(
             builder: (controller) => widgets[controller.selectIndex.value]),
         bottomNavigationBar: Obx(
