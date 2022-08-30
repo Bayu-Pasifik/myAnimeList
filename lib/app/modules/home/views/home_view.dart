@@ -35,16 +35,14 @@ class HomeView extends GetView<HomeController> {
                 const SizedBox(
                   height: 5,
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ElevatedButton(
-                        onPressed: (() {
-                          c.refreshSearch(c.searchController.text);
-                        }),
-                        child: const Text("Search")),
-                  ],
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: ElevatedButton(
+                      onPressed: (() {
+                        c.resultAnime.clear();
+                        c.refreshSearch(c.searchController.text);
+                      }),
+                      child: const Text("Search")),
                 ),
                 Expanded(
                     child: SmartRefresher(
@@ -91,7 +89,7 @@ class HomeView extends GetView<HomeController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Expanded(
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 200,
                                     height: 250,
                                     child: Image.network(

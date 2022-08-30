@@ -110,14 +110,16 @@ class HomeController extends GetxController {
 
   // ! fungsi untuk mencari anime berdasarkan nama
   Future<Map<String, dynamic>?> searchAnime(String keyword, int p) async {
-    Uri link = Uri.parse('https://api.jikan.moe/v4/anime?q=$keyword&page=$p');
+    Uri link = Uri.parse(
+        'https://api.jikan.moe/v4/anime?q=$keyword&page=$p&sfw=false');
     var hasil = await http.get(link);
     //! Masukkan data ke dalam variable
     Map<String, dynamic>? data = (json.decode(hasil.body));
     if (data == null) {
       return null;
     }
-    var tempData = data["data"]?.map((e) => Animes?.fromJson(e)).toList() ?? {};
+    var tempData = data["data"].map((e) => Animes?.fromJson(e)).toList();
+    // debugPrint(" isi dari temp data : ${tempData[0].title}");
     resultAnime.addAll(tempData);
     pageSearch = data["pagination"];
     update();
@@ -809,14 +811,8 @@ class HomeController extends GetxController {
   void refreshSearch(String key) async {
     if (refreshControllerSearch.initialRefresh == true) {
       hal = 1;
-      if (key == "") {
-        key = "naruto";
-        await searchAnime(key, hal);
-        update();
-      } else if (key != "" || key.isNotEmpty) {
-        await searchAnime(key, hal);
-        update();
-      }
+      await searchAnime(key, hal);
+      update();
       return refreshControllerSearch.refreshCompleted();
     } else {
       return refreshControllerSearch.refreshFailed();
@@ -824,16 +820,14 @@ class HomeController extends GetxController {
   }
 
   void loadSearch(String key) async {
-    if (key == "") {
-      key == "Naruto";
-      if (pageSearch["has_next_page"] == true) {
-        hal = hal + 1;
-        await searchAnime(key, hal);
-        update();
-        return refreshControllerSearch.loadComplete();
-      } else {
-        return refreshControllerSearch.loadNoData();
-      }
+    if (pageSearch["has_next_page"] == true) {
+      hal = hal + 1;
+      await searchAnime(key, hal);
+      debugPrint(hal.toString());
+      update();
+      return refreshControllerSearch.loadComplete();
+    } else {
+      return refreshControllerSearch.loadNoData();
     }
   }
 
