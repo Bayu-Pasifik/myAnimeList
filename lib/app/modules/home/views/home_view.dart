@@ -5,6 +5,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 // import 'package:my_anime_list/app/data/model/anime_model.dart' as ani;
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
 import 'package:my_anime_list/app/resource/anime_index.dart';
+import 'package:my_anime_list/app/resource/home_widget.dart';
 // import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../controllers/home_controller.dart';
@@ -15,9 +16,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     List<Widget> widgets = [
       // ! home page
-      const Center(
-        child: Text('Home'),
-      ),
+      const HomeWidget(),
       // ! search page
       GetBuilder<HomeController>(
         builder: (c) {

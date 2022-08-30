@@ -18,6 +18,7 @@ class AnimeTestController extends GetxController {
   Rx<int> currentSlider = 0.obs;
   List<dynamic> listTopAnime = [];
   List<dynamic> listAiringAnime = [];
+  List<dynamic> listUpcoming = [];
   List<dynamic> animeListA = [];
   List<dynamic> animeListB = [];
   Map<String, dynamic> page = {};
@@ -121,6 +122,7 @@ class AnimeTestController extends GetxController {
       return null;
     }
   }
+
   // ! fungsi untuk currently Airing anime
   Future<List?> currentlyAiring() async {
     Uri url = Uri.parse('https://api.jikan.moe/v4/seasons/now');
@@ -130,6 +132,22 @@ class AnimeTestController extends GetxController {
       var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
       page = data["pagination"];
       listAiringAnime.addAll(tempAnimeList);
+      update();
+      return animeListA;
+    } else {
+      return null;
+    }
+  }
+
+  // ! fungsi untuk currently Airing anime
+  Future<List?> upcomingAnime() async {
+    Uri url = Uri.parse('https://api.jikan.moe/v4/seasons/upcoming');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
+      page = data["pagination"];
+      listUpcoming.addAll(tempAnimeList);
       update();
       return animeListA;
     } else {

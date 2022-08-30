@@ -1,13 +1,13 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-// import 'package:my_anime_list/app/data/model/anime_model.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'dart:convert';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeController extends GetxController {
-  final PageController pageController = PageController();
+  final CarouselController carouselController = CarouselController();
   late TextEditingController searchController;
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSearch = {};
@@ -69,7 +69,12 @@ class HomeController extends GetxController {
   int currentPage = 1;
   // ! variable untuk search anime
   int hal = 1;
+  // ! variable untuk slider
+  Rx<int> currentSlider = 0.obs;
   List<dynamic> resultAnime = [];
+  List<dynamic> listAiringAnime = [];
+  List<dynamic> listUpcoming = [];
+  List<dynamic> listTopAnime = [];
   Rx<int> selectIndex = 0.obs;
   List<dynamic> animeIndexA = [].obs;
   List<dynamic> animeIndexB = [].obs;
@@ -262,6 +267,59 @@ class HomeController extends GetxController {
     return null;
   }
 
+  // ! fungsi untuk top anime
+  Future<List?> topAnime() async {
+    Uri url = Uri.parse('https://api.jikan.moe/v4/top/anime?limit=10');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+
+      //  var datum = json.decode(response.body);
+      var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
+      // debugPrint(tempAnimeList.toString());
+      page = data["pagination"];
+      listTopAnime.addAll(tempAnimeList);
+      update();
+      return listTopAnime;
+      // debugPrint(page["has_next_page"].toString());
+    } else {
+      return null;
+    }
+  }
+
+  // ! fungsi untuk currently Airing anime
+  Future<List?> currentlyAiring() async {
+    Uri url = Uri.parse('https://api.jikan.moe/v4/seasons/now');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
+      page = data["pagination"];
+      listAiringAnime.addAll(tempAnimeList);
+      update();
+      return listAiringAnime;
+    } else {
+      return null;
+    }
+  }
+
+  // ! fungsi untuk Upcoming Airing anime
+  Future<List?> upcomingAnime() async {
+    Uri url = Uri.parse('https://api.jikan.moe/v4/seasons/upcoming');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
+      page = data["pagination"];
+      listUpcoming.addAll(tempAnimeList);
+      update();
+      return listUpcoming;
+    } else {
+      return null;
+    }
+  }
+
+  // ! fungsi load data index
   void loadData(String h) async {
     if (h == "A") {
       if (page["has_next_page"] == true) {
@@ -509,6 +567,7 @@ class HomeController extends GetxController {
     }
   }
 
+  // ! fungsi refresh data index
   void refreshData(String h) async {
     if (h == "A") {
       if (refreshControllerA.initialRefresh == true) {
@@ -769,7 +828,7 @@ class HomeController extends GetxController {
       key == "Naruto";
       if (pageSearch["has_next_page"] == true) {
         hal = hal + 1;
-        await searchAnime(key, currentPage);
+        await searchAnime(key, hal);
         update();
         return refreshControllerSearch.loadComplete();
       } else {

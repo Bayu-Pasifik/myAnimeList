@@ -1,19 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_anime_list/app/data/model/anime_models.dart' as anim;
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../controllers/anime_test_controller.dart';
+import 'package:my_anime_list/app/modules/home/controllers/home_controller.dart';
 
-class AnimeTestView extends GetView<AnimeTestController> {
-  const AnimeTestView({Key? key}) : super(key: key);
+class HomeWidget extends StatelessWidget {
+  const HomeWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+  final controller = Get.find<HomeController>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AnimeTestView'),
-        centerTitle: true,
-      ),
       body: ListView(
         children: [
           Padding(
@@ -49,7 +44,7 @@ class AnimeTestView extends GetView<AnimeTestController> {
                 );
               }
 
-              return GetBuilder<AnimeTestController>(
+              return GetBuilder<HomeController>(
                 builder: (c) {
                   List<Widget> animetop = [
                     Padding(
@@ -652,7 +647,7 @@ class AnimeTestView extends GetView<AnimeTestController> {
                   child: CircularProgressIndicator(),
                 );
               }
-              return GetBuilder<AnimeTestController>(
+              return GetBuilder<HomeController>(
                 builder: (c) {
                   return CarouselSlider(
                     options: CarouselOptions(
@@ -972,7 +967,7 @@ class AnimeTestView extends GetView<AnimeTestController> {
                   child: CircularProgressIndicator(),
                 );
               }
-              return GetBuilder<AnimeTestController>(
+              return GetBuilder<HomeController>(
                 builder: (c) {
                   return CarouselSlider(
                     options: CarouselOptions(
