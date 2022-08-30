@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -8,12 +9,15 @@ import '../../../data/model/anime_models.dart';
 // import '../../../data/model/anime_model.dart';
 
 class AnimeTestController extends GetxController {
-  // bool isRefresh = false;
+  final CarouselController carouselController = CarouselController();
   RefreshController refreshControllerA =
       RefreshController(initialRefresh: true);
   RefreshController refreshControllerB =
       RefreshController(initialRefresh: true);
   int currentPage = 1;
+  Rx<int> currentSlider = 0.obs;
+  List<dynamic> listTopAnime = [];
+  List<dynamic> listAiringAnime = [];
   List<dynamic> animeListA = [];
   List<dynamic> animeListB = [];
   Map<String, dynamic> page = {};
@@ -98,10 +102,39 @@ class AnimeTestController extends GetxController {
     }
   }
 
-  @override
-  // TODO: implement onDeleted
-  InternalFinalCallback<void> get onDelete {
-    return super.onDelete;
+  // ! fungsi untuk top anime
+  Future<List?> topAnime() async {
+    Uri url = Uri.parse('https://api.jikan.moe/v4/top/anime?limit=10');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+
+      //  var datum = json.decode(response.body);
+      var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
+      // debugPrint(tempAnimeList.toString());
+      page = data["pagination"];
+      listTopAnime.addAll(tempAnimeList);
+      update();
+      return animeListA;
+      // debugPrint(page["has_next_page"].toString());
+    } else {
+      return null;
+    }
+  }
+  // ! fungsi untuk currently Airing anime
+  Future<List?> currentlyAiring() async {
+    Uri url = Uri.parse('https://api.jikan.moe/v4/seasons/now');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
+      page = data["pagination"];
+      listAiringAnime.addAll(tempAnimeList);
+      update();
+      return animeListA;
+    } else {
+      return null;
+    }
   }
 
   @override

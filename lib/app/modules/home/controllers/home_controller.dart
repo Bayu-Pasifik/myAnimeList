@@ -4,11 +4,10 @@ import 'package:http/http.dart' as http;
 // import 'package:my_anime_list/app/data/model/anime_model.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'dart:convert';
-
-import 'package:my_anime_list/app/data/model/anime_search.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeController extends GetxController {
+  final PageController pageController = PageController();
   late TextEditingController searchController;
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSearch = {};
@@ -66,8 +65,9 @@ class HomeController extends GetxController {
       RefreshController(initialRefresh: true);
   RefreshController refreshControllerZ =
       RefreshController(initialRefresh: true);
-
+  // !  variable untuk index anime
   int currentPage = 1;
+  // ! variable untuk search anime
   int hal = 1;
   List<dynamic> resultAnime = [];
   Rx<int> selectIndex = 0.obs;
@@ -103,6 +103,7 @@ class HomeController extends GetxController {
     update();
   }
 
+  // ! fungsi untuk mencari anime berdasarkan nama
   Future<Map<String, dynamic>?> searchAnime(String keyword, int p) async {
     Uri link = Uri.parse('https://api.jikan.moe/v4/anime?q=$keyword&page=$p');
     var hasil = await http.get(link);
@@ -118,9 +119,10 @@ class HomeController extends GetxController {
     return data;
   }
 
+  // ! fungsi untuk index Anime
   Future<Map<String, dynamic>?> indexAnime(String letter, int hal) async {
     Uri url = Uri.parse(
-        'https://api.jikan.moe/v4/anime?letter=$letter&page=$hal&order_by=title&sort=asc');
+        'https://api.jikan.moe/v4/anime?letter=$letter&page=$hal&order_by=title&sort=asc&sfw=false');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
