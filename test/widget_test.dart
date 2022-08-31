@@ -106,18 +106,32 @@ import 'package:my_anime_list/app/data/model/anime_search.dart';
 //   }
 // }
 
-void main() async {
-  List<dynamic> resultAnime = [];
-  Map<String, dynamic> pageSearch = {};
+// void main() async {
+//   List<dynamic> resultAnime = [];
+//   Map<String, dynamic> pageSearch = {};
 
-  Uri link = Uri.parse('https://api.jikan.moe/v4/anime?q=naruto');
-  var hasil = await http.get(link);
-  //! Masukkan data ke dalam variable
-  var data = json.decode(hasil.body);
-  resultAnime = data["data"].map((e) => AnimeSearch.fromJson(e)).toList();
-  debugPrint(resultAnime[24].title.toString());
-  pageSearch = data["pagination"];
-  debugPrint(pageSearch["has_next_page"].toString());
-  // update();
-  //! cek data nya apakah null atau tidak
+//   Uri link = Uri.parse('https://api.jikan.moe/v4/anime?q=naruto');
+//   var hasil = await http.get(link);
+//   //! Masukkan data ke dalam variable
+//   var data = json.decode(hasil.body);
+//   resultAnime = data["data"].map((e) => AnimeSearch.fromJson(e)).toList();
+//   debugPrint(resultAnime[24].title.toString());
+//   pageSearch = data["pagination"];
+//   debugPrint(pageSearch["has_next_page"].toString());
+//   // update();
+//   //! cek data nya apakah null atau tidak
+// }
+
+void main() async {
+  Map<String, dynamic> page = {};
+  Uri url =
+      Uri.parse('https://api.jikan.moe/v4/top/anime?page=1&sfw=false');
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    Map<String, dynamic> data = json.decode(response.body);
+    var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
+    debugPrint(data.toString());
+    page = data["pagination"];
+    debugPrint(data['has_next_page']);
+  }
 }

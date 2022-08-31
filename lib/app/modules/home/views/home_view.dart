@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
 import 'package:my_anime_list/app/resource/anime_index.dart';
 import 'package:my_anime_list/app/resource/home_widget.dart';
+import 'package:my_anime_list/app/routes/app_pages.dart';
 // import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../controllers/home_controller.dart';
@@ -86,32 +87,40 @@ class HomeView extends GetView<HomeController> {
                               height: 300,
                               color: Colors.blue,
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: SizedBox(
-                                    width: 200,
-                                    height: 250,
-                                    child: Image.network(
-                                      "${animes.images?["jpg"]?.imageUrl ?? 'Kosong'}",
-                                      fit: BoxFit.cover,
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_ANIME,
+                                    arguments: animes);
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      width: 200,
+                                      height: 250,
+                                      child: Image.network(
+                                        "${animes.images?["jpg"]?.imageUrl ?? 'Kosong'}",
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Text(
-                                  "${animes.title}",
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      overflow: TextOverflow.ellipsis,
-                                      color: Colors.white),
-                                ),
-                                Text(
-                                  "${animes.status}",
-                                  style: const TextStyle(
-                                      fontSize: 15, color: Colors.white),
-                                )
-                              ],
+                                  Text(
+                                    "${animes.title}",
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        overflow: TextOverflow.ellipsis,
+                                        color: Colors.white),
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      "${animes.status}",
+                                      style: const TextStyle(
+                                          fontSize: 15, color: Colors.white),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ],
                         ),

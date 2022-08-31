@@ -76,11 +76,11 @@ class HomeWidget extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  const Align(
+                                  Align(
                                       alignment: Alignment.topRight,
                                       child: Icon(
                                         Icons.star,
-                                        color: Colors.blue,
+                                        color: Colors.amber[400],
                                       )),
                                   Align(
                                     alignment: Alignment.topRight,
@@ -133,11 +133,11 @@ class HomeWidget extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  const Align(
+                                  Align(
                                       alignment: Alignment.topRight,
                                       child: Icon(
                                         Icons.star,
-                                        color: Colors.blue,
+                                        color: Colors.amber[400],
                                       )),
                                   Align(
                                     alignment: Alignment.topRight,
@@ -191,11 +191,11 @@ class HomeWidget extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  const Align(
+                                  Align(
                                       alignment: Alignment.topRight,
                                       child: Icon(
                                         Icons.star,
-                                        color: Colors.blue,
+                                        color: Colors.amber[400],
                                       )),
                                   Align(
                                     alignment: Alignment.topRight,
@@ -249,11 +249,11 @@ class HomeWidget extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  const Align(
+                                  Align(
                                       alignment: Alignment.topRight,
                                       child: Icon(
                                         Icons.star,
-                                        color: Colors.blue,
+                                        color: Colors.amber[400],
                                       )),
                                   Align(
                                     alignment: Alignment.topRight,
@@ -295,7 +295,7 @@ class HomeWidget extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_ANIME,
-                                      arguments: c.listTopAnime[5]);
+                                      arguments: c.listTopAnime[4]);
                                 },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
@@ -313,11 +313,11 @@ class HomeWidget extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  const Align(
+                                  Align(
                                       alignment: Alignment.topRight,
                                       child: Icon(
                                         Icons.star,
-                                        color: Colors.blue,
+                                        color: Colors.amber[400],
                                       )),
                                   Align(
                                     alignment: Alignment.topRight,
@@ -371,11 +371,11 @@ class HomeWidget extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  const Align(
+                                  Align(
                                       alignment: Alignment.topRight,
                                       child: Icon(
                                         Icons.star,
-                                        color: Colors.blue,
+                                        color: Colors.amber[400],
                                       )),
                                   Align(
                                     alignment: Alignment.topRight,
@@ -429,11 +429,11 @@ class HomeWidget extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  const Align(
+                                  Align(
                                       alignment: Alignment.topRight,
                                       child: Icon(
                                         Icons.star,
-                                        color: Colors.blue,
+                                        color: Colors.amber[400],
                                       )),
                                   Align(
                                     alignment: Alignment.topRight,
@@ -487,11 +487,11 @@ class HomeWidget extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  const Align(
+                                  Align(
                                       alignment: Alignment.topRight,
                                       child: Icon(
                                         Icons.star,
-                                        color: Colors.blue,
+                                        color: Colors.amber[400],
                                       )),
                                   Align(
                                     alignment: Alignment.topRight,
@@ -542,11 +542,11 @@ class HomeWidget extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  const Align(
+                                  Align(
                                       alignment: Alignment.topRight,
                                       child: Icon(
                                         Icons.star,
-                                        color: Colors.blue,
+                                        color: Colors.amber[400],
                                       )),
                                   Align(
                                     alignment: Alignment.topRight,
@@ -600,11 +600,11 @@ class HomeWidget extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  const Align(
+                                  Align(
                                       alignment: Alignment.topRight,
                                       child: Icon(
                                         Icons.star,
-                                        color: Colors.blue,
+                                        color: Colors.amber[400],
                                       )),
                                   Align(
                                     alignment: Alignment.topRight,
