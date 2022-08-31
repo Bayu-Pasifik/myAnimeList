@@ -36,6 +36,7 @@ class AnimeIndex extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           bottom: TabBar(
               isScrollable: true,
               unselectedLabelColor: Colors.amber,

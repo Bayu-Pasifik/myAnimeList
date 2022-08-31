@@ -2,12 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_anime_list/app/modules/home/controllers/home_controller.dart';
+import 'package:my_anime_list/app/routes/app_pages.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-  final controller = Get.find<HomeController>();
+    final controller = Get.find<HomeController>();
     return Scaffold(
       body: ListView(
         children: [
@@ -24,7 +25,9 @@ class HomeWidget extends StatelessWidget {
                       shadows: const [BoxShadow(blurRadius: 1)]),
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(Routes.TOP_ANIME);
+                    },
                     child: Text(
                       "Load More",
                       style: TextStyle(
@@ -36,7 +39,7 @@ class HomeWidget extends StatelessWidget {
             ),
           ),
           FutureBuilder<List?>(
-            future: controller.topAnime(),
+            future: controller.animeTop,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -53,12 +56,18 @@ class HomeWidget extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.amber,
-                              child: Image.network(
-                                "${c.listTopAnime[0].images['jpg'].imageUrl}",
-                                fit: BoxFit.cover,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_ANIME,
+                                    arguments: c.listTopAnime[0]);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                color: Colors.amber,
+                                child: Image.network(
+                                  "${c.listTopAnime[0].images['jpg'].imageUrl}",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -104,12 +113,18 @@ class HomeWidget extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.amber,
-                              child: Image.network(
-                                "${c.listTopAnime[1].images['jpg'].imageUrl}",
-                                fit: BoxFit.cover,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_ANIME,
+                                    arguments: c.listTopAnime[1]);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                color: Colors.amber,
+                                child: Image.network(
+                                  "${c.listTopAnime[1].images['jpg'].imageUrl}",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -156,12 +171,18 @@ class HomeWidget extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.amber,
-                              child: Image.network(
-                                "${c.listTopAnime[2].images['jpg'].imageUrl}",
-                                fit: BoxFit.cover,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_ANIME,
+                                    arguments: c.listTopAnime[2]);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                color: Colors.amber,
+                                child: Image.network(
+                                  "${c.listTopAnime[2].images['jpg'].imageUrl}",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -208,12 +229,18 @@ class HomeWidget extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.amber,
-                              child: Image.network(
-                                "${c.listTopAnime[3].images['jpg'].imageUrl}",
-                                fit: BoxFit.cover,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_ANIME,
+                                    arguments: c.listTopAnime[3]);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                color: Colors.amber,
+                                child: Image.network(
+                                  "${c.listTopAnime[3].images['jpg'].imageUrl}",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -260,12 +287,24 @@ class HomeWidget extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.amber,
-                              child: Image.network(
-                                "${c.listTopAnime[4].images['jpg'].imageUrl}",
-                                fit: BoxFit.cover,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_ANIME,
+                                    arguments: c.listTopAnime[4]);
+                              },
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listTopAnime[5]);
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  color: Colors.amber,
+                                  child: Image.network(
+                                    "${c.listTopAnime[4].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -312,12 +351,18 @@ class HomeWidget extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.amber,
-                              child: Image.network(
-                                "${c.listTopAnime[5].images['jpg'].imageUrl}",
-                                fit: BoxFit.cover,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_ANIME,
+                                    arguments: c.listTopAnime[5]);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                color: Colors.amber,
+                                child: Image.network(
+                                  "${c.listTopAnime[5].images['jpg'].imageUrl}",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -362,14 +407,20 @@ class HomeWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Stack(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.amber,
-                              child: Image.network(
-                                "${c.listTopAnime[6].images['jpg'].imageUrl}",
-                                fit: BoxFit.cover,
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.DETAIL_ANIME,
+                                  arguments: c.listTopAnime[6]);
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                color: Colors.amber,
+                                child: Image.network(
+                                  "${c.listTopAnime[6].images['jpg'].imageUrl}",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -416,12 +467,18 @@ class HomeWidget extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.amber,
-                              child: Image.network(
-                                "${c.listTopAnime[7].images['jpg'].imageUrl}",
-                                fit: BoxFit.cover,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_ANIME,
+                                    arguments: c.listTopAnime[7]);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                color: Colors.amber,
+                                child: Image.network(
+                                  "${c.listTopAnime[7].images['jpg'].imageUrl}",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -466,12 +523,18 @@ class HomeWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Stack(
                         children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            color: Colors.amber,
-                            child: Image.network(
-                              "${c.listTopAnime[8].images['jpg'].imageUrl}",
-                              fit: BoxFit.cover,
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.DETAIL_ANIME,
+                                  arguments: c.listTopAnime[8]);
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              color: Colors.amber,
+                              child: Image.network(
+                                "${c.listTopAnime[8].images['jpg'].imageUrl}",
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           Column(
@@ -517,12 +580,18 @@ class HomeWidget extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.amber,
-                              child: Image.network(
-                                "${c.listTopAnime[9].images['jpg'].imageUrl}",
-                                fit: BoxFit.cover,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_ANIME,
+                                    arguments: c.listTopAnime[9]);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                color: Colors.amber,
+                                child: Image.network(
+                                  "${c.listTopAnime[9].images['jpg'].imageUrl}",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -629,7 +698,9 @@ class HomeWidget extends StatelessWidget {
                 ),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.ANIME_AIRING);
+                  },
                   child: Text(
                     "Load More",
                     style: TextStyle(
@@ -640,7 +711,7 @@ class HomeWidget extends StatelessWidget {
             ],
           ),
           FutureBuilder<List?>(
-            future: controller.currentlyAiring(),
+            future: controller.animeAiring,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -662,11 +733,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listAiringAnime[0].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listAiringAnime[0]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listAiringAnime[0].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -689,11 +766,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listAiringAnime[1].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listAiringAnime[1]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listAiringAnime[1].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -716,11 +799,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listAiringAnime[2].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listAiringAnime[2]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listAiringAnime[2].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -743,11 +832,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listAiringAnime[3].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listAiringAnime[3]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listAiringAnime[3].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -770,11 +865,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listAiringAnime[4].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listAiringAnime[4]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listAiringAnime[4].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -797,11 +898,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listAiringAnime[5].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listAiringAnime[5]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listAiringAnime[5].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -824,11 +931,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listAiringAnime[6].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listAiringAnime[6]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listAiringAnime[6].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -851,11 +964,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listAiringAnime[7].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listAiringAnime[7]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listAiringAnime[7].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -878,11 +997,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listAiringAnime[8].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listAiringAnime[8]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listAiringAnime[8].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -905,11 +1030,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listAiringAnime[9].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listAiringAnime[9]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listAiringAnime[9].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -949,7 +1080,9 @@ class HomeWidget extends StatelessWidget {
                 ),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.ANIME_UPCOMING);
+                  },
                   child: Text(
                     "Load More",
                     style: TextStyle(
@@ -960,7 +1093,7 @@ class HomeWidget extends StatelessWidget {
             ],
           ),
           FutureBuilder<List?>(
-            future: controller.upcomingAnime(),
+            future: controller.animeUpcoming,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -982,11 +1115,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listUpcoming[0].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listUpcoming[0]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listUpcoming[0].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1009,11 +1148,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listUpcoming[1].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listUpcoming[1]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listUpcoming[1].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1036,11 +1181,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listUpcoming[2].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listUpcoming[2]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listUpcoming[2].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1063,11 +1214,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listUpcoming[3].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listUpcoming[3]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listUpcoming[3].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1090,11 +1247,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listUpcoming[4].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listUpcoming[4]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listUpcoming[4].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1117,11 +1280,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listUpcoming[5].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listUpcoming[5]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listUpcoming[5].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1144,11 +1313,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listUpcoming[6].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listUpcoming[6]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listUpcoming[6].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1171,11 +1346,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listUpcoming[7].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listUpcoming[7]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listUpcoming[7].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1198,11 +1379,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listUpcoming[8].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listUpcoming[8]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listUpcoming[8].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1225,11 +1412,17 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.height,
-                                child: Image.network(
-                                  "${c.listUpcoming[9].images['jpg'].imageUrl}",
-                                  fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                      arguments: c.listUpcoming[9]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listUpcoming[9].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),

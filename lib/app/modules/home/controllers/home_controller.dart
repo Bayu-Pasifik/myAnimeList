@@ -71,6 +71,10 @@ class HomeController extends GetxController {
   int hal = 1;
   // ! variable untuk slider
   Rx<int> currentSlider = 0.obs;
+
+  late Future<List?> animeTop;
+  late Future<List?> animeAiring;
+  late Future<List?> animeUpcoming;
   List<dynamic> resultAnime = [];
   List<dynamic> listAiringAnime = [];
   List<dynamic> listUpcoming = [];
@@ -834,6 +838,9 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     searchController = TextEditingController();
+    animeTop = topAnime();
+    animeAiring = currentlyAiring();
+    animeUpcoming = upcomingAnime();
     super.onInit();
   }
 
