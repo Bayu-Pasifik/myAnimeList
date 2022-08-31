@@ -30,36 +30,27 @@ class _VideoItemState extends State<VideoItem> {
   @override
   Widget build(BuildContext context) {
     if (widget.url == '') {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          color: Colors.black,
-          width: 200,
-          height: 200,
-          child: const Center(
-            child: Text(
-              "There is no trailer",
-              style: TextStyle(color: Colors.grey),
-            ),
+      return Container(
+        color: Colors.black,
+        // width: 200,
+        // height: 200,
+        child: const Center(
+          child: Text(
+            "There is no trailer",
+            style: TextStyle(color: Colors.grey),
           ),
         ),
       );
     }
-    return Padding(
-        padding: const EdgeInsets.all(8),
-        child: Container(
-          width: 200,
-          height: 200,
-          child: YoutubePlayer(
-            controller: youtubePlayerController,
-            showVideoProgressIndicator: true,
-            progressIndicatorColor: Colors.blueAccent,
-            progressColors: const ProgressBarColors(
-              playedColor: Colors.red,
-              handleColor: Colors.blueAccent,
-            ),
-          ),
-        ));
+    return YoutubePlayer(
+      controller: youtubePlayerController,
+      showVideoProgressIndicator: true,
+      progressIndicatorColor: Colors.blueAccent,
+      progressColors: const ProgressBarColors(
+        playedColor: Colors.red,
+        handleColor: Colors.blueAccent,
+      ),
+    );
   }
 
   @override

@@ -15,6 +15,7 @@ dependencies:
   pull_to_refresh: 2.0.0
   sizer: 2.0.15
   carousel_slider: 4.1.1
+  expandable: 5.0.1
   flutter: 
     sdk: flutter
 
