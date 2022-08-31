@@ -29,6 +29,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
           ),
           SliverList(
               delegate: SliverChildListDelegate([
+            // ! title
             Padding(
               padding: const EdgeInsets.only(top: 5, left: 3),
               child: Align(
@@ -43,32 +44,27 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                 ),
               ),
             ),
-            Container(
-              width: double.infinity,
-              // height: 200,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // ! padding image
-                  Padding(
+            Row(
+              children: [
+                // ! padding image
+                Expanded(
+                  child: Padding(
                     padding: const EdgeInsets.only(top: 5, left: 3),
-                    child: Container(
-                        // color: Colors.red,
-                        // width: 200,
-                        height: 200,
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              anime.images?['jpg']?.imageUrl ?? 'kosong',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        )),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          anime.images?['jpg']?.imageUrl ?? 'kosong',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   ),
-                  Padding(
+                ),
+                // ! padding content beside image
+                Expanded(
+                  child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +135,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text("Aired"),
+                        const Text("Aired"),
                         Row(
                           children: [
                             Text(anime.season ?? '?'),
@@ -153,40 +149,51 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                           height: 10,
                         ),
                         Text("Studio"),
-                        Text(anime.studios![0].name ?? '?'),
+                        (anime.studios!.isNotEmpty)
+                            ? Text("${anime.studios?[0].name}")
+                            : Text("No Information"),
                         const SizedBox(
                           height: 10,
                         ),
                         Text("Status"),
-                        Text(anime.status ?? 'No Status'),
+                        Text(anime.status ?? 'No information'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+
+                        Text("Genre"),
+                        for (var genre in anime.genres!)
+                          Text("${genre.name ?? 'No Informnation'} ")
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: ExpandablePanel(
-                header: const Text(
-                  "Synopsis",
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      shadows: [BoxShadow(blurRadius: 0.5)]),
-                ),
-                collapsed: Text(
-                  "${anime.synopsis}",
-                  softWrap: true,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                expanded: Text(
-                  "${anime.synopsis}",
-                  softWrap: true,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: ExpandablePanel(
+                  header: const Text(
+                    "Synopsis",
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        shadows: [BoxShadow(blurRadius: 0.5)]),
+                  ),
+                  collapsed: Text(
+                    "${anime.synopsis}",
+                    softWrap: true,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  expanded: Text(
+                    "${anime.synopsis}",
+                    softWrap: true,
+                  ),
                 ),
               ),
             )

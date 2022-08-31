@@ -142,8 +142,9 @@ class Animes {
             List<Genre>.from(json["producers"].map((x) => Genre.fromJson(x))),
         licensors:
             List<Genre>.from(json["licensors"].map((x) => Genre.fromJson(x))),
-        studios:
-            List<Genre>.from(json["studios"].map((x) => Genre.fromJson(x))),
+        studios: List<Genre>.from(json["studios"] == []
+            ? []
+            : json["studios"].map((x) => Genre.fromJson(x))),
         genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
         explicitGenres:
             List<dynamic>.from(json["explicit_genres"].map((x) => x)),
