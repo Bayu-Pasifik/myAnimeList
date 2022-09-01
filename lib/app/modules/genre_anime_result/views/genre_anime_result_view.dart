@@ -4,31 +4,33 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../../data/model/anime_models.dart' as anim;
-import '../controllers/top_anime_controller.dart';
+import 'package:my_anime_list/app/data/model/anime_models.dart' as anim;
+import '../controllers/genre_anime_result_controller.dart';
 
-class TopAnimeView extends GetView<TopAnimeController> {
-  const TopAnimeView({Key? key}) : super(key: key);
+class GenreAnimeResultView extends GetView<GenreAnimeResultController> {
+  const GenreAnimeResultView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final genres = Get.arguments;
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Top Anime'),
+          title: Text('${genres.name}'),
           centerTitle: true,
         ),
-        body: GetBuilder<TopAnimeController>(
+        body: GetBuilder<GenreAnimeResultController>(
           builder: (c) {
             return SmartRefresher(
-                controller: c.topRefresh,
+                controller: c.genreRefresh,
                 enablePullDown: true,
                 enablePullUp: true,
-                onLoading: () => c.loadData(),
-                onRefresh: () => c.refreshData(),
+                onLoading: () => c.loadData(genres.malId),
+                onRefresh: () => c.refreshData(genres.malId),
                 footer: CustomFooter(
                   builder: (context, mode) {
                     if (mode == LoadStatus.loading) {
                       return LoadingAnimationWidget.inkDrop(
-                          color: Color.fromARGB(255, 6, 98, 173), size: 50);
+                          color: const Color.fromARGB(255, 6, 98, 173),
+                          size: 50);
                     }
                     return const SizedBox(
                       height: 5,
@@ -38,18 +40,18 @@ class TopAnimeView extends GetView<TopAnimeController> {
                 ),
                 child: GridView.builder(
                   padding: const EdgeInsets.all(10),
-                  itemCount: c.listTopAnime.length,
+                  itemCount: c.listAnime.length,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 200,
                       childAspectRatio: 0.8,
                       crossAxisSpacing: 40,
-                      mainAxisExtent: 200,
+                      mainAxisExtent: 300,
                       mainAxisSpacing: 20),
                   itemBuilder: (context, index) {
-                    anim.Animes animes = c.listTopAnime[index];
+                    anim.Animes animes = c.listAnime[index];
                     return GestureDetector(
                       onTap: () {
-                        debugPrint(c.listTopAnime.toString());
+                        debugPrint(c.listAnime.toString());
                         Get.toNamed(Routes.DETAIL_ANIME, arguments: animes);
                       },
                       child: ClipRRect(
@@ -65,12 +67,11 @@ class TopAnimeView extends GetView<TopAnimeController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Expanded(
-                                  child: SizedBox(
+                                  child: Container(
                                     width: 200,
                                     height: 250,
                                     child: Image.network(
-                                      animes.images?["jpg"]?.imageUrl ??
-                                          'Kosong',
+                                      "${animes.images?["jpg"]?.imageUrl ?? 'Kosong'}",
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -84,24 +85,9 @@ class TopAnimeView extends GetView<TopAnimeController> {
                                 ),
                                 Text(
                                   "${animes.status}",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 20, color: Colors.white),
                                 )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.amber[600],
-                                ),
-                                Text(
-                                  "${animes.score ?? '0'}",
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      shadows: [BoxShadow(blurRadius: 1)],
-                                      fontWeight: FontWeight.bold),
-                                ),
                               ],
                             ),
                           ],

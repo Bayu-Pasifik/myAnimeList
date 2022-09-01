@@ -41,6 +41,9 @@ class HomeWidget extends StatelessWidget {
           FutureBuilder<List?>(
             future: controller.animeTop,
             builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                controller.topAnime();
+              }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
@@ -1122,22 +1125,26 @@ class HomeWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listUpcoming[0].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listTopAnime.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listUpcoming[0].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "${c.listUpcoming[0].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
-                              ),
+                              child: (c.listTopAnime.isNotEmpty)
+                                  ? Text(
+                                      "${c.listUpcoming[0].title}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    )
+                                  : Text("Kosong"),
                             ),
                           ],
                         ),
@@ -1155,17 +1162,21 @@ class HomeWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listUpcoming[1].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listUpcoming.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listUpcoming[1].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listUpcoming[1].title}",
+                                (c.listUpcoming.isNotEmpty)
+                                    ? "${c.listUpcoming[1].title}"
+                                    : "Kosong",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -1188,17 +1199,21 @@ class HomeWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listUpcoming[2].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listUpcoming.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listUpcoming[2].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listUpcoming[2].title}",
+                                (c.listUpcoming.isNotEmpty)
+                                    ? "${c.listUpcoming[2].title}"
+                                    : "Kosong",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -1219,19 +1234,24 @@ class HomeWidget extends StatelessWidget {
                                   Get.toNamed(Routes.DETAIL_ANIME,
                                       arguments: c.listUpcoming[3]);
                                 },
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listUpcoming[3].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                child: (c.listUpcoming.isNotEmpty)
+                                    ? SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.height,
+                                        child: Image.network(
+                                          "${c.listUpcoming[3].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : CircularProgressIndicator(),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listUpcoming[3].title}",
+                                (c.listUpcoming.isNotEmpty)
+                                    ? "${c.listUpcoming[3].title}"
+                                    : "....",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -1252,19 +1272,24 @@ class HomeWidget extends StatelessWidget {
                                   Get.toNamed(Routes.DETAIL_ANIME,
                                       arguments: c.listUpcoming[4]);
                                 },
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listUpcoming[4].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                child: (c.listUpcoming.isNotEmpty)
+                                    ? SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.height,
+                                        child: Image.network(
+                                          "${c.listUpcoming[4].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : CircularProgressIndicator(),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listUpcoming[4].title}",
+                                (c.listUpcoming.isNotEmpty)
+                                    ? "${c.listUpcoming[4].title}"
+                                    : "....",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -1285,19 +1310,24 @@ class HomeWidget extends StatelessWidget {
                                   Get.toNamed(Routes.DETAIL_ANIME,
                                       arguments: c.listUpcoming[5]);
                                 },
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listUpcoming[5].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                child: (c.listUpcoming.isNotEmpty)
+                                    ? SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.height,
+                                        child: Image.network(
+                                          "${c.listUpcoming[5].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : CircularProgressIndicator(),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listUpcoming[5].title}",
+                                (c.listUpcoming.isNotEmpty)
+                                    ? "${c.listUpcoming[5].title}"
+                                    : "....",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -1318,19 +1348,24 @@ class HomeWidget extends StatelessWidget {
                                   Get.toNamed(Routes.DETAIL_ANIME,
                                       arguments: c.listUpcoming[6]);
                                 },
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listUpcoming[6].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                child: (c.listUpcoming.isNotEmpty)
+                                    ? SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.height,
+                                        child: Image.network(
+                                          "${c.listUpcoming[6].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : CircularProgressIndicator(),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listUpcoming[6].title}",
+                                (c.listUpcoming.isNotEmpty)
+                                    ? "${c.listUpcoming[6].title}"
+                                    : "....",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -1351,19 +1386,24 @@ class HomeWidget extends StatelessWidget {
                                   Get.toNamed(Routes.DETAIL_ANIME,
                                       arguments: c.listUpcoming[7]);
                                 },
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listUpcoming[7].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                child: (c.listUpcoming.isNotEmpty)
+                                    ? SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.height,
+                                        child: Image.network(
+                                          "${c.listUpcoming[7].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : CircularProgressIndicator(),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listUpcoming[7].title}",
+                                (c.listUpcoming.isNotEmpty)
+                                    ? "${c.listUpcoming[7].title}"
+                                    : "....",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -1384,19 +1424,24 @@ class HomeWidget extends StatelessWidget {
                                   Get.toNamed(Routes.DETAIL_ANIME,
                                       arguments: c.listUpcoming[8]);
                                 },
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listUpcoming[8].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                child: (c.listUpcoming.isNotEmpty)
+                                    ? SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.height,
+                                        child: Image.network(
+                                          "${c.listUpcoming[8].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : CircularProgressIndicator(),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listUpcoming[8].title}",
+                                (c.listUpcoming.isNotEmpty)
+                                    ? "${c.listUpcoming[8].title}"
+                                    : "....",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -1417,19 +1462,24 @@ class HomeWidget extends StatelessWidget {
                                   Get.toNamed(Routes.DETAIL_ANIME,
                                       arguments: c.listUpcoming[9]);
                                 },
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listUpcoming[9].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                child: (c.listUpcoming.isNotEmpty)
+                                    ? SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.height,
+                                        child: Image.network(
+                                          "${c.listUpcoming[9].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : CircularProgressIndicator(),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listUpcoming[9].title}",
+                                (c.listUpcoming.isNotEmpty)
+                                    ? "${c.listUpcoming[9].title}"
+                                    : ".....",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,

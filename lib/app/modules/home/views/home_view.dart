@@ -9,6 +9,7 @@ import 'package:my_anime_list/app/resource/home_widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 // import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../../data/model/genre_model.dart' as gen;
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -134,14 +135,49 @@ class HomeView extends GetView<HomeController> {
         },
       ),
       // ! index page
-      const DefaultTabController(length: 26, child: AnimeIndex())
+      const DefaultTabController(length: 26, child: AnimeIndex()),
+
+      // ! Genre page
+      FutureBuilder<List<gen.Genre>?>(
+        future: controller.genreList,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
+          if (snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }
+          return ListView.separated(
+            itemCount: snapshot.data?.length ?? 0,
+            itemBuilder: (context, index) {
+              gen.Genre genre = controller.listGenreAnime[index];
+              return ListTile(
+                leading: CircleAvatar(
+                    child: Center(
+                  child: Text("${index + 1}"),
+                )),
+                title: Text("${genre.name}"),
+                onTap: () {
+                  Get.toNamed(Routes.GENRE_ANIME_RESULT, arguments: genre);
+                },
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const Divider(
+                thickness: 2,
+              );
+            },
+          );
+        },
+      )
     ];
     return Scaffold(
-        // backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-
-          // backgroundColor: Colors.white,
         ),
         drawer: Drawer(
           elevation: 200,
@@ -192,6 +228,7 @@ class HomeView extends GetView<HomeController> {
                 TabItem(icon: Icons.home, title: 'Home'),
                 TabItem(icon: Icons.search, title: 'search'),
                 TabItem(icon: Icons.bookmarks_outlined, title: 'index'),
+                TabItem(icon: Icons.movie_filter_outlined, title: 'Genres'),
               ],
               initialActiveIndex: controller.selectIndex.value,
               style: TabStyle.textIn, //optional, default as 0

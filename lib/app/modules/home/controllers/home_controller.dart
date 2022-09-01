@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_anime_list/app/data/model/anime_models.dart';
+import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 import 'dart:convert';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -11,6 +12,7 @@ class HomeController extends GetxController {
   late TextEditingController searchController;
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSearch = {};
+  RefreshController genreRefresh = RefreshController(initialRefresh: true);
   RefreshController refreshControllerSearch =
       RefreshController(initialRefresh: true);
   RefreshController refreshControllerA =
@@ -72,9 +74,11 @@ class HomeController extends GetxController {
   // ! variable untuk slider
   Rx<int> currentSlider = 0.obs;
 
+  late Future<List<gen.Genre>?> genreList;
   late Future<List?> animeTop;
   late Future<List?> animeAiring;
   late Future<List?> animeUpcoming;
+  List<gen.Genre> listGenreAnime = [];
   List<dynamic> resultAnime = [];
   List<dynamic> listAiringAnime = [];
   List<dynamic> listUpcoming = [];
@@ -273,21 +277,35 @@ class HomeController extends GetxController {
     return null;
   }
 
+  // ! fungsi untuk genre anime
+  Future<List<gen.Genre>?> getAllGenre() async {
+    //! Ambil data dari API
+    Uri url = Uri.parse('https://api.jikan.moe/v4/genres/anime');
+    var res = await http.get(url);
+    //! Masukkan data ke dalam variable
+    List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
+    // ! cek data nya apakah null atau tidak
+    if (data == null || data.isEmpty) {
+      return [];
+    } else {
+      listGenreAnime = data.map((e) => gen.Genre.fromJson(e)).toList();
+      debugPrint(listGenreAnime.toString());
+      update();
+      return listGenreAnime;
+    }
+  }
+
   // ! fungsi untuk top anime
   Future<List?> topAnime() async {
     Uri url = Uri.parse('https://api.jikan.moe/v4/top/anime?limit=10');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
-
-      //  var datum = json.decode(response.body);
       var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
-      // debugPrint(tempAnimeList.toString());
       page = data["pagination"];
       listTopAnime.addAll(tempAnimeList);
       update();
       return listTopAnime;
-      // debugPrint(page["has_next_page"].toString());
     } else {
       return null;
     }
@@ -316,8 +334,8 @@ class HomeController extends GetxController {
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
       var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
-      page = data["pagination"];
       listUpcoming.addAll(tempAnimeList);
+      // debugPrint(listUpcoming.toString());
       update();
       return listUpcoming;
     } else {
@@ -838,25 +856,78 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     searchController = TextEditingController();
-    animeTop = topAnime();
-    animeAiring = currentlyAiring();
-    animeUpcoming = upcomingAnime();
+    animeTop = Future.delayed(
+      const Duration(seconds: 2),
+      () => topAnime(),
+    );
+    animeAiring =
+        Future.delayed(const Duration(seconds: 1,), () => currentlyAiring());
+    animeUpcoming = Future.delayed(
+        const Duration(seconds: 1, milliseconds: 20), () => upcomingAnime());
+    genreList = Future.delayed(
+        const Duration(seconds: 1, milliseconds: 30), () => getAllGenre());
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    // animeIndexA.clear();
-    super.onClose();
-  }
 
   @override
   void dispose() {
-    // anime.clear();
     // refreshControllerA.dispose();
     // refreshControllerB.dispose();
+    // refreshControllerC.dispose();
+    // refreshControllerD.dispose();
+    // refreshControllerE.dispose();
+    // refreshControllerF.dispose();
+    // refreshControllerG.dispose();
+    // refreshControllerH.dispose();
+    // refreshControllerI.dispose();
+    // refreshControllerJ.dispose();
+    // refreshControllerK.dispose();
+    // refreshControllerL.dispose();
+    // refreshControllerM.dispose();
+    // refreshControllerN.dispose();
+    // refreshControllerO.dispose();
+    // refreshControllerP.dispose();
+    // refreshControllerQ.dispose();
+    // refreshControllerR.dispose();
+    // refreshControllerS.dispose();
+    // refreshControllerT.dispose();
+    // refreshControllerU.dispose();
+    // refreshControllerV.dispose();
+    // refreshControllerW.dispose();
+    // refreshControllerX.dispose();
+    // refreshControllerY.dispose();
+    // refreshControllerZ.dispose();
     // resultAnime.clear();
     // animeIndexA.clear();
+    // animeIndexB.clear();
+    // animeIndexC.clear();
+    // animeIndexD.clear();
+    // animeIndexE.clear();
+    // animeIndexF.clear();
+    // animeIndexG.clear();
+    // animeIndexH.clear();
+    // animeIndexI.clear();
+    // animeIndexJ.clear();
+    // animeIndexK.clear();
+    // animeIndexL.clear();
+    // animeIndexM.clear();
+    // animeIndexN.clear();
+    // animeIndexO.clear();
+    // animeIndexP.clear();
+    // animeIndexQ.clear();
+    // animeIndexR.clear();
+    // animeIndexS.clear();
+    // animeIndexT.clear();
+    // animeIndexU.clear();
+    // animeIndexV.clear();
+    // animeIndexW.clear();
+    // animeIndexX.clear();
+    // animeIndexY.clear();
+    // animeIndexZ.clear();
+    // listAiringAnime.clear();
+    // listTopAnime.clear();
+    // listUpcoming.clear();
     searchController.clear();
     searchController.dispose();
     super.dispose();

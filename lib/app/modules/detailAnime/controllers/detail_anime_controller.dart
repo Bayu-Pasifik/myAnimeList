@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:my_anime_list/app/data/model/anime_model.dart';
+// import 'package:my_anime_list/app/data/model/anime_model.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailAnimeController extends GetxController {
