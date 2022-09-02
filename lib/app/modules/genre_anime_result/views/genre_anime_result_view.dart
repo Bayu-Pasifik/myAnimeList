@@ -45,13 +45,13 @@ class GenreAnimeResultView extends GetView<GenreAnimeResultController> {
                       maxCrossAxisExtent: 200,
                       childAspectRatio: 0.8,
                       crossAxisSpacing: 40,
-                      mainAxisExtent: 300,
+                      mainAxisExtent: 250,
                       mainAxisSpacing: 20),
                   itemBuilder: (context, index) {
                     anim.Animes animes = c.listAnime[index];
                     return GestureDetector(
                       onTap: () {
-                        debugPrint(c.listAnime.toString());
+                        // debugPrint(c.listAnime.toString());
                         Get.toNamed(Routes.DETAIL_ANIME, arguments: animes);
                       },
                       child: ClipRRect(

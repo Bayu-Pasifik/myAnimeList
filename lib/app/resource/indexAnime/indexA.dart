@@ -20,7 +20,7 @@ GetBuilder<HomeController> animeByIndexA(HomeController controller) {
             builder: (context, mode) {
               if (mode == LoadStatus.loading) {
                 return LoadingAnimationWidget.inkDrop(
-                    color: Color.fromARGB(255, 6, 98, 173), size: 50);
+                    color: const Color.fromARGB(255, 6, 98, 173), size: 50);
               }
               return const SizedBox(
                 height: 5,
@@ -41,7 +41,7 @@ GetBuilder<HomeController> animeByIndexA(HomeController controller) {
               anim.Animes animes = c.animeIndexA[index];
               return GestureDetector(
                 onTap: () {
-                  debugPrint(c.animeIndexA.toString());
+                  // debugPrint(c.animeIndexA.toString());
                   Get.toNamed(Routes.DETAIL_ANIME, arguments: animes);
                 },
                 child: ClipRRect(

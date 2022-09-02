@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
 import 'package:my_anime_list/app/resource/video_item.dart';
-
+import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 import '../controllers/detail_anime_controller.dart';
 
 class DetailAnimeView extends GetView<DetailAnimeController> {
@@ -19,6 +19,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
           SliverAppBar(
             expandedHeight: 200,
             stretch: true,
+            pinned: true,
             centerTitle: true,
             title: Text('${anime.title}'),
             flexibleSpace: FlexibleSpaceBar(
@@ -45,6 +46,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
               ),
             ),
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 // ! padding image
                 Expanded(
@@ -173,28 +175,95 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
             const SizedBox(
               height: 20,
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: ExpandablePanel(
-                  header: const Text(
-                    "Synopsis",
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        shadows: [BoxShadow(blurRadius: 0.5)]),
-                  ),
-                  collapsed: Text(
-                    "${anime.synopsis}",
-                    softWrap: true,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  expanded: Text(
-                    "${anime.synopsis}",
-                    softWrap: true,
-                  ),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: ExpandablePanel(
+                header: const Text(
+                  "Synopsis",
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      shadows: [BoxShadow(blurRadius: 0.5)]),
                 ),
+                collapsed: Text(
+                  "${anime.synopsis}",
+                  softWrap: true,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                expanded: Text(
+                  "${anime.synopsis}",
+                  softWrap: true,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 5, bottom: 10),
+              child: Text(
+                "Character",
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    shadows: [BoxShadow(blurRadius: 0.5)]),
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height / 2,
+              // color: Colors.red,
+              child: FutureBuilder(
+                future: controller.getCharacterAnime(anime.malId!),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }
+                  return ListView.separated(
+                    separatorBuilder: (context, index) => const SizedBox(
+                      width: 5,
+                    ),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.listCharacterAnime?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      char.Character character =
+                          controller.listCharacterAnime![index];
+                      return Column(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              width: 150,
+                              height: 200,
+                              // color: Colors.amber,
+                              child: Image.network(
+                                character.character!.images?.jpg?.imageUrl ??
+                                    'Kosong',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Expanded(
+                              child: Text(
+                            character.character?.name ?? 'NaN',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ))
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
             )
           ]))

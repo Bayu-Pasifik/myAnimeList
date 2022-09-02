@@ -14,6 +14,8 @@ abstract class Routes {
   static const ANIME_AIRING = _Paths.ANIME_AIRING;
   static const ANIME_UPCOMING = _Paths.ANIME_UPCOMING;
   static const GENRE_ANIME_RESULT = _Paths.GENRE_ANIME_RESULT;
+  static const HOME_MANGA = _Paths.HOME_MANGA;
+  static const CHARACTER = _Paths.CHARACTER;
 }
 
 abstract class _Paths {
@@ -29,4 +31,6 @@ abstract class _Paths {
   static const ANIME_AIRING = '/anime-airing';
   static const ANIME_UPCOMING = '/anime-upcoming';
   static const GENRE_ANIME_RESULT = '/genre-anime-result';
+  static const HOME_MANGA = '/home-manga';
+  static const CHARACTER = '/character';
 }

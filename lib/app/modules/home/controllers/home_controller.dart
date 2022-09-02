@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
+import 'package:my_anime_list/app/data/model/season_model.dart' as ses;
+import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 import 'dart:convert';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -74,11 +76,15 @@ class HomeController extends GetxController {
   // ! variable untuk slider
   Rx<int> currentSlider = 0.obs;
 
+  late Future<List<char.Character>?> characterList;
   late Future<List<gen.Genre>?> genreList;
+  late Future<List<ses.Season>?> seasonList;
   late Future<List?> animeTop;
   late Future<List?> animeAiring;
   late Future<List?> animeUpcoming;
+  List<char.Character> listCharacterAnime = [];
   List<gen.Genre> listGenreAnime = [];
+  List<ses.Season> listSeasonAnime = [];
   List<dynamic> resultAnime = [];
   List<dynamic> listAiringAnime = [];
   List<dynamic> listUpcoming = [];
@@ -127,7 +133,6 @@ class HomeController extends GetxController {
       return null;
     }
     var tempData = data["data"].map((e) => Animes?.fromJson(e)).toList();
-    // debugPrint(" isi dari temp data : ${tempData[0].title}");
     resultAnime.addAll(tempData);
     pageSearch = data["pagination"];
     update();
@@ -278,6 +283,23 @@ class HomeController extends GetxController {
   }
 
   // ! fungsi untuk genre anime
+  Future<List<ses.Season>?> getallSeason() async {
+    //! Ambil data dari API
+    Uri url = Uri.parse('https://api.jikan.moe/v4/seasons');
+    var res = await http.get(url);
+    //! Masukkan data ke dalam variable
+    List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
+    // ! cek data nya apakah null atau tidak
+    if (data == null || data.isEmpty) {
+      return [];
+    } else {
+      listSeasonAnime = data.map((e) => ses.Season.fromJson(e)).toList();
+      update();
+      return listSeasonAnime;
+    }
+  }
+
+  // ! fungsi untuk genre anime
   Future<List<gen.Genre>?> getAllGenre() async {
     //! Ambil data dari API
     Uri url = Uri.parse('https://api.jikan.moe/v4/genres/anime');
@@ -289,9 +311,26 @@ class HomeController extends GetxController {
       return [];
     } else {
       listGenreAnime = data.map((e) => gen.Genre.fromJson(e)).toList();
-      debugPrint(listGenreAnime.toString());
+      // debugPrint(listGenreAnime.toString());
       update();
       return listGenreAnime;
+    }
+  }
+  // ! fungsi untuk charcter anime
+  Future<List<char.Character>?> getCharacterAnime(int id) async {
+    //! Ambil data dari API
+    Uri url = Uri.parse('https://api.jikan.moe/v4/anime/$id/characters');
+    var res = await http.get(url);
+    //! Masukkan data ke dalam variable
+    List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
+    // ! cek data nya apakah null atau tidak
+    if (data == null || data.isEmpty) {
+      return [];
+    } else {
+      listCharacterAnime = data.map((e) => char.Character.fromJson(e)).toList();
+      // debugPrint(listGenreAnime.toString());
+      update();
+      return listCharacterAnime;
     }
   }
 
@@ -856,19 +895,22 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     searchController = TextEditingController();
-    animeTop = Future.delayed(
-      const Duration(seconds: 2),
-      () => topAnime(),
-    );
-    animeAiring =
-        Future.delayed(const Duration(seconds: 1,), () => currentlyAiring());
-    animeUpcoming = Future.delayed(
-        const Duration(seconds: 1, milliseconds: 20), () => upcomingAnime());
-    genreList = Future.delayed(
-        const Duration(seconds: 1, milliseconds: 30), () => getAllGenre());
+    animeTop = topAnime();
+    animeAiring = currentlyAiring();
+    animeUpcoming = upcomingAnime();
+    genreList = Future.delayed(const Duration(seconds: 2), () => getAllGenre());
+    seasonList =
+        Future.delayed(const Duration(seconds: 5), () => getallSeason());
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    searchController.clear();
+    searchController.dispose();
+    resultAnime.clear();
+    super.onClose();
+  }
 
   @override
   void dispose() {

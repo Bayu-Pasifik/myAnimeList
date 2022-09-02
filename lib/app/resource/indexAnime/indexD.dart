@@ -1,6 +1,5 @@
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';

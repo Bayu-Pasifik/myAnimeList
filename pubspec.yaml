@@ -13,9 +13,9 @@ dependencies:
   convex_bottom_bar: 3.0.0
   loading_animation_widget: 1.2.0+2
   pull_to_refresh: 2.0.0
-  sizer: 2.0.15
   carousel_slider: 4.1.1
   expandable: 5.0.1
+  lottie: 1.4.2
   flutter: 
     sdk: flutter
 
@@ -26,4 +26,6 @@ dev_dependencies:
 
 flutter: 
   uses-material-design: true
+  assets: 
+    - assets/lottie/
 

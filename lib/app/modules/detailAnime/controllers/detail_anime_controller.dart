@@ -1,10 +1,18 @@
+import 'dart:ffi';
+
 import 'package:get/get.dart';
-// import 'package:my_anime_list/app/data/model/anime_model.dart';
+import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class DetailAnimeController extends GetxController {
   late YoutubePlayerController youtubePlayerController;
   Rx<String> url = ''.obs;
+  List<char.Character>? listCharacterAnime = [];
+  // late Future characterList;
+  int? id;
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +26,7 @@ class DetailAnimeController extends GetxController {
         controlsVisibleAtStart: true,
       ),
     );
+    // characterList = getCharacterAnime(id)
   }
 
   playervideo(String link) {
@@ -31,6 +40,22 @@ class DetailAnimeController extends GetxController {
         controlsVisibleAtStart: true,
       ),
     );
+  }
+
+  Future<List<char.Character>?> getCharacterAnime(int id) async {
+    //! Ambil data dari API
+    Uri url = Uri.parse('https://api.jikan.moe/v4/anime/$id/characters');
+    var res = await http.get(url);
+    //! Masukkan data ke dalam variable
+    List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
+    // ! cek data nya apakah null atau tidak
+    if (data == null || data.isEmpty) {
+      return [];
+    } else {
+      listCharacterAnime = data.map((e) => char.Character.fromJson(e)).toList();
+      update();
+      return listCharacterAnime;
+    }
   }
 
   @override

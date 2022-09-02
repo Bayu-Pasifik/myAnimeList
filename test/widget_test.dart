@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 // import 'package:my_anime_list/app/data/model/anime_model.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_anime_list/app/data/model/anime_search.dart';
+// import 'package:my_anime_list/app/data/model/anime_search.dart';
 
 // void main() async {
 //   List<Anime> anime = [];

@@ -19,7 +19,7 @@ class AnimeUpcomingController extends GetxController {
       Map<String, dynamic> data = json.decode(response.body);
       var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
       page = data["pagination"];
-      debugPrint(data['has_next_page']);
+      // debugPrint(data['has_next_page']);
       listUpcoming.addAll(tempAnimeList);
       update();
       return data;

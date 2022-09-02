@@ -48,7 +48,7 @@ class AnimeAiringView extends GetView<AnimeAiringController> {
                     anim.Animes animes = c.listAiringAnime[index];
                     return GestureDetector(
                       onTap: () {
-                        debugPrint(c.listAiringAnime.toString());
+                        // debugPrint(c.listAiringAnime.toString());
                         Get.toNamed(Routes.DETAIL_ANIME, arguments: animes);
                       },
                       child: ClipRRect(

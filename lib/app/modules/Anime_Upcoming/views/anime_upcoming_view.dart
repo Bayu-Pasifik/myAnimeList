@@ -49,7 +49,7 @@ class AnimeUpcomingView extends GetView<AnimeUpcomingController> {
                     anim.Animes animes = c.listUpcoming[index];
                     return GestureDetector(
                       onTap: () {
-                        debugPrint(c.listUpcoming.toString());
+                        // debugPrint(c.listUpcoming.toString());
                         Get.toNamed(Routes.DETAIL_ANIME, arguments: animes);
                       },
                       child: ClipRRect(

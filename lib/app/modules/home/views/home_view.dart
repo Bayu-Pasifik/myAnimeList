@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 // import 'package:my_anime_list/app/data/model/anime_model.dart' as ani;
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
+import 'package:my_anime_list/app/resource/404_page.dart';
 import 'package:my_anime_list/app/resource/anime_index.dart';
 import 'package:my_anime_list/app/resource/home_widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
-// import 'package:my_anime_list/app/routes/app_pages.dart';
+import 'package:my_anime_list/app/data/model/season_model.dart' as ses;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../data/model/genre_model.dart' as gen;
 import '../controllers/home_controller.dart';
@@ -29,6 +30,7 @@ class HomeView extends GetView<HomeController> {
             child: Column(
               children: [
                 TextField(
+                  autofocus: false,
                   controller: c.searchController,
                   decoration: const InputDecoration(
                       labelText: "Search",
@@ -173,7 +175,44 @@ class HomeView extends GetView<HomeController> {
             },
           );
         },
-      )
+      ),
+
+      // ! Season Page
+      // Text("seaason"),
+      // FutureBuilder<List<ses.Season>?>(
+      //   future: controller.seasonList,
+      //   builder: (context, snapshot) {
+      //     if (snapshot.hasError) {
+      //       return Text(snapshot.error.toString());
+      //     }
+      //     if (snapshot.hasData) {
+      //       if (snapshot.connectionState == ConnectionState.waiting) {
+      //         return const Center(
+      //           child: CircularProgressIndicator(),
+      //         );
+      //       }
+      //     }
+      //     // List<String> dropDown = [
+      //     //   for (var items in controller.listSeasonAnime) items.toString()
+      //     // ];
+      //     return DropdownButton<String>(
+      //         isExpanded: true,
+      //         value: "${controller.listSeasonAnime[0].year}",
+      //         items: [
+      //           DropdownMenuItem(
+      //             value: "Satu",
+      //             child: Text("${controller.listSeasonAnime[0].seasons}"),
+      //           ),
+      //           DropdownMenuItem(
+      //             value: "dua",
+      //             child: Text("${controller.listSeasonAnime[1].seasons}"),
+      //           ),
+      //         ],
+      //         onChanged: (value) {
+      //           print(value);
+      //         });
+      //   },
+      // ),
     ];
     return Scaffold(
         appBar: AppBar(
@@ -203,7 +242,9 @@ class HomeView extends GetView<HomeController> {
             ListTile(
               leading: const Icon(Icons.movie_creation_outlined),
               title: const Text("Anime"),
-              onTap: () {},
+              onTap: () {
+                Get.offNamed(Routes.HOME_PAGE);
+              },
             ),
             const SizedBox(
               height: 10,
@@ -211,12 +252,16 @@ class HomeView extends GetView<HomeController> {
             ListTile(
               leading: const Icon(Icons.book_outlined),
               title: const Text("Manga"),
-              onTap: () {},
+              onTap: () {
+                Get.offNamed(Routes.HOME_MANGA);
+              },
             ),
             ListTile(
               leading: const Icon(Icons.person),
               title: const Text("Character"),
-              onTap: () {},
+              onTap: () {
+                Get.offNamed(Routes.CHARACTER);
+              },
             ),
           ]),
         ),
@@ -229,6 +274,7 @@ class HomeView extends GetView<HomeController> {
                 TabItem(icon: Icons.search, title: 'search'),
                 TabItem(icon: Icons.bookmarks_outlined, title: 'index'),
                 TabItem(icon: Icons.movie_filter_outlined, title: 'Genres'),
+                // TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
               ],
               initialActiveIndex: controller.selectIndex.value,
               style: TabStyle.textIn, //optional, default as 0
