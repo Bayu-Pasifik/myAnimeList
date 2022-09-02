@@ -316,6 +316,7 @@ class HomeController extends GetxController {
       return listGenreAnime;
     }
   }
+
   // ! fungsi untuk charcter anime
   Future<List<char.Character>?> getCharacterAnime(int id) async {
     //! Ambil data dari API
@@ -970,8 +971,8 @@ class HomeController extends GetxController {
     // listAiringAnime.clear();
     // listTopAnime.clear();
     // listUpcoming.clear();
-    searchController.clear();
-    searchController.dispose();
+    // searchController.clear();
+    // searchController.dispose();
     super.dispose();
   }
 }

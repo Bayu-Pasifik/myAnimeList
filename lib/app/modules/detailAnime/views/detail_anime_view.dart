@@ -210,11 +210,11 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                     shadows: [BoxShadow(blurRadius: 0.5)]),
               ),
             ),
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height / 2,
               // color: Colors.red,
               child: FutureBuilder(
-                future: controller.getCharacterAnime(anime.malId!),
+                future: controller.getCharacterAnime(anime.malId ?? 0),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return const Center(
