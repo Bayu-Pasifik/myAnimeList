@@ -63,4 +63,10 @@ class DetailAnimeController extends GetxController {
     youtubePlayerController.dispose();
     super.onClose();
   }
+
+  @override
+  void dispose() {
+    listCharacterAnime?.clear();
+    super.dispose();
+  }
 }

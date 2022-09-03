@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
 import 'package:my_anime_list/app/resource/video_item.dart';
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
+import 'package:my_anime_list/app/routes/app_pages.dart';
 import '../controllers/detail_anime_controller.dart';
 
 class DetailAnimeView extends GetView<DetailAnimeController> {
@@ -242,35 +243,47 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                     itemBuilder: (context, index) {
                       char.Character character =
                           controller.listCharacterAnime![index];
-                      return Column(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              width: 150,
-                              height: 300,
-                              // color: Colors.amber,
-                              child: Image.network(
-                                character.character!.images?.jpg?.imageUrl ??
-                                    'Kosong',
-                                fit: BoxFit.cover,
+                      return GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.ANIME_CHARACTER,
+                              arguments: character);
+                        },
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                width: 150,
+                                height: 300,
+                                // color: Colors.amber,
+                                child: (character
+                                            .character!.images!.jpg!.imageUrl !=
+                                        null)
+                                    ? Image.network(
+                                        character.character!.images?.jpg
+                                                ?.imageUrl ??
+                                            'Kosong',
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const CircularProgressIndicator(),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            character.character?.name ?? 'NaN',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "(${character.role ?? 'NaN'})",
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              character.character?.name ?? 'NaN',
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: Text(
+                                "(${character.role ?? 'NaN'})",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
                       );
                     },
                   );

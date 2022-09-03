@@ -1,85 +1,158 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:my_anime_list/app/routes/app_pages.dart';
-
+import 'package:my_anime_list/app/data/model/character_model.dart' as char;
+import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
+import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
+    as detail;
 import '../controllers/anime_character_controller.dart';
 
 class AnimeCharacterView extends GetView<AnimeCharacterController> {
   const AnimeCharacterView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // final ani.Animes anime = Get.arguments['anime'];
+    final char.Character character = Get.arguments;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AnimeCharacterView'),
-        centerTitle: true,
-      ),
-      drawer: Drawer(
-        elevation: 200,
-        child: Column(children: [
-          Container(
-            width: double.infinity,
-            height: 150,
-            color: Colors.blue[300],
-            child: const Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    "Chose Your Destination",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        shadows: [BoxShadow(blurRadius: 1)],
-                        fontSize: 20),
+        appBar: AppBar(
+          title: Text('${character.character!.name}'),
+          centerTitle: true,
+          // backgroundColor: Colors.transparent,
+        ),
+        body: FutureBuilder<detail.DetailAnimeCharacter?>(
+          future: controller.getCharacter(character.character?.malId ?? 0),
+          builder: (context, snapshot) {
+            // if (snapshot.data == null) {
+            //   return const Center(
+            //     child: Text("No data"),
+            //   );
+            // }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(snapshot.error.toString()),
+              );
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            return Stack(
+              children: [
+                (snapshot.data?.anime?[0].anime?.images?['jpg']
+                            ?.largeImageUrl !=
+                        null)
+                    ? Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        color: Colors.amber,
+                        child: Image.network(
+                          "${snapshot.data?.anime?[0].anime?.images?['jpg']?.largeImageUrl}",
+                          fit: BoxFit.cover,
+                        ),
+                        // child: ,
+                      )
+                    : const Center(child: CircularProgressIndicator()),
+                Positioned(
+                  top: 200,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 100,
+                  left: 100,
+                  child: ClipRRect(
+                    // borderRadius: BorderRadius.only(
+                    //     topLeft: Radius.circular(10),
+                    //     topRight: Radius.circular(10)),
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                        width: 150,
+                        height: 200,
+                        color: Colors.red,
+                        child: Image.network(
+                          "${snapshot.data!.images!.jpg!.imageUrl}",
+                          fit: BoxFit.cover,
+                        )),
+                  ),
+                ),
+                Positioned(
+                    child: Center(
+                  child: Container(
+                    alignment: Alignment.center,
+                    // width: MediaQuery.of(context).size.width,
+                    // height: MediaQuery.of(context).size.height,
+                    width: 200,
+                    height: 200,
+                    // color: Colors.red,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 60),
+                      child: Text("${snapshot.data!.name}"),
+                    ),
+                    // color: Colors.amber,
                   ),
                 )),
-          ),
-          ListTile(
-            leading: const Icon(Icons.movie_creation_outlined),
-            title: const Text("Anime"),
-            onTap: () {
-              Get.offNamed(Routes.HOME);
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text("Anime Character"),
-            onTap: () {
-              // Get.offNamed(Routes.ANIME_CHARACTER);
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          ListTile(
-            leading: const Icon(Icons.book_outlined),
-            title: const Text("Manga"),
-            onTap: () {
-              Get.offNamed(Routes.HOME_MANGA);
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text("Manga Character"),
-            onTap: () {
-              Get.offNamed(Routes.MANGA_CHARACTER);
-            },
-          ),
-        ]),
-      ),
-      body: const Center(
-        child: Text(
-          'AnimeCharacterView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-    );
+                Positioned(
+                    child: Center(
+                  child: Container(
+                    alignment: Alignment.bottomCenter,
+
+                    width: 200,
+                    height: 200,
+                    // color: Colors.amber,
+                    child: Padding(
+                        padding: EdgeInsets.only(bottom: 35),
+                        child: Text("${snapshot.data!.nameKanji}")),
+                    // color: Colors.amber,
+                  ),
+                )),
+                Positioned(
+                  top: MediaQuery.of(context).size.height * 0.6,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    // color: Colors.amber,
+                    child: ListView(
+                      padding: EdgeInsets.only(left: 10),
+                      children: [
+                        ExpandablePanel(
+                          header: const Text(
+                            "Synopsis",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                shadows: [BoxShadow(blurRadius: 0.5)]),
+                          ),
+                          collapsed: Text(
+                            "${snapshot.data?.about}",
+                            softWrap: true,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          expanded: Text(
+                            "${snapshot.data?.about}",
+                            softWrap: true,
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.8,
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            );
+          },
+        ));
   }
 }

@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 // import 'package:my_anime_list/app/data/model/anime_model.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'package:http/http.dart' as http;
-// import 'package:my_anime_list/app/data/model/anime_search.dart';
+import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
+    as detail;
+import 'package:my_anime_list/app/data/model/detail_anime_character.dart';
 
 // void main() async {
 //   List<Anime> anime = [];
@@ -122,16 +125,34 @@ import 'package:http/http.dart' as http;
 //   //! cek data nya apakah null atau tidak
 // }
 
+// void main() async {
+//   Map<String, dynamic> page = {};
+//   Uri url =
+//       Uri.parse('https://api.jikan.moe/v4/top/anime?page=1&sfw=false');
+//   var response = await http.get(url);
+//   if (response.statusCode == 200) {
+//     Map<String, dynamic> data = json.decode(response.body);
+//     var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
+//     debugPrint(data.toString());
+//     page = data["pagination"];
+//     debugPrint(data['has_next_page']);
+//   }
+// }
+
 void main() async {
-  Map<String, dynamic> page = {};
-  Uri url =
-      Uri.parse('https://api.jikan.moe/v4/top/anime?page=1&sfw=false');
-  var response = await http.get(url);
-  if (response.statusCode == 200) {
-    Map<String, dynamic> data = json.decode(response.body);
-    var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
-    debugPrint(data.toString());
-    page = data["pagination"];
-    debugPrint(data['has_next_page']);
-  }
+  Map<String, dynamic> animeCharacter = {};
+
+  //! Ambil data dari API
+  Uri url = Uri.parse('https://api.jikan.moe/v4/characters/5/full');
+  var res = await http.get(url);
+  //! Masukkan data ke dalam variable
+  Map<String, dynamic> parsed = json.decode(res.body)["data"];
+  var dt = DetailAnimeCharacter.fromJson(parsed);
+  print(dt.nameKanji.toString());
+
+  // var tempAnimeList = data!.map((e) => detail.Detail.fromJson(e));
+  /* var tempAnimeList =
+      data!["data"].map((e) => DetailAnimeCharacter.fromJson(e)); */
+  // animeCharacter.addAll(tempAnimeList);
+  // ! cek data nya apakah null atau tidak
 }
