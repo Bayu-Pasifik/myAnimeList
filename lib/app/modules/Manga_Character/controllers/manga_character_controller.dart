@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class CharacterController extends GetxController {
-  //TODO: Implement CharacterController
+class MangaCharacterController extends GetxController {
+  //TODO: Implement MangaCharacterController
 
   final count = 0.obs;
   @override

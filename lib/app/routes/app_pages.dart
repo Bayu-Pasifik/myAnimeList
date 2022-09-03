@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 
 import '../modules/Anime_Airing/bindings/anime_airing_binding.dart';
 import '../modules/Anime_Airing/views/anime_airing_view.dart';
+import '../modules/Anime_Character/bindings/anime_character_binding.dart';
+import '../modules/Anime_Character/views/anime_character_view.dart';
 import '../modules/Anime_Upcoming/bindings/anime_upcoming_binding.dart';
 import '../modules/Anime_Upcoming/views/anime_upcoming_view.dart';
-import '../modules/Character/bindings/character_binding.dart';
-import '../modules/Character/views/character_view.dart';
 import '../modules/Home_Manga/bindings/home_manga_binding.dart';
 import '../modules/Home_Manga/views/home_manga_view.dart';
+import '../modules/Manga_Character/bindings/manga_character_binding.dart';
+import '../modules/Manga_Character/views/manga_character_view.dart';
 import '../modules/Top_Anime/bindings/top_anime_binding.dart';
 import '../modules/Top_Anime/views/top_anime_view.dart';
 import '../modules/animeTest/bindings/anime_test_binding.dart';
@@ -72,9 +74,14 @@ class AppPages {
       binding: HomeMangaBinding(),
     ),
     GetPage(
-      name: _Paths.CHARACTER,
-      page: () => const CharacterView(),
-      binding: CharacterBinding(),
+      name: _Paths.ANIME_CHARACTER,
+      page: () => const AnimeCharacterView(),
+      binding: AnimeCharacterBinding(),
+    ),
+    GetPage(
+      name: _Paths.MANGA_CHARACTER,
+      page: () => const MangaCharacterView(),
+      binding: MangaCharacterBinding(),
     ),
   ];
 }

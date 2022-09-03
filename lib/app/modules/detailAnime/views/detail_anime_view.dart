@@ -210,7 +210,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                     shadows: [BoxShadow(blurRadius: 0.5)]),
               ),
             ),
-            SizedBox(
+            Container(
               height: MediaQuery.of(context).size.height / 2,
               // color: Colors.red,
               child: FutureBuilder(
@@ -225,6 +225,11 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.data == null) {
+                      return const Center(
+                        child: Text("No Data"),
                       );
                     }
                   }
@@ -242,7 +247,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                           Expanded(
                             child: Container(
                               width: 150,
-                              height: 200,
+                              height: 300,
                               // color: Colors.amber,
                               child: Image.network(
                                 character.character!.images?.jpg?.imageUrl ??
@@ -254,11 +259,17 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                           const SizedBox(
                             height: 5,
                           ),
-                          Expanded(
-                              child: Text(
+                          Text(
                             character.character?.name ?? 'NaN',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ))
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Expanded(
+                            child: Text(
+                              "(${character.role ?? 'NaN'})",
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ],
                       );
                     },

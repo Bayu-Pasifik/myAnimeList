@@ -250,17 +250,30 @@ class HomeView extends GetView<HomeController> {
               height: 10,
             ),
             ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text("Anime Character"),
+              onTap: () {
+                Get.offNamed(Routes.ANIME_CHARACTER);
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ListTile(
               leading: const Icon(Icons.book_outlined),
               title: const Text("Manga"),
               onTap: () {
                 Get.offNamed(Routes.HOME_MANGA);
               },
             ),
+            const SizedBox(
+              height: 10,
+            ),
             ListTile(
               leading: const Icon(Icons.person),
-              title: const Text("Character"),
+              title: const Text("Manga Character"),
               onTap: () {
-                Get.offNamed(Routes.CHARACTER);
+                Get.offNamed(Routes.MANGA_CHARACTER);
               },
             ),
           ]),

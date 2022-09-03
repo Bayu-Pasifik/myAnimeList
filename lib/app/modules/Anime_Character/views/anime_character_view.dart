@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 
-import '../controllers/character_controller.dart';
+import '../controllers/anime_character_controller.dart';
 
-class CharacterView extends GetView<CharacterController> {
-  const CharacterView({Key? key}) : super(key: key);
+class AnimeCharacterView extends GetView<AnimeCharacterController> {
+  const AnimeCharacterView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('CharacterView'),
+        title: const Text('AnimeCharacterView'),
         centerTitle: true,
       ),
       drawer: Drawer(
@@ -46,24 +46,37 @@ class CharacterView extends GetView<CharacterController> {
             height: 10,
           ),
           ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text("Anime Character"),
+            onTap: () {
+              // Get.offNamed(Routes.ANIME_CHARACTER);
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ListTile(
             leading: const Icon(Icons.book_outlined),
             title: const Text("Manga"),
             onTap: () {
               Get.offNamed(Routes.HOME_MANGA);
             },
           ),
+          const SizedBox(
+            height: 10,
+          ),
           ListTile(
             leading: const Icon(Icons.person),
-            title: const Text("Character"),
+            title: const Text("Manga Character"),
             onTap: () {
-              Get.offNamed(Routes.CHARACTER);
+              Get.offNamed(Routes.MANGA_CHARACTER);
             },
           ),
         ]),
       ),
       body: const Center(
         child: Text(
-          'CharacterView is working',
+          'AnimeCharacterView is working',
           style: TextStyle(fontSize: 20),
         ),
       ),
