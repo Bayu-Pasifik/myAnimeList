@@ -1,9 +1,11 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-
+import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/resource/Home_Manga_Widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../controllers/home_manga_controller.dart';
 
@@ -12,8 +14,130 @@ class HomeMangaView extends GetView<HomeMangaController> {
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets = [
-      HomeMangaWidget(),
-      Text("search"),
+      const HomeMangaWidget(),
+      GetBuilder<HomeMangaController>(
+        builder: (c) {
+          return SafeArea(
+              child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                TextField(
+                  autofocus: false,
+                  controller: c.searchController,
+                  decoration: const InputDecoration(
+                      labelText: "Search",
+                      hintText: 'Search Manga',
+                      border: OutlineInputBorder()),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: ElevatedButton(
+                      onPressed: (() {
+                        c.resultManga.clear();
+                        c.refreshSearch(c.searchController.text);
+                      }),
+                      child: const Text("Search")),
+                ),
+                Expanded(
+                    child: SmartRefresher(
+                  controller: c.refreshControllerSearch,
+                  enablePullDown: true,
+                  enablePullUp: true,
+                  onRefresh: () => c.refreshSearch(c.searchController.text),
+                  onLoading: () => c.loadSearch(c.searchController.text),
+                  footer: CustomFooter(
+                    builder: (context, mode) {
+                      if (mode == LoadStatus.loading) {
+                        return LoadingAnimationWidget.inkDrop(
+                            color: const Color.fromARGB(255, 6, 98, 173),
+                            size: 50);
+                      }
+                      return const SizedBox(
+                        height: 5,
+                        width: 5,
+                      );
+                    },
+                  ),
+                  child: (c.resultManga.isNotEmpty)
+                      ? GridView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.all(10),
+                          itemCount: c.resultManga.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 200,
+                                  childAspectRatio: 0.8,
+                                  crossAxisSpacing: 40,
+                                  mainAxisExtent: 200,
+                                  mainAxisSpacing: 20),
+                          itemBuilder: (context, index) {
+                            manga.Manga mangas = c.resultManga[index];
+
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: 200,
+                                    height: 300,
+                                    color: Colors.blue,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(Routes.DETAIL_ANIME,
+                                          arguments: mangas);
+                                    },
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: SizedBox(
+                                            width: 200,
+                                            height: 250,
+                                            child: Image.network(
+                                              mangas.images?['jpg']?.imageUrl ??
+                                                  'Kosong',
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          "${mangas.title}",
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              overflow: TextOverflow.ellipsis,
+                                              color: Colors.white),
+                                        ),
+                                        Center(
+                                          child: Text(
+                                            "${mangas.status}",
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.white),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )
+                      : const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                )),
+              ],
+            ),
+          ));
+        },
+      ),
       Text("index"),
       Text("Genre")
     ];

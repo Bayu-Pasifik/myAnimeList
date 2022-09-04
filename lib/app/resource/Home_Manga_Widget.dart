@@ -1,7 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:my_anime_list/app/modules/Home_Manga/controllers/home_manga_controller.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
@@ -118,7 +116,7 @@ class HomeMangaWidget extends StatelessWidget {
                               ],
                             ),
                           )
-                        : CircularProgressIndicator(),
+                        : const Text("Waiting..."),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Stack(

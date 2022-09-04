@@ -9,6 +9,7 @@ import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
     as detail;
 import 'package:my_anime_list/app/data/model/detail_anime_character.dart';
 import 'package:my_anime_list/app/data/model/manga/recomend_model.dart';
+import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 
 // void main() async {
 //   List<Anime> anime = [];
@@ -158,15 +159,30 @@ import 'package:my_anime_list/app/data/model/manga/recomend_model.dart';
 //   // ! cek data nya apakah null atau tidak
 // }
 
-void main() async {
-  List<RecomendManga> listReqManga = [];
-  Uri url = Uri.parse('https://api.jikan.moe/v4/recommendations/manga');
-  var response = await http.get(url);
+// void main() async {
+//   List<RecomendManga> listReqManga = [];
+//   Uri url = Uri.parse('https://api.jikan.moe/v4/manga?q=bleach');
+//   var response = await http.get(url);
 
-  Map<String, dynamic> data = json.decode(response.body);
-  var tempMangaList =
-      data["data"].map((e) => RecomendManga.fromJson(e)).toList();
-  // page = data["pagination"];
-  print(tempMangaList[0].entry[0].title);
-  // listReqManga.addAll(tempMangaList);
+//   Map<String, dynamic> data = json.decode(response.body);
+//   var tempMangaList =
+//       data["data"].map((e) => Manga.fromJson(e)).toList();
+//   // page = data["pagination"];
+//   print(tempMangaList);
+//   // listReqManga.addAll(tempMangaList);
+// }
+
+void main() async {
+  // ! fungsi untuk mencari anime berdasarkan nama
+
+  Uri link =
+      Uri.parse('https://api.jikan.moe/v4/manga?q=naruto&page=1&sfw=false');
+  var hasil = await http.get(link);
+  //! Masukkan data ke dalam variable
+  Map<String, dynamic>? data = (json.decode(hasil.body));
+  if (data == null) {
+    return null;
+  }
+  var tempData = data["data"].map((e) => manga.Manga?.fromJson(e)).toList();
+  print(tempData[0].title);
 }

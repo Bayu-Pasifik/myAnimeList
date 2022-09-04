@@ -85,7 +85,7 @@ class AnimeElement {
 
   factory AnimeElement.fromJson(Map<String, dynamic> json) => AnimeElement(
         role: json["role"],
-        anime: MangaClass.fromJson(json["anime"]),
+        anime: MangaClass.fromJson(json["anime"] ?? {}),
       );
 
   Map<String, dynamic> toJson() => {
@@ -110,7 +110,7 @@ class MangaClass {
   factory MangaClass.fromJson(Map<String, dynamic> json) => MangaClass(
         malId: json["mal_id"],
         url: json["url"],
-        images: Map.from(json["images"])
+        images: Map.from(json["images"] == null ? {} : json["images"])
             .map((k, v) => MapEntry<String, Image>(k, Image.fromJson(v))),
         title: json["title"],
       );
@@ -216,7 +216,7 @@ class Manga {
 
   factory Manga.fromJson(Map<String, dynamic> json) => Manga(
         role: json["role"],
-        manga: MangaClass.fromJson(json["manga"]),
+        manga: MangaClass.fromJson(json["manga"] ?? {}),
       );
 
   Map<String, dynamic> toJson() => {
