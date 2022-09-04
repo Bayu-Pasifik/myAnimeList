@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
     as detail;
 import 'package:my_anime_list/app/data/model/detail_anime_character.dart';
+import 'package:my_anime_list/app/data/model/manga/recomend_model.dart';
 
 // void main() async {
 //   List<Anime> anime = [];
@@ -139,20 +140,33 @@ import 'package:my_anime_list/app/data/model/detail_anime_character.dart';
 //   }
 // }
 
+// void main() async {
+//   Map<String, dynamic> animeCharacter = {};
+
+//   //! Ambil data dari API
+//   Uri url = Uri.parse('https://api.jikan.moe/v4/characters/5/full');
+//   var res = await http.get(url);
+//   //! Masukkan data ke dalam variable
+//   Map<String, dynamic> parsed = json.decode(res.body)["data"];
+//   var dt = DetailAnimeCharacter.fromJson(parsed);
+//   print(dt.nameKanji.toString());
+
+//   // var tempAnimeList = data!.map((e) => detail.Detail.fromJson(e));
+//   /* var tempAnimeList =
+//       data!["data"].map((e) => DetailAnimeCharacter.fromJson(e)); */
+//   // animeCharacter.addAll(tempAnimeList);
+//   // ! cek data nya apakah null atau tidak
+// }
+
 void main() async {
-  Map<String, dynamic> animeCharacter = {};
+  List<RecomendManga> listReqManga = [];
+  Uri url = Uri.parse('https://api.jikan.moe/v4/recommendations/manga');
+  var response = await http.get(url);
 
-  //! Ambil data dari API
-  Uri url = Uri.parse('https://api.jikan.moe/v4/characters/5/full');
-  var res = await http.get(url);
-  //! Masukkan data ke dalam variable
-  Map<String, dynamic> parsed = json.decode(res.body)["data"];
-  var dt = DetailAnimeCharacter.fromJson(parsed);
-  print(dt.nameKanji.toString());
-
-  // var tempAnimeList = data!.map((e) => detail.Detail.fromJson(e));
-  /* var tempAnimeList =
-      data!["data"].map((e) => DetailAnimeCharacter.fromJson(e)); */
-  // animeCharacter.addAll(tempAnimeList);
-  // ! cek data nya apakah null atau tidak
+  Map<String, dynamic> data = json.decode(response.body);
+  var tempMangaList =
+      data["data"].map((e) => RecomendManga.fromJson(e)).toList();
+  // page = data["pagination"];
+  print(tempMangaList[0].entry[0].title);
+  // listReqManga.addAll(tempMangaList);
 }
