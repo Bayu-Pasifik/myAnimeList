@@ -41,7 +41,7 @@ GetBuilder<HomeController> animeByIndexQ(HomeController controller) {
               anim.Animes animes = c.animeIndexQ[index];
               return GestureDetector(
                 onTap: (() {
-                  Get.toNamed(Routes.DETAIL_SEARCH, arguments: animes);
+                  Get.toNamed(Routes.DETAIL_ANIME, arguments: animes);
                 }),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),

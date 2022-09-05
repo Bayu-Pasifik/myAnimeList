@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:get/get.dart';
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;

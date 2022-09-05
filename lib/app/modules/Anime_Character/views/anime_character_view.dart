@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
-import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
 import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
     as detail;
 import '../controllers/anime_character_controller.dart';
@@ -110,19 +109,19 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                     height: 200,
                     // color: Colors.amber,
                     child: Padding(
-                        padding: EdgeInsets.only(bottom: 35),
+                        padding: const EdgeInsets.only(bottom: 35),
                         child: Text("${snapshot.data!.nameKanji}")),
                     // color: Colors.amber,
                   ),
                 )),
                 Positioned(
                   top: MediaQuery.of(context).size.height * 0.6,
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     // color: Colors.amber,
                     child: ListView(
-                      padding: EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 10),
                       children: [
                         ExpandablePanel(
                           header: const Text(

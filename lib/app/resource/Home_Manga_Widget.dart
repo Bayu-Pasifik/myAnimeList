@@ -55,7 +55,7 @@ class HomeMangaWidget extends StatelessWidget {
               return GetBuilder<HomeMangaController>(
                 builder: (c) {
                   List<Widget> animetop = [
-                    (c.listMangaManga.length != 0)
+                    (c.listMangaManga.isNotEmpty)
                         ? Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Stack(

@@ -4,6 +4,7 @@ import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/resource/Home_Manga_Widget.dart';
+import 'package:my_anime_list/app/resource/manga_index.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -81,10 +82,13 @@ class HomeMangaView extends GetView<HomeMangaController> {
                               borderRadius: BorderRadius.circular(10),
                               child: Stack(
                                 children: [
-                                  Container(
-                                    width: 200,
-                                    height: 300,
-                                    color: Colors.blue,
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Container(
+                                      width: 200,
+                                      height: 300,
+                                      color: Colors.blue,
+                                    ),
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -138,13 +142,14 @@ class HomeMangaView extends GetView<HomeMangaController> {
           ));
         },
       ),
-      Text("index"),
-      Text("Genre")
+      const DefaultTabController(length: 26, child: MangaIndex()),
+      const Text("Genre")
     ];
     return Scaffold(
         appBar: AppBar(
           title: const Text('Manga Page'),
           centerTitle: true,
+          elevation: 0,
         ),
         drawer: Drawer(
           elevation: 200,

@@ -110,7 +110,7 @@ class MangaClass {
   factory MangaClass.fromJson(Map<String, dynamic> json) => MangaClass(
         malId: json["mal_id"],
         url: json["url"],
-        images: Map.from(json["images"] == null ? {} : json["images"])
+        images: Map.from(json["images"] ?? {})
             .map((k, v) => MapEntry<String, Image>(k, Image.fromJson(v))),
         title: json["title"],
       );

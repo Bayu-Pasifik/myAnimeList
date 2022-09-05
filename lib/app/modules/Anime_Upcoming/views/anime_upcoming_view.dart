@@ -28,7 +28,7 @@ class AnimeUpcomingView extends GetView<AnimeUpcomingController> {
                   builder: (context, mode) {
                     if (mode == LoadStatus.loading) {
                       return LoadingAnimationWidget.inkDrop(
-                          color: Color.fromARGB(255, 6, 98, 173), size: 50);
+                          color: const Color.fromARGB(255, 6, 98, 173), size: 50);
                     }
                     return const SizedBox(
                       height: 5,
@@ -65,11 +65,11 @@ class AnimeUpcomingView extends GetView<AnimeUpcomingController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Expanded(
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 200,
                                     height: 250,
                                     child: Image.network(
-                                      "${animes.images?["jpg"]?.imageUrl ?? 'Kosong'}",
+                                      animes.images?["jpg"]?.imageUrl ?? 'Kosong',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -83,7 +83,7 @@ class AnimeUpcomingView extends GetView<AnimeUpcomingController> {
                                 ),
                                 Text(
                                   "${animes.status}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 20, color: Colors.white),
                                 )
                               ],

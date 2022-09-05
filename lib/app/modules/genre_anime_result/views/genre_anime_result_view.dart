@@ -67,11 +67,11 @@ class GenreAnimeResultView extends GetView<GenreAnimeResultController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Expanded(
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 200,
                                     height: 250,
                                     child: Image.network(
-                                      "${animes.images?["jpg"]?.imageUrl ?? 'Kosong'}",
+                                      animes.images?["jpg"]?.imageUrl ?? 'Kosong',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -85,7 +85,7 @@ class GenreAnimeResultView extends GetView<GenreAnimeResultController> {
                                 ),
                                 Text(
                                   "${animes.status}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 20, color: Colors.white),
                                 )
                               ],

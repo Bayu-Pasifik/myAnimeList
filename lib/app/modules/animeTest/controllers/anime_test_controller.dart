@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -65,33 +64,32 @@ class AnimeTestController extends GetxController {
     if (page["has_next_page"] == true) {
       currentPage = currentPage + 1;
       update();
-      print(currentPage.toString());
       await getAnimeA(currentPage);
       return refreshControllerA.loadComplete();
     }
     return refreshControllerA.loadNoData();
   }
 
-  void refreshDataA() async {
-    if (refreshControllerA.initialRefresh == true) {
-      currentPage = 1;
-      await getAnimeA(currentPage);
-      return refreshControllerA.refreshCompleted();
-    } else {
-      return refreshControllerA.refreshFailed();
-    }
-  }
+  // void refreshDataA() async {
+  //   if (refreshControllerA.initialRefresh == true) {
+  //     currentPage = 1;
+  //     await getAnimeA(currentPage);
+  //     return refreshControllerA.refreshCompleted();
+  //   } else {
+  //     return refreshControllerA.refreshFailed();
+  //   }
+  // }
 
-  void loadDataB() async {
-    if (page["has_next_page"] == true) {
-      currentPage = currentPage + 1;
-      update();
-      print(currentPage.toString());
-      await getAnimeA(currentPage);
-      return refreshControllerB.loadComplete();
-    }
-    return refreshControllerB.loadNoData();
-  }
+  // void loadDataB() async {
+  //   if (page["has_next_page"] == true) {
+  //     currentPage = currentPage + 1;
+  //     update();
+  //     print(currentPage.toString());
+  //     await getAnimeA(currentPage);
+  //     return refreshControllerB.loadComplete();
+  //   }
+  //   return refreshControllerB.loadNoData();
+  // }
 
   void refreshDataB() async {
     if (refreshControllerB.initialRefresh == true) {

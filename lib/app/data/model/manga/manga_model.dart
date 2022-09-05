@@ -2,6 +2,8 @@
 //
 //     final manga = mangaFromJson(jsonString);
 
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 Manga mangaFromJson(String str) => Manga.fromJson(json.decode(str));
@@ -89,7 +91,7 @@ class Manga {
         volumes: json["volumes"],
         status: json["status"],
         publishing: json["publishing"],
-        published: Published.fromJson(json["published"]),
+        published: Published.fromJson(json["published"] ?? {}),
         score: json["score"] == null ? 0 : json["score"].toDouble(),
         scored: json["scored"] == null ? 0 : json["scored"].toDouble(),
         scoredBy: json["scored_by"],
@@ -214,20 +216,20 @@ class Published {
     this.string,
   });
 
-  DateTime? from;
+  String? from;
   dynamic to;
   Prop? prop;
   String? string;
 
   factory Published.fromJson(Map<String, dynamic> json) => Published(
-        from: DateTime.parse(json["from"]),
+        from: json["from"] ?? "0",
         to: json["to"],
         prop: Prop.fromJson(json["prop"]),
         string: json["string"],
       );
 
   Map<String, dynamic> toJson() => {
-        "from": from!.toIso8601String(),
+        "from": from!.toString(),
         "to": to,
         "prop": prop!.toJson(),
         "string": string,
@@ -266,15 +268,15 @@ class From {
   int? year;
 
   factory From.fromJson(Map<String, dynamic> json) => From(
-        day: json["day"] == null ? null : json["day"],
-        month: json["month"] == null ? null : json["month"],
-        year: json["year"] == null ? null : json["year"],
+        day: json["day"],
+        month: json["month"],
+        year: json["year"],
       );
 
   Map<String, dynamic> toJson() => {
-        "day": day == null ? null : day,
-        "month": month == null ? null : month,
-        "year": year == null ? null : year,
+        "day": day,
+        "month": month,
+        "year": year,
       };
 }
 

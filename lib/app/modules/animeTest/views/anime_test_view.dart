@@ -1,8 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_anime_list/app/data/model/anime_models.dart' as anim;
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../controllers/anime_test_controller.dart';
 
 class AnimeTestView extends GetView<AnimeTestController> {

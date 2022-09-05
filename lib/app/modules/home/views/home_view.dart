@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 // import 'package:my_anime_list/app/data/model/anime_model.dart' as ani;
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
-import 'package:my_anime_list/app/resource/404_page.dart';
 import 'package:my_anime_list/app/resource/anime_index.dart';
 import 'package:my_anime_list/app/resource/home_widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
@@ -60,7 +59,7 @@ class HomeView extends GetView<HomeController> {
                     builder: (context, mode) {
                       if (mode == LoadStatus.loading) {
                         return LoadingAnimationWidget.inkDrop(
-                            color: Color.fromARGB(255, 6, 98, 173), size: 50);
+                            color: const Color.fromARGB(255, 6, 98, 173), size: 50);
                       }
                       return const SizedBox(
                         height: 5,
@@ -103,7 +102,7 @@ class HomeView extends GetView<HomeController> {
                                       width: 200,
                                       height: 250,
                                       child: Image.network(
-                                        "${animes.images?["jpg"]?.imageUrl ?? 'Kosong'}",
+                                        animes.images?["jpg"]?.imageUrl ?? 'Kosong',
                                         fit: BoxFit.cover,
                                       ),
                                     ),

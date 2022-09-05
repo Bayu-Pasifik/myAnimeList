@@ -151,22 +151,35 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text("Studio"),
+                        Text("Studio",
+                            style: TextStyle(
+                                color: Colors.grey[900],
+                                fontWeight: FontWeight.bold)),
                         (anime.studios!.isNotEmpty)
                             ? Text("${anime.studios?[0].name}")
-                            : Text("No Information"),
+                            : const Text("No Information"),
                         const SizedBox(
                           height: 10,
                         ),
-                        Text("Status"),
+                        Text(
+                          "Status",
+                          style: TextStyle(
+                              color: Colors.grey[900],
+                              fontWeight: FontWeight.bold),
+                        ),
                         Text(anime.status ?? 'No information'),
                         const SizedBox(
                           height: 10,
                         ),
 
-                        Text("Genre"),
+                        Text(
+                          "Genre",
+                          style: TextStyle(
+                              color: Colors.grey[900],
+                              fontWeight: FontWeight.bold),
+                        ),
                         for (var genre in anime.genres!)
-                          Text("${genre.name ?? 'No Informnation'} ")
+                          Text("${genre.name ?? 'No Informnation'} "),
                       ],
                     ),
                   ),
@@ -211,7 +224,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                     shadows: [BoxShadow(blurRadius: 0.5)]),
               ),
             ),
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height / 2,
               // color: Colors.red,
               child: FutureBuilder(
@@ -251,7 +264,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                         child: Column(
                           children: [
                             Expanded(
-                              child: Container(
+                              child: SizedBox(
                                 width: 150,
                                 height: 300,
                                 // color: Colors.amber,

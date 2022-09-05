@@ -57,11 +57,11 @@ GetBuilder<HomeController> animeByIndexA(HomeController controller) {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
-                            child: Container(
+                            child: SizedBox(
                               width: 200,
                               height: 250,
                               child: Image.network(
-                                "${animes.images?["jpg"]?.imageUrl ?? 'Kosong'}",
+                                animes.images?["jpg"]?.imageUrl ?? 'Kosong',
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -75,7 +75,7 @@ GetBuilder<HomeController> animeByIndexA(HomeController controller) {
                           ),
                           Text(
                             "${animes.status}",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: const TextStyle(fontSize: 20, color: Colors.white),
                           )
                         ],
                       ),

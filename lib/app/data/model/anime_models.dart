@@ -124,7 +124,7 @@ class Animes {
         episodes: json["episodes"],
         status: json["status"],
         airing: json["airing"],
-        aired: Aired.fromJson(json["aired"] == null ? {} : json["aired"]),
+        aired: Aired.fromJson(json["aired"] ?? {}),
         duration: json["duration"],
         rating: json["rating"],
         score: json["score"] == null ? 0 : json["score"].toDouble(),

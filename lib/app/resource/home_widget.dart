@@ -1144,7 +1144,7 @@ class HomeWidget extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                           shadows: [BoxShadow(blurRadius: 1)]),
                                     )
-                                  : Text("Kosong"),
+                                  : const Text("Kosong"),
                             ),
                           ],
                         ),
@@ -1167,7 +1167,7 @@ class HomeWidget extends StatelessWidget {
                                           "${c.listUpcoming[1].images['jpg'].imageUrl}",
                                           fit: BoxFit.cover,
                                         )
-                                      : CircularProgressIndicator(),
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
@@ -1204,7 +1204,7 @@ class HomeWidget extends StatelessWidget {
                                           "${c.listUpcoming[2].images['jpg'].imageUrl}",
                                           fit: BoxFit.cover,
                                         )
-                                      : CircularProgressIndicator(),
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
@@ -1243,7 +1243,7 @@ class HomeWidget extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       )
-                                    : CircularProgressIndicator(),
+                                    : const CircularProgressIndicator(),
                               ),
                             ),
                             Align(
@@ -1281,7 +1281,7 @@ class HomeWidget extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       )
-                                    : CircularProgressIndicator(),
+                                    : const CircularProgressIndicator(),
                               ),
                             ),
                             Align(
@@ -1319,7 +1319,7 @@ class HomeWidget extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       )
-                                    : CircularProgressIndicator(),
+                                    : const CircularProgressIndicator(),
                               ),
                             ),
                             Align(
@@ -1357,7 +1357,7 @@ class HomeWidget extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       )
-                                    : CircularProgressIndicator(),
+                                    : const CircularProgressIndicator(),
                               ),
                             ),
                             Align(
@@ -1395,7 +1395,7 @@ class HomeWidget extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       )
-                                    : CircularProgressIndicator(),
+                                    : const CircularProgressIndicator(),
                               ),
                             ),
                             Align(
@@ -1433,7 +1433,7 @@ class HomeWidget extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       )
-                                    : CircularProgressIndicator(),
+                                    : const CircularProgressIndicator(),
                               ),
                             ),
                             Align(
@@ -1471,7 +1471,7 @@ class HomeWidget extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       )
-                                    : CircularProgressIndicator(),
+                                    : const CircularProgressIndicator(),
                               ),
                             ),
                             Align(
