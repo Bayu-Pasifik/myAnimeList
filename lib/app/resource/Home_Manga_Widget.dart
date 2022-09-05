@@ -40,7 +40,7 @@ class HomeMangaWidget extends StatelessWidget {
             ),
           ),
           FutureBuilder<List?>(
-            future: controller.topManga(),
+            future: controller.mangaTop,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -721,7 +721,7 @@ class HomeMangaWidget extends StatelessWidget {
             ],
           ),
           FutureBuilder<List?>(
-            future: controller.reqManga(),
+            future: controller.mangareq,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(

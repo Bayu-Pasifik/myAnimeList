@@ -7,7 +7,7 @@ import 'package:my_anime_list/app/resource/Home_Manga_Widget.dart';
 import 'package:my_anime_list/app/resource/manga_index.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
+import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 import '../controllers/home_manga_controller.dart';
 
 class HomeMangaView extends GetView<HomeMangaController> {
@@ -143,7 +143,43 @@ class HomeMangaView extends GetView<HomeMangaController> {
         },
       ),
       const DefaultTabController(length: 26, child: MangaIndex()),
-      const Text("Genre")
+      // ! Genre page
+      FutureBuilder<List<gen.Genre>?>(
+        future: controller.genreList,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
+          if (snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }
+          return ListView.separated(
+            itemCount: snapshot.data?.length ?? 0,
+            itemBuilder: (context, index) {
+              gen.Genre genre = controller.listGenreAnime[index];
+              return ListTile(
+                leading: CircleAvatar(
+                    child: Center(
+                  child: Text("${index + 1}"),
+                )),
+                title: Text("${genre.name}"),
+                onTap: () {
+                  Get.toNamed(Routes.GENRE_ANIME_RESULT, arguments: genre);
+                },
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const Divider(
+                thickness: 2,
+              );
+            },
+          );
+        },
+      ),
     ];
     return Scaffold(
         appBar: AppBar(

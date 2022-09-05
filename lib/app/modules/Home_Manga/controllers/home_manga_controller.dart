@@ -6,8 +6,7 @@ import 'dart:convert';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:my_anime_list/app/data/model/manga/recomend_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-// import '../../../data/model/manga/manga_model.dart';
+import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 
 class HomeMangaController extends GetxController {
   late TextEditingController searchController;
@@ -108,6 +107,27 @@ class HomeMangaController extends GetxController {
   List<dynamic> mangaIndexX = [].obs;
   List<dynamic> mangaIndexY = [].obs;
   List<dynamic> mangaIndexZ = [].obs;
+
+// ! variable genre manga
+  late Future<List<gen.Genre>?> genreList;
+  List<gen.Genre> listGenreAnime = [];
+// ! fungsi untuk genre anime
+  Future<List<gen.Genre>?> getAllGenre() async {
+    //! Ambil data dari API
+    Uri url = Uri.parse('https://api.jikan.moe/v4/genres/manga?filter=themes');
+    var res = await http.get(url);
+    //! Masukkan data ke dalam variable
+    List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
+    // ! cek data nya apakah null atau tidak
+    if (data == null || data.isEmpty) {
+      return [];
+    } else {
+      listGenreAnime = data.map((e) => gen.Genre.fromJson(e)).toList();
+      // debugPrint(listGenreAnime.toString());
+      update();
+      return listGenreAnime;
+    }
+  }
 
 // ! function untuk index manga
   Future<Map<String, dynamic>?> indexManga(String letter, int hal) async {
@@ -827,8 +847,16 @@ class HomeMangaController extends GetxController {
 
   @override
   void onInit() {
-    mangaTop = topManga();
-    mangareq = reqManga();
+    mangaTop = Future.delayed(
+      const Duration(seconds: 1),
+      () => topManga(),
+    );
+    mangareq = Future.delayed(
+        const Duration(seconds: 1, milliseconds: 20), () => reqManga());
+    genreList = Future.delayed(
+      const Duration(seconds: 1, milliseconds: 40),
+      () => getAllGenre(),
+    );
     searchController = TextEditingController();
     super.onInit();
   }
