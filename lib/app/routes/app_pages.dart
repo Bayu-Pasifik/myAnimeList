@@ -16,6 +16,8 @@ import '../modules/Manga_Character/bindings/manga_character_binding.dart';
 import '../modules/Manga_Character/views/manga_character_view.dart';
 import '../modules/Top_Anime/bindings/top_anime_binding.dart';
 import '../modules/Top_Anime/views/top_anime_view.dart';
+import '../modules/Top_Manga/bindings/top_manga_binding.dart';
+import '../modules/Top_Manga/views/top_manga_view.dart';
 import '../modules/animeTest/bindings/anime_test_binding.dart';
 import '../modules/animeTest/views/anime_test_view.dart';
 import '../modules/detailAnime/bindings/detail_anime_binding.dart';
@@ -89,6 +91,11 @@ class AppPages {
       name: _Paths.DETAIL_MANGA,
       page: () => const DetailMangaView(),
       binding: DetailMangaBinding(),
+    ),
+    GetPage(
+      name: _Paths.TOP_MANGA,
+      page: () => const TopMangaView(),
+      binding: TopMangaBinding(),
     ),
   ];
 }

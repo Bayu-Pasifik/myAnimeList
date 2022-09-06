@@ -92,7 +92,7 @@ class HomeMangaView extends GetView<HomeMangaController> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(Routes.DETAIL_ANIME,
+                                      Get.toNamed(Routes.DETAIL_MANGA,
                                           arguments: mangas);
                                     },
                                     child: Column(
@@ -183,7 +183,7 @@ class HomeMangaView extends GetView<HomeMangaController> {
     ];
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Manga Page'),
+          // title: const Text('Manga Page'),
           centerTitle: true,
           elevation: 0,
         ),

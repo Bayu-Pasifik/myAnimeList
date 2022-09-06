@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import '../controllers/detail_manga_controller.dart';
 
@@ -49,13 +50,16 @@ class DetailMangaView extends GetView<DetailMangaController> {
                   Positioned(
                     top: Get.mediaQuery.size.height / 4,
                     left: Get.mediaQuery.size.height / 5,
-                    child: Container(
-                      width: Get.mediaQuery.size.width / 3,
-                      height: Get.mediaQuery.size.height / 4,
-                      color: Colors.green,
-                      child: Image.network(
-                        mangas.images?['jpg']?.imageUrl ?? '',
-                        fit: BoxFit.cover,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Container(
+                        width: Get.mediaQuery.size.width / 3,
+                        height: Get.mediaQuery.size.height / 4,
+                        color: Colors.green,
+                        child: Image.network(
+                          mangas.images?['jpg']?.imageUrl ?? '',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -72,19 +76,36 @@ class DetailMangaView extends GetView<DetailMangaController> {
                           padding: const EdgeInsets.only(left: 10),
                           children: [
                             Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Center(child: Text("${mangas.title}"))),
+                                padding: const EdgeInsets.only(top: 5),
+                                child: Center(
+                                    child: Text(
+                                  "${mangas.title}",
+                                  style: GoogleFonts.robotoSlab(fontSize: 18),
+                                ))),
                             const SizedBox(
                               height: 10,
                             ),
-                            Center(child: Text("( ${mangas.titleJapanese} )")),
+                            Center(
+                                child: Text(
+                              "( ${mangas.titleJapanese} )",
+                              style: GoogleFonts.notoSans(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            )),
                             const SizedBox(
                               height: 10,
                             ),
                             Center(
                                 child: (mangas.authors!.isNotEmpty)
-                                    ? Text("By ${mangas.authors![0].name} ")
-                                    : const Text("By Unknwon ")),
+                                    ? Text(
+                                        "By ${mangas.authors![0].name} ",
+                                        style:
+                                            GoogleFonts.breeSerif(fontSize: 16),
+                                      )
+                                    : Text(
+                                        "By Unknwon ",
+                                        style:
+                                            GoogleFonts.breeSerif(fontSize: 16),
+                                      )),
                             const SizedBox(
                               height: 10,
                             ),
@@ -92,12 +113,31 @@ class DetailMangaView extends GetView<DetailMangaController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 (mangas.chapters != null)
-                                    ? Text("${mangas.chapters} Chapters | ")
-                                    : const Text("Unknown Chapters | "),
+                                    ? Text(
+                                        "${mangas.chapters} Chapters | ",
+                                        style:
+                                            GoogleFonts.squadaOne(fontSize: 15),
+                                      )
+                                    : Text(
+                                        "Unknown Chapters | ",
+                                        style:
+                                            GoogleFonts.squadaOne(fontSize: 15),
+                                      ),
                                 (mangas.volumes != null)
-                                    ? Text("${mangas.volumes} Volumes | ")
-                                    : const Text("Unknown Volumes | "),
-                                Text("${mangas.status}"),
+                                    ? Text(
+                                        "${mangas.volumes} Volumes | ",
+                                        style:
+                                            GoogleFonts.squadaOne(fontSize: 15),
+                                      )
+                                    : Text(
+                                        "Unknown Volumes | ",
+                                        style:
+                                            GoogleFonts.squadaOne(fontSize: 15),
+                                      ),
+                                Text(
+                                  "${mangas.status}",
+                                  style: GoogleFonts.squadaOne(fontSize: 15),
+                                ),
                               ],
                             ),
                             const SizedBox(
@@ -106,19 +146,21 @@ class DetailMangaView extends GetView<DetailMangaController> {
                             ExpandablePanel(
                               header: Text(
                                 "Synopsis",
-                                style: TextStyle(
-                                    color: Colors.blue[400],
-                                    fontWeight: FontWeight.bold,
-                                    shadows: const [BoxShadow(blurRadius: 1)]),
+                                style: GoogleFonts.squadaOne(
+                                    fontSize: 16, color: Colors.blue[400]),
                               ),
                               collapsed: Text(
                                 "${mangas.synopsis}",
+                                style: GoogleFonts.kurale(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal),
                                 softWrap: true,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
                               expanded: Text(
                                 "${mangas.synopsis}",
+                                style: GoogleFonts.kurale(fontSize: 16),
                                 softWrap: true,
                               ),
                             ),

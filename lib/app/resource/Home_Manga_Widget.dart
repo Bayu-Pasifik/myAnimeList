@@ -27,7 +27,7 @@ class HomeMangaWidget extends StatelessWidget {
                 ),
                 TextButton(
                     onPressed: () {
-                      Get.toNamed(Routes.TOP_ANIME);
+                      Get.toNamed(Routes.TOP_MANGA);
                     },
                     child: Text(
                       "Load More",
@@ -64,7 +64,7 @@ class HomeMangaWidget extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(8),
                                   child: GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(Routes.DETAIL_ANIME,
+                                      Get.toNamed(Routes.DETAIL_MANGA,
                                           arguments: c.listMangaManga[0]);
                                     },
                                     child: Container(
@@ -125,7 +125,7 @@ class HomeMangaWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.DETAIL_ANIME,
+                                Get.toNamed(Routes.DETAIL_MANGA,
                                     arguments: c.listMangaManga[1]);
                               },
                               child: Container(
@@ -183,7 +183,7 @@ class HomeMangaWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.DETAIL_ANIME,
+                                Get.toNamed(Routes.DETAIL_MANGA,
                                     arguments: c.listMangaManga[2]);
                               },
                               child: Container(
@@ -241,7 +241,7 @@ class HomeMangaWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.DETAIL_ANIME,
+                                Get.toNamed(Routes.DETAIL_MANGA,
                                     arguments: c.listMangaManga[3]);
                               },
                               child: Container(
@@ -299,12 +299,12 @@ class HomeMangaWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.DETAIL_ANIME,
+                                Get.toNamed(Routes.DETAIL_MANGA,
                                     arguments: c.listMangaManga[4]);
                               },
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                  Get.toNamed(Routes.DETAIL_MANGA,
                                       arguments: c.listMangaManga[4]);
                                 },
                                 child: Container(
@@ -363,7 +363,7 @@ class HomeMangaWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.DETAIL_ANIME,
+                                Get.toNamed(Routes.DETAIL_MANGA,
                                     arguments: c.listMangaManga[5]);
                               },
                               child: Container(
@@ -419,7 +419,7 @@ class HomeMangaWidget extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed(Routes.DETAIL_ANIME,
+                              Get.toNamed(Routes.DETAIL_MANGA,
                                   arguments: c.listMangaManga[6]);
                             },
                             child: ClipRRect(
@@ -479,7 +479,7 @@ class HomeMangaWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.DETAIL_ANIME,
+                                Get.toNamed(Routes.DETAIL_MANGA,
                                     arguments: c.listMangaManga[7]);
                               },
                               child: Container(
@@ -535,7 +535,7 @@ class HomeMangaWidget extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed(Routes.DETAIL_ANIME,
+                              Get.toNamed(Routes.DETAIL_MANGA,
                                   arguments: c.listMangaManga[8]);
                             },
                             child: Container(
@@ -592,7 +592,7 @@ class HomeMangaWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.DETAIL_ANIME,
+                                Get.toNamed(Routes.DETAIL_MANGA,
                                     arguments: c.listMangaManga[9]);
                               },
                               child: Container(
@@ -750,7 +750,7 @@ class HomeMangaWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                  Get.toNamed(Routes.DETAIL_MANGA,
                                       arguments: c.listReqManga[0]);
                                 },
                                 child: SizedBox(
@@ -783,7 +783,7 @@ class HomeMangaWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                  Get.toNamed(Routes.DETAIL_MANGA,
                                       arguments: c.listReqManga[1]);
                                 },
                                 child: SizedBox(
@@ -816,7 +816,7 @@ class HomeMangaWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                  Get.toNamed(Routes.DETAIL_MANGA,
                                       arguments: c.listReqManga[2]);
                                 },
                                 child: SizedBox(
@@ -849,7 +849,7 @@ class HomeMangaWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                  Get.toNamed(Routes.DETAIL_MANGA,
                                       arguments: c.listReqManga[3]);
                                 },
                                 child: SizedBox(
@@ -882,7 +882,7 @@ class HomeMangaWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                  Get.toNamed(Routes.DETAIL_MANGA,
                                       arguments: c.listReqManga[4]);
                                 },
                                 child: SizedBox(
@@ -915,7 +915,7 @@ class HomeMangaWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                  Get.toNamed(Routes.DETAIL_MANGA,
                                       arguments: c.listReqManga[5]);
                                 },
                                 child: SizedBox(
@@ -948,7 +948,7 @@ class HomeMangaWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                  Get.toNamed(Routes.DETAIL_MANGA,
                                       arguments: c.listReqManga[6]);
                                 },
                                 child: SizedBox(
@@ -981,7 +981,7 @@ class HomeMangaWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                  Get.toNamed(Routes.DETAIL_MANGA,
                                       arguments: c.listReqManga[7]);
                                 },
                                 child: SizedBox(
@@ -1014,7 +1014,7 @@ class HomeMangaWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                  Get.toNamed(Routes.DETAIL_MANGA,
                                       arguments: c.listReqManga[8]);
                                 },
                                 child: SizedBox(
@@ -1047,7 +1047,7 @@ class HomeMangaWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_ANIME,
+                                  Get.toNamed(Routes.DETAIL_MANGA,
                                       arguments: c.listReqManga[9]);
                                 },
                                 child: SizedBox(
