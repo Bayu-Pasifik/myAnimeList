@@ -1216,22 +1216,26 @@ class HomeMangaWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listManhua[2].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listManhua.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listManhua[2].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "${c.listManhua[2].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
-                              ),
+                              child: (c.listManhua.isNotEmpty)
+                                  ? Text(
+                                      "${c.listManhua[2].title}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    )
+                                  : const CircularProgressIndicator(),
                             ),
                           ],
                         ),
@@ -1249,22 +1253,26 @@ class HomeMangaWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listManhua[3].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listManhua.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listManhua[3].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "${c.listManhua[3].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
-                              ),
+                              child: (c.listManhua.isNotEmpty)
+                                  ? Text(
+                                      "${c.listManhua[3].title}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    )
+                                  : const CircularProgressIndicator(),
                             ),
                           ],
                         ),
@@ -1282,22 +1290,26 @@ class HomeMangaWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listManhua[4].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listManhua.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listManhua[4].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "${c.listManhua[4].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
-                              ),
+                              child: (c.listManhua.isNotEmpty)
+                                  ? Text(
+                                      "${c.listManhua[4].title}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    )
+                                  : const CircularProgressIndicator(),
                             ),
                           ],
                         ),
@@ -1315,22 +1327,26 @@ class HomeMangaWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listManhua[5].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listManhua.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listManhua[5].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "${c.listManhua[5].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
-                              ),
+                              child: (c.listManhua.isNotEmpty)
+                                  ? Text(
+                                      "${c.listManhua[5].title}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    )
+                                  : const CircularProgressIndicator(),
                             ),
                           ],
                         ),
@@ -1348,22 +1364,26 @@ class HomeMangaWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listManhua[6].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listManhua.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listManhua[6].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "${c.listManhua[6].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
-                              ),
+                              child: (c.listManhua.isNotEmpty)
+                                  ? Text(
+                                      "${c.listManhua[6].title}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    )
+                                  : const CircularProgressIndicator(),
                             ),
                           ],
                         ),
@@ -1381,22 +1401,26 @@ class HomeMangaWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listManhua[7].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listManhua.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listManhua[7].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "${c.listManhua[7].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
-                              ),
+                              child: (c.listManhua.isNotEmpty)
+                                  ? Text(
+                                      "${c.listManhua[7].title}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    )
+                                  : const CircularProgressIndicator(),
                             ),
                           ],
                         ),
@@ -1414,22 +1438,26 @@ class HomeMangaWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listManhua[8].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listManhua.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listManhua[8].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "${c.listManhua[8].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
-                              ),
+                              child: (c.listManhua.isNotEmpty)
+                                  ? Text(
+                                      "${c.listManhua[8].title}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    )
+                                  : const CircularProgressIndicator(),
                             ),
                           ],
                         ),
@@ -1447,22 +1475,26 @@ class HomeMangaWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listManhua[9].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listManhua.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listManhua[9].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "${c.listManhua[9].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
-                              ),
+                              child: (c.listManhua.isNotEmpty)
+                                  ? Text(
+                                      "${c.listManhua[9].title}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    )
+                                  : const CircularProgressIndicator(),
                             ),
                           ],
                         ),

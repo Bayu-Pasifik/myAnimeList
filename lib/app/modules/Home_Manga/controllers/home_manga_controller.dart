@@ -877,7 +877,7 @@ class HomeMangaController extends GetxController {
       () => getAllGenre(),
     );
     manhua = Future.delayed(
-      const Duration(seconds: 2, milliseconds: 30),
+      const Duration(seconds: 3, milliseconds: 30),
       () => getmanhua(),
     );
     searchController = TextEditingController();
