@@ -700,7 +700,7 @@ class HomeMangaWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
-                  "Recommended Manga",
+                  "All Manhwa",
                   style: TextStyle(
                       color: Colors.blue[900],
                       fontWeight: FontWeight.bold,
@@ -709,7 +709,7 @@ class HomeMangaWidget extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    Get.toNamed(Routes.ANIME_AIRING);
+                    Get.toNamed(Routes.MANHWA_PAGE);
                   },
                   child: Text(
                     "Load More",
@@ -721,14 +721,14 @@ class HomeMangaWidget extends StatelessWidget {
             ],
           ),
           FutureBuilder<List?>(
-            future: controller.mangareq,
+            future: controller.manhwa,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
-              if (controller.listReqManga.isEmpty) {
+              if (controller.listManhwa.isEmpty) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
@@ -751,12 +751,12 @@ class HomeMangaWidget extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_MANGA,
-                                      arguments: c.listReqManga[0]);
+                                      arguments: c.listManhwa[0]);
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
                                   child: Image.network(
-                                    "${c.listReqManga[0].entry[0].images['jpg'].imageUrl}",
+                                    "${c.listManhwa[0].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -765,7 +765,7 @@ class HomeMangaWidget extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listReqManga[0].entry[0].title}",
+                                "${c.listManhwa[0].title}",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -784,12 +784,12 @@ class HomeMangaWidget extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_MANGA,
-                                      arguments: c.listReqManga[1]);
+                                      arguments: c.listManhwa[1]);
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
                                   child: Image.network(
-                                    "${c.listReqManga[1].entry[0].images['jpg'].imageUrl}",
+                                    "${c.listManhwa[1].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -798,7 +798,7 @@ class HomeMangaWidget extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listReqManga[1].entry[0].title}",
+                                "${c.listManhwa[1].title}",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -817,12 +817,12 @@ class HomeMangaWidget extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_MANGA,
-                                      arguments: c.listReqManga[2]);
+                                      arguments: c.listManhwa[2]);
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
                                   child: Image.network(
-                                    "${c.listReqManga[2].entry[1].images['jpg'].imageUrl}",
+                                    "${c.listManhwa[2].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -831,7 +831,7 @@ class HomeMangaWidget extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listReqManga[2].entry[1].title}",
+                                "${c.listManhwa[2].title}",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -850,12 +850,12 @@ class HomeMangaWidget extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_MANGA,
-                                      arguments: c.listReqManga[3]);
+                                      arguments: c.listManhwa[3]);
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
                                   child: Image.network(
-                                    "${c.listReqManga[3].entry[0].images['jpg'].imageUrl}",
+                                    "${c.listManhwa[3].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -864,7 +864,7 @@ class HomeMangaWidget extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listReqManga[3].entry[0].title}",
+                                "${c.listManhwa[3].title}",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -883,12 +883,12 @@ class HomeMangaWidget extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_MANGA,
-                                      arguments: c.listReqManga[4]);
+                                      arguments: c.listManhwa[4]);
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
                                   child: Image.network(
-                                    "${c.listReqManga[4].entry[1].images['jpg'].imageUrl}",
+                                    "${c.listManhwa[4].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -897,7 +897,7 @@ class HomeMangaWidget extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listReqManga[4].entry[1].title}",
+                                "${c.listManhwa[4].title}",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -916,12 +916,12 @@ class HomeMangaWidget extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_MANGA,
-                                      arguments: c.listReqManga[5]);
+                                      arguments: c.listManhwa[5]);
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
                                   child: Image.network(
-                                    "${c.listReqManga[5].entry[0].images['jpg'].imageUrl}",
+                                    "${c.listManhwa[5].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -930,7 +930,7 @@ class HomeMangaWidget extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listReqManga[5].entry[0].title}",
+                                "${c.listManhwa[5].title}",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -949,12 +949,12 @@ class HomeMangaWidget extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_MANGA,
-                                      arguments: c.listReqManga[6]);
+                                      arguments: c.listManhwa[6]);
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
                                   child: Image.network(
-                                    "${c.listReqManga[6].entry[0].images['jpg'].imageUrl}",
+                                    "${c.listManhwa[6].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -963,7 +963,7 @@ class HomeMangaWidget extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listReqManga[6].entry[0].title}",
+                                "${c.listManhwa[6].title}",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -982,12 +982,12 @@ class HomeMangaWidget extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_MANGA,
-                                      arguments: c.listReqManga[7]);
+                                      arguments: c.listManhwa[7]);
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
                                   child: Image.network(
-                                    "${c.listReqManga[7].entry[0].images['jpg'].imageUrl}",
+                                    "${c.listManhwa[7].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -996,7 +996,7 @@ class HomeMangaWidget extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listReqManga[7].entry[0].title}",
+                                "${c.listManhwa[7].title}",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -1015,12 +1015,12 @@ class HomeMangaWidget extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_MANGA,
-                                      arguments: c.listReqManga[8]);
+                                      arguments: c.listManhwa[8]);
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
                                   child: Image.network(
-                                    "${c.listReqManga[8].entry[0].images['jpg'].imageUrl}",
+                                    "${c.listManhwa[8].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -1029,7 +1029,7 @@ class HomeMangaWidget extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listReqManga[8].entry[0].title}",
+                                "${c.listManhwa[8].title}",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -1048,12 +1048,12 @@ class HomeMangaWidget extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_MANGA,
-                                      arguments: c.listReqManga[9]);
+                                      arguments: c.listManhwa[9]);
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
                                   child: Image.network(
-                                    "${c.listReqManga[9].entry[0].images['jpg'].imageUrl}",
+                                    "${c.listManhwa[9].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -1062,7 +1062,394 @@ class HomeMangaWidget extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Text(
-                                "${c.listReqManga[9].entry[0].title}",
+                                "${c.listManhwa[9].title}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [BoxShadow(blurRadius: 1)]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 5),
+                child: Text(
+                  "All Manhua",
+                  style: TextStyle(
+                      color: Colors.blue[900],
+                      fontWeight: FontWeight.bold,
+                      shadows: const [BoxShadow(blurRadius: 1)]),
+                ),
+              ),
+              TextButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.MANHUA_PAGE);
+                  },
+                  child: Text(
+                    "Load More",
+                    style: TextStyle(
+                        color: Colors.blue[900],
+                        fontWeight: FontWeight.bold,
+                        shadows: const [BoxShadow(blurRadius: 1)]),
+                  ))
+            ],
+          ),
+          FutureBuilder<List?>(
+            future: controller.manhua,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (controller.listManhwa.isEmpty) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return GetBuilder<HomeMangaController>(
+                builder: (c) {
+                  return CarouselSlider(
+                    options: CarouselOptions(
+                      aspectRatio: 2.5,
+                      scrollDirection: Axis.horizontal,
+                      enableInfiniteScroll: true,
+                    ),
+                    items: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_MANGA,
+                                      arguments: c.listManhua[0]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listManhua[0].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                "${c.listManhua[0].title}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [BoxShadow(blurRadius: 1)]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_MANGA,
+                                      arguments: c.listManhua[1]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listManhua[1].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                "${c.listManhua[1].title}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [BoxShadow(blurRadius: 1)]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_MANGA,
+                                      arguments: c.listManhua[2]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listManhua[2].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                "${c.listManhua[2].title}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [BoxShadow(blurRadius: 1)]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_MANGA,
+                                      arguments: c.listManhua[3]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listManhua[3].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                "${c.listManhua[3].title}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [BoxShadow(blurRadius: 1)]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_MANGA,
+                                      arguments: c.listManhua[4]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listManhua[4].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                "${c.listManhua[4].title}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [BoxShadow(blurRadius: 1)]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_MANGA,
+                                      arguments: c.listManhua[5]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listManhua[5].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                "${c.listManhua[5].title}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [BoxShadow(blurRadius: 1)]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_MANGA,
+                                      arguments: c.listManhua[6]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listManhua[6].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                "${c.listManhua[6].title}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [BoxShadow(blurRadius: 1)]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_MANGA,
+                                      arguments: c.listManhua[7]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listManhua[7].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                "${c.listManhua[7].title}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [BoxShadow(blurRadius: 1)]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_MANGA,
+                                      arguments: c.listManhua[8]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listManhua[8].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                "${c.listManhua[8].title}",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [BoxShadow(blurRadius: 1)]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_MANGA,
+                                      arguments: c.listManhua[9]);
+                                },
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.height,
+                                  child: Image.network(
+                                    "${c.listManhua[9].images['jpg'].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                "${c.listManhua[9].title}",
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,

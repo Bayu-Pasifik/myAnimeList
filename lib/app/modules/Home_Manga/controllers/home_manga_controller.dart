@@ -17,9 +17,11 @@ class HomeMangaController extends GetxController {
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSearch = {};
   late Future<List?> mangaTop;
-  late Future<List?> mangareq;
+  late Future<List?> manhwa;
+  late Future<List?> manhua;
   List<dynamic> listMangaManga = [];
-  List<dynamic> listReqManga = [];
+  List<dynamic> listManhwa = [];
+  List<dynamic> listManhua = [];
   List<dynamic> resultManga = [];
   RefreshController refreshControllerSearch =
       RefreshController(initialRefresh: true);
@@ -296,19 +298,37 @@ class HomeMangaController extends GetxController {
     }
   }
 
-  // ! fungsi untuk recommend manga
+  // ! fungsi untuk manhwa
   Future<List?> reqManga() async {
-    Uri url = Uri.parse('https://api.jikan.moe/v4/recommendations/manga');
+    Uri url = Uri.parse('https://api.jikan.moe/v4/manga?type=manhwa');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
       var tempMangaList =
-          data["data"].map((e) => RecomendManga.fromJson(e)).toList();
+          data["data"].map((e) => manga.Manga.fromJson(e)).toList();
       page = data["pagination"];
       // print(tempMangaList[0]);
-      listReqManga.addAll(tempMangaList);
+      listManhwa.addAll(tempMangaList);
       update();
-      return listReqManga;
+      return listManhwa;
+    } else {
+      return null;
+    }
+  }
+
+  // ! fungsi untuk manhua
+  Future<List?> getmanhua() async {
+    Uri url = Uri.parse('https://api.jikan.moe/v4/manga?type=manhua');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      var tempMangaList =
+          data["data"].map((e) => manga.Manga.fromJson(e)).toList();
+      page = data["pagination"];
+      // print(tempMangaList[0]);
+      listManhua.addAll(tempMangaList);
+      update();
+      return listManhua;
     } else {
       return null;
     }
@@ -851,11 +871,15 @@ class HomeMangaController extends GetxController {
       const Duration(seconds: 1),
       () => topManga(),
     );
-    mangareq = Future.delayed(
+    manhwa = Future.delayed(
         const Duration(seconds: 1, milliseconds: 20), () => reqManga());
     genreList = Future.delayed(
       const Duration(seconds: 1, milliseconds: 40),
       () => getAllGenre(),
+    );
+    manhua = Future.delayed(
+      const Duration(seconds: 2, microseconds: 10),
+      () => getmanhua(),
     );
     searchController = TextEditingController();
     super.onInit();

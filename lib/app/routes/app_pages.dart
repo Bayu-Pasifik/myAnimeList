@@ -14,6 +14,10 @@ import '../modules/Home_Manga/bindings/home_manga_binding.dart';
 import '../modules/Home_Manga/views/home_manga_view.dart';
 import '../modules/Manga_Character/bindings/manga_character_binding.dart';
 import '../modules/Manga_Character/views/manga_character_view.dart';
+import '../modules/Manhua_Page/bindings/manhua_page_binding.dart';
+import '../modules/Manhua_Page/views/manhua_page_view.dart';
+import '../modules/Manhwa_Page/bindings/manhwa_page_binding.dart';
+import '../modules/Manhwa_Page/views/manhwa_page_view.dart';
 import '../modules/Top_Anime/bindings/top_anime_binding.dart';
 import '../modules/Top_Anime/views/top_anime_view.dart';
 import '../modules/Top_Manga/bindings/top_manga_binding.dart';
@@ -96,6 +100,16 @@ class AppPages {
       name: _Paths.TOP_MANGA,
       page: () => const TopMangaView(),
       binding: TopMangaBinding(),
+    ),
+    GetPage(
+      name: _Paths.MANHWA_PAGE,
+      page: () => const ManhwaPageView(),
+      binding: ManhwaPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.MANHUA_PAGE,
+      page: () => const ManhuaPageView(),
+      binding: ManhuaPageBinding(),
     ),
   ];
 }
