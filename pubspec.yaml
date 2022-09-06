@@ -17,6 +17,7 @@ dependencies:
   expandable: 5.0.1
   lottie: 1.4.2
   google_fonts: 3.0.1
+  pie_chart: 5.3.2
   flutter: 
     sdk: flutter
 

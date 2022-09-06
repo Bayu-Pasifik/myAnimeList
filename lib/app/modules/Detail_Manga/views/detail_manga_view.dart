@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
+import 'package:pie_chart/pie_chart.dart';
 import '../controllers/detail_manga_controller.dart';
 
 class DetailMangaView extends GetView<DetailMangaController> {
@@ -17,7 +18,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
           elevation: 0,
           centerTitle: true,
         ),
-        body: (mangas.images?['jpg']!.largeImageUrl!.length != 0 ||
+        body: (mangas.images != {} ||
                 mangas.title != null ||
                 mangas.titleJapanese != null ||
                 mangas.synopsis != null ||
@@ -141,6 +142,36 @@ class DetailMangaView extends GetView<DetailMangaController> {
                               ],
                             ),
                             const SizedBox(
+                              height: 10,
+                            ),
+                            Center(
+                                child: Text(
+                              "Genre : ",
+                              style: GoogleFonts.squadaOne(fontSize: 15),
+                            )),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                for (var items in mangas.genres!)
+                                  (mangas.genres!.isNotEmpty)
+                                      ? Center(
+                                          child: Text(
+                                            "${items.name!} | ",
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.squadaOne(),
+                                          ),
+                                        )
+                                      : Text(
+                                          "Unknown",
+                                          style: GoogleFonts.squadaOne(),
+                                        ),
+                              ],
+                            ),
+                            const SizedBox(
                               height: 20,
                             ),
                             ExpandablePanel(
@@ -169,6 +200,42 @@ class DetailMangaView extends GetView<DetailMangaController> {
                             )
                           ],
                         )),
+                  ),
+                  Positioned(
+                    top: Get.mediaQuery.size.height / 2.7,
+                    left: Get.mediaQuery.size.height / 2.5,
+                    child: Container(
+                      width: Get.mediaQuery.size.width / 4,
+                      height: Get.mediaQuery.size.height / 8,
+                      // color: Colors.red,
+                      child: Flex(
+                        direction: Axis.horizontal,
+                        children: [
+                          Expanded(
+                            child: PieChart(
+                              centerText: " ⭐ ${mangas.score ?? 0}",
+                              dataMap: {"score": mangas.score ?? 0},
+                              chartType: ChartType.ring,
+                              baseChartColor: Colors.grey[300]!,
+                              colorList: [Colors.blue[300]!],
+                              animationDuration:
+                                  const Duration(seconds: 1, milliseconds: 30),
+                              initialAngleInDegree: 0,
+                              totalValue: 10,
+                              ringStrokeWidth: 10,
+                              legendOptions:
+                                  const LegendOptions(showLegends: false),
+                              chartValuesOptions: const ChartValuesOptions(
+                                  decimalPlaces: 1,
+                                  showChartValues: false,
+                                  showChartValuesOutside: true,
+                                  chartValueBackgroundColor:
+                                      Color.fromARGB(0, 255, 255, 255)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   )
                 ],
               )
