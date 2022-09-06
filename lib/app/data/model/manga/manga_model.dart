@@ -101,10 +101,12 @@ class Manga {
         favorites: json["favorites"],
         synopsis: json["synopsis"],
         background: json["background"],
-        authors:
-            List<Author>.from(json["authors"].map((x) => Author.fromJson(x))),
-        serializations: List<Author>.from(
-            json["serializations"].map((x) => Author.fromJson(x))),
+        authors: List<Author>.from(json["authors"] == null
+            ? {}
+            : json["authors"].map((x) => Author.fromJson(x))),
+        serializations: List<Author>.from(json["serializations"] == null
+            ? {}
+            : json["serializations"].map((x) => Author.fromJson(x))),
         genres:
             List<Author>.from(json["genres"].map((x) => Author.fromJson(x))),
         explicitGenres:
@@ -224,7 +226,7 @@ class Published {
   factory Published.fromJson(Map<String, dynamic> json) => Published(
         from: json["from"] ?? "0",
         to: json["to"],
-        prop: Prop.fromJson(json["prop"]),
+        prop: Prop.fromJson(json["prop"] ?? {}),
         string: json["string"],
       );
 
@@ -246,8 +248,8 @@ class Prop {
   From? to;
 
   factory Prop.fromJson(Map<String, dynamic> json) => Prop(
-        from: From.fromJson(json["from"]),
-        to: From.fromJson(json["to"]),
+        from: From.fromJson(json["from"] ?? {}),
+        to: From.fromJson(json["to"] ?? {}),
       );
 
   Map<String, dynamic> toJson() => {

@@ -168,7 +168,7 @@ class HomeMangaView extends GetView<HomeMangaController> {
                 )),
                 title: Text("${genre.name}"),
                 onTap: () {
-                  Get.toNamed(Routes.GENRE_ANIME_RESULT, arguments: genre);
+                  Get.toNamed(Routes.GENRE_MANGA_PAGE, arguments: genre);
                 },
               );
             },
