@@ -1142,22 +1142,26 @@ class HomeMangaWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listManhua[0].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listManhua.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listManhua[0].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "${c.listManhua[0].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
-                              ),
+                              child: (c.listManhua.isNotEmpty)
+                                  ? Text(
+                                      "${c.listManhua[0].title}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    )
+                                  : const CircularProgressIndicator(),
                             ),
                           ],
                         ),
@@ -1175,22 +1179,26 @@ class HomeMangaWidget extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.height,
-                                  child: Image.network(
-                                    "${c.listManhua[1].images['jpg'].imageUrl}",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: (c.listManhua.isNotEmpty)
+                                      ? Image.network(
+                                          "${c.listManhua[1].images['jpg'].imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Text(
-                                "${c.listManhua[1].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
-                              ),
+                              child: (c.listManhua.isNotEmpty)
+                                  ? Text(
+                                      "${c.listManhua[1].title}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    )
+                                  : const CircularProgressIndicator(),
                             ),
                           ],
                         ),

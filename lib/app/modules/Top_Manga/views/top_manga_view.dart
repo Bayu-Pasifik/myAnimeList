@@ -13,7 +13,7 @@ class TopMangaView extends GetView<TopMangaController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('TopMangaView'),
+          title: const Text('Top Manga'),
           centerTitle: true,
         ),
         body: GetBuilder<TopMangaController>(
@@ -50,7 +50,7 @@ class TopMangaView extends GetView<TopMangaController> {
                     manga.Manga mangas = c.listTopManga[index];
                     return GestureDetector(
                       onTap: () {
-                        debugPrint(c.listTopManga.toString());
+                        // debugPrint(c.listTopManga.toString());
                         Get.toNamed(Routes.DETAIL_MANGA, arguments: mangas);
                       },
                       child: ClipRRect(
