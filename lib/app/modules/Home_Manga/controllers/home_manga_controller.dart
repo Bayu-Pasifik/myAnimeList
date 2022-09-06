@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
-import 'package:my_anime_list/app/data/model/manga/recomend_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 
