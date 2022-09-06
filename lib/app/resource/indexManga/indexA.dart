@@ -41,7 +41,7 @@ GetBuilder<HomeMangaController> mangaByIndexA(HomeMangaController controller) {
               return GestureDetector(
                 onTap: () {
                   // debugPrint(c.animeIndexA.toString());
-                  Get.toNamed(Routes.DETAIL_ANIME, arguments: mangas);
+                  Get.toNamed(Routes.DETAIL_MANGA, arguments: mangas);
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
@@ -74,7 +74,8 @@ GetBuilder<HomeMangaController> mangaByIndexA(HomeMangaController controller) {
                           ),
                           Text(
                             "${mangas.status}",
-                            style: const TextStyle(fontSize: 20, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white),
                           )
                         ],
                       ),

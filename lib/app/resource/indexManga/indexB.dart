@@ -20,7 +20,7 @@ GetBuilder<HomeMangaController> mangaByIndexB(HomeMangaController controller) {
             builder: (context, mode) {
               if (mode == LoadStatus.loading) {
                 return LoadingAnimationWidget.inkDrop(
-                    color: Color.fromARGB(255, 6, 98, 173), size: 50);
+                    color: const Color.fromARGB(255, 6, 98, 173), size: 50);
               }
               return const SizedBox(
                 height: 5,
