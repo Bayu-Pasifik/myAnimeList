@@ -24,7 +24,8 @@ class HomeMangaView extends GetView<HomeMangaController> {
             child: Column(
               children: [
                 TextField(
-                  autofocus: false,
+                  // autofocus: c.myFocusNode,
+                  focusNode: c.myFocusNode,
                   controller: c.searchController,
                   decoration: const InputDecoration(
                       labelText: "Search",
@@ -38,6 +39,7 @@ class HomeMangaView extends GetView<HomeMangaController> {
                   alignment: Alignment.bottomRight,
                   child: ElevatedButton(
                       onPressed: (() {
+                        c.myFocusNode.requestFocus();
                         c.resultManga.clear();
                         c.refreshSearch(c.searchController.text);
                       }),

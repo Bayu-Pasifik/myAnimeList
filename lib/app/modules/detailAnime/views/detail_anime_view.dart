@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
 import 'package:my_anime_list/app/resource/video_item.dart';
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
@@ -33,18 +34,21 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
               delegate: SliverChildListDelegate([
             // ! title
             Padding(
-              padding: const EdgeInsets.only(top: 5, left: 3),
+              padding: const EdgeInsets.only(top: 10, left: 10),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
                   anime.title?.toUpperCase() ?? 'null',
-                  style: const TextStyle(
+                  style: GoogleFonts.squadaOne(
                       // backgroundColor: Colors.grey[100],
                       color: Colors.blue,
                       fontWeight: FontWeight.bold,
-                      shadows: [BoxShadow(blurRadius: 0.5)]),
+                      fontSize: 18),
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 5,
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -120,66 +124,73 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                           children: [
                             Text(
                               anime.type ?? '?',
-                              style: TextStyle(
-                                  color: Colors.grey[900],
-                                  fontWeight: FontWeight.bold),
+                              style: GoogleFonts.squadaOne(
+                                  fontSize: 16, fontWeight: FontWeight.normal),
                             ),
                             const SizedBox(
                               width: 5,
                             ),
                             Text(
                               "(${anime.episodes ?? '?'} Episode)",
-                              style: TextStyle(
-                                  color: Colors.grey[900],
-                                  fontWeight: FontWeight.bold),
+                              style: GoogleFonts.squadaOne(
+                                  fontSize: 16, fontWeight: FontWeight.normal),
                             ),
                           ],
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text("Aired"),
+                        Text(
+                          "Aired",
+                          style: GoogleFonts.squadaOne(fontSize: 16),
+                        ),
                         Row(
                           children: [
-                            Text(anime.season ?? '?'),
+                            Text(
+                              anime.season ?? '?',
+                              style: GoogleFonts.breeSerif(fontSize: 15),
+                            ),
                             const SizedBox(
                               width: 5,
                             ),
-                            Text("${anime.year ?? '?'}"),
+                            Text(
+                              "${anime.year ?? '?'}",
+                              style: GoogleFonts.breeSerif(fontSize: 15),
+                            ),
                           ],
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         Text("Studio",
-                            style: TextStyle(
-                                color: Colors.grey[900],
-                                fontWeight: FontWeight.bold)),
+                            style: GoogleFonts.squadaOne(fontSize: 16)),
                         (anime.studios!.isNotEmpty)
-                            ? Text("${anime.studios?[0].name}")
-                            : const Text("No Information"),
+                            ? Text(
+                                "${anime.studios?[0].name}",
+                                style: GoogleFonts.breeSerif(),
+                              )
+                            : Text("No Information",
+                                style: GoogleFonts.breeSerif()),
                         const SizedBox(
                           height: 10,
                         ),
                         Text(
                           "Status",
-                          style: TextStyle(
-                              color: Colors.grey[900],
-                              fontWeight: FontWeight.bold),
+                          style: GoogleFonts.squadaOne(fontSize: 16),
                         ),
-                        Text(anime.status ?? 'No information'),
+                        Text(anime.status ?? 'No information',
+                            style: GoogleFonts.breeSerif()),
                         const SizedBox(
                           height: 10,
                         ),
 
                         Text(
                           "Genre",
-                          style: TextStyle(
-                              color: Colors.grey[900],
-                              fontWeight: FontWeight.bold),
+                          style: GoogleFonts.squadaOne(fontSize: 16),
                         ),
                         for (var genre in anime.genres!)
-                          Text("${genre.name ?? 'No Informnation'} "),
+                          Text("${genre.name ?? 'No Informnation'} ",
+                              style: GoogleFonts.breeSerif()),
                       ],
                     ),
                   ),
@@ -192,36 +203,39 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
             Padding(
               padding: const EdgeInsets.all(5),
               child: ExpandablePanel(
-                header: const Text(
+                header: Text(
                   "Synopsis",
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      shadows: [BoxShadow(blurRadius: 0.5)]),
+                  style:
+                      GoogleFonts.squadaOne(color: Colors.blue, fontSize: 20),
                 ),
                 collapsed: Text(
                   "${anime.synopsis}",
                   softWrap: true,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.kurale(
+                      fontSize: 16, fontWeight: FontWeight.normal),
                 ),
                 expanded: Text(
                   "${anime.synopsis}",
                   softWrap: true,
+                  style: GoogleFonts.kurale(
+                      fontSize: 16, fontWeight: FontWeight.normal),
                 ),
               ),
             ),
             const SizedBox(
               height: 10,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 5, bottom: 10),
+            // ! character widget
+            Padding(
+              padding: const EdgeInsets.only(left: 5, bottom: 10),
               child: Text(
                 "Character",
-                style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                    shadows: [BoxShadow(blurRadius: 0.5)]),
+                style: GoogleFonts.squadaOne(
+                  color: Colors.blue,
+                  fontSize: 20,
+                ),
               ),
             ),
             SizedBox(
@@ -285,14 +299,12 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                             ),
                             Text(
                               character.character?.name ?? 'NaN',
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
+                              style: GoogleFonts.breeSerif(fontSize: 16),
                             ),
                             Expanded(
                               child: Text(
                                 "(${character.role ?? 'NaN'})",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                                style: GoogleFonts.breeSerif(fontSize: 16),
                               ),
                             ),
                           ],

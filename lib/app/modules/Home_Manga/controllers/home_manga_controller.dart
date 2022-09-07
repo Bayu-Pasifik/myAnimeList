@@ -8,6 +8,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 
 class HomeMangaController extends GetxController {
+  late FocusNode myFocusNode;
   late TextEditingController searchController;
   CarouselController carouselController = CarouselController();
   Rx<int> selectIndex = 0.obs;
@@ -881,6 +882,7 @@ class HomeMangaController extends GetxController {
       () => getmanhua(),
     );
     searchController = TextEditingController();
+    myFocusNode = FocusNode();
     super.onInit();
   }
 
@@ -890,5 +892,11 @@ class HomeMangaController extends GetxController {
     searchController.dispose();
     resultManga.clear();
     super.onClose();
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    super.dispose();
   }
 }
