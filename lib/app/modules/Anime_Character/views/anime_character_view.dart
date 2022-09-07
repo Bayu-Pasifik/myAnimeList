@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
     as detail;
@@ -20,30 +21,22 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
           // backgroundColor: Colors.transparent,
         ),
         body: FutureBuilder<detail.DetailAnimeCharacter?>(
-          future: controller.getCharacter(character.character?.malId ?? 0),
+          future: controller.getCharacter(character.character!.malId!),
           builder: (context, snapshot) {
-            // if (snapshot.data == null) {
-            //   return const Center(
-            //     child: Text("No data"),
-            //   );
-            // }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
             if (snapshot.hasError) {
               return Center(
                 child: Text(snapshot.error.toString()),
               );
             }
 
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
             return Stack(
               children: [
-                (snapshot.data?.anime?[0].anime?.images?['jpg']
-                            ?.largeImageUrl !=
-                        null)
+                (snapshot.data!.anime!.isNotEmpty)
                     ? Container(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
@@ -51,10 +44,24 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                         child: Image.network(
                           "${snapshot.data?.anime?[0].anime?.images?['jpg']?.largeImageUrl}",
                           fit: BoxFit.cover,
-                        ),
+                        )
+
                         // child: ,
-                      )
-                    : const Center(child: CircularProgressIndicator()),
+                        )
+                    : (snapshot.data!.manga!.isNotEmpty)
+                        ? Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height,
+                            color: Colors.amber,
+                            child: Image.network(
+                              snapshot.data?.manga?[0].manga?.images?['jpg']
+                                      ?.largeImageUrl ??
+                                  'NAN',
+                              fit: BoxFit.cover,
+                            )
+                            // child: ,
+                            )
+                        : const Center(child: CircularProgressIndicator()),
                 Positioned(
                   top: 200,
                   child: ClipRRect(
@@ -66,85 +73,82 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                     ),
                   ),
                 ),
+                // ! center image
                 Positioned(
-                  top: 100,
-                  left: 100,
+                  top: Get.mediaQuery.size.height / 6,
+                  left: Get.mediaQuery.size.width / 3.2,
                   child: ClipRRect(
-                    // borderRadius: BorderRadius.only(
-                    //     topLeft: Radius.circular(10),
-                    //     topRight: Radius.circular(10)),
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
                         width: 150,
                         height: 200,
-                        color: Colors.red,
-                        child: Image.network(
-                          "${snapshot.data!.images!.jpg!.imageUrl}",
-                          fit: BoxFit.cover,
-                        )),
+                        // color: Colors.red,
+                        child: (snapshot.data!.images!.jpg!.imageUrl != null)
+                            ? Image.network(
+                                "${snapshot.data!.images!.jpg!.imageUrl}",
+                                fit: BoxFit.cover,
+                              )
+                            : const CircularProgressIndicator()),
                   ),
                 ),
-                Positioned(
-                    child: Center(
-                  child: Container(
-                    alignment: Alignment.center,
-                    // width: MediaQuery.of(context).size.width,
-                    // height: MediaQuery.of(context).size.height,
-                    width: 200,
-                    height: 200,
-                    // color: Colors.red,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 60),
-                      child: Text("${snapshot.data!.name}"),
-                    ),
-                    // color: Colors.amber,
-                  ),
-                )),
-                Positioned(
-                    child: Center(
-                  child: Container(
-                    alignment: Alignment.bottomCenter,
 
-                    width: 200,
-                    height: 200,
-                    // color: Colors.amber,
-                    child: Padding(
-                        padding: const EdgeInsets.only(bottom: 35),
-                        child: Text("${snapshot.data!.nameKanji}")),
-                    // color: Colors.amber,
-                  ),
-                )),
+                // ! widget for name and description
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.6,
-                  child: SizedBox(
+                  top: MediaQuery.of(context).size.height * 0.48,
+                  bottom: 0.0,
+                  right: 0.0,
+                  left: 0.0,
+                  child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     // color: Colors.amber,
                     child: ListView(
-                      padding: const EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 10, right: 10),
                       children: [
+                        Center(
+                            child: Text(
+                          "${snapshot.data!.name}",
+                          style: GoogleFonts.breeSerif(fontSize: 16),
+                          overflow: TextOverflow.visible,
+                          maxLines: 2,
+                        )),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Center(
+                            child: Text(
+                          "( ${snapshot.data!.nameKanji} )",
+                          style: GoogleFonts.notoSans(fontSize: 16),
+                          overflow: TextOverflow.visible,
+                          maxLines: 2,
+                        )),
+                        const SizedBox(
+                          height: 40,
+                        ),
                         ExpandablePanel(
-                          header: const Text(
-                            "Synopsis",
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                                shadows: [BoxShadow(blurRadius: 0.5)]),
+                          header: Text(
+                            "Description",
+                            style: GoogleFonts.squadaOne(
+                                fontSize: 16, color: Colors.blue[400]),
                           ),
                           collapsed: Text(
                             "${snapshot.data?.about}",
                             softWrap: true,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.kurale(
+                                fontSize: 16, fontWeight: FontWeight.normal),
                           ),
                           expanded: Text(
                             "${snapshot.data?.about}",
+                            style: GoogleFonts.kurale(
+                                fontSize: 16, fontWeight: FontWeight.normal),
                             softWrap: true,
                           ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.8,
-                        ),
+                        // SizedBox(
+                        //   height: MediaQuery.of(context).size.height,
+                        // ),
                       ],
                     ),
                   ),

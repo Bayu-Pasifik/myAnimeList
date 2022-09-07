@@ -1103,6 +1103,11 @@ class HomeWidget extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               }
+              if (controller.listUpcoming.isEmpty) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
               return GetBuilder<HomeController>(
                 builder: (c) {
                   return CarouselSlider(

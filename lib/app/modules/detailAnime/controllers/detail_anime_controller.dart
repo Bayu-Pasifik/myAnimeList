@@ -10,7 +10,7 @@ class DetailAnimeController extends GetxController {
   Rx<String> url = ''.obs;
   List<char.Character>? listCharacterAnime = [];
   // late Future characterList;
-  int? id;
+  // int? id;
 
   @override
   void onInit() {

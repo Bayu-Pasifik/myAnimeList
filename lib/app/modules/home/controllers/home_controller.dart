@@ -898,7 +898,8 @@ class HomeController extends GetxController {
     searchController = TextEditingController();
     animeTop = topAnime();
     animeAiring = currentlyAiring();
-    animeUpcoming = upcomingAnime();
+    animeUpcoming =
+        Future.delayed(const Duration(seconds: 1), () => upcomingAnime());
     genreList = Future.delayed(const Duration(seconds: 2), () => getAllGenre());
     seasonList =
         Future.delayed(const Duration(seconds: 5), () => getallSeason());

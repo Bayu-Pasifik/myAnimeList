@@ -212,7 +212,7 @@ class HomeMangaView extends GetView<HomeMangaController> {
               leading: const Icon(Icons.movie_creation_outlined),
               title: const Text("Anime"),
               onTap: () {
-                Get.offNamed(Routes.HOME_PAGE);
+                Get.offNamed(Routes.HOME);
               },
             ),
             const SizedBox(

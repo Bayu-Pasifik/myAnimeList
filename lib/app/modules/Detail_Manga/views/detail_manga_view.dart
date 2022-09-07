@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
+import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:pie_chart/pie_chart.dart';
 import '../controllers/detail_manga_controller.dart';
+import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 
 class DetailMangaView extends GetView<DetailMangaController> {
   const DetailMangaView({Key? key}) : super(key: key);
@@ -48,6 +50,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                       ),
                     ),
                   ),
+                  // ! center image
                   Positioned(
                     top: Get.mediaQuery.size.height / 4,
                     left: Get.mediaQuery.size.height / 5,
@@ -64,6 +67,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                       ),
                     ),
                   ),
+                  // ! list information
                   Positioned(
                     top: Get.mediaQuery.size.height / 1.9,
                     left: 0.0,
@@ -110,6 +114,15 @@ class DetailMangaView extends GetView<DetailMangaController> {
                             const SizedBox(
                               height: 10,
                             ),
+                            Center(
+                              child: Text(
+                                "Type : ${mangas.type ?? "Unknown"} ",
+                                style: GoogleFonts.breeSerif(),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -153,11 +166,11 @@ class DetailMangaView extends GetView<DetailMangaController> {
                               height: 10,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              // mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 for (var items in mangas.genres!)
                                   (mangas.genres!.isNotEmpty)
-                                      ? Center(
+                                      ? Expanded(
                                           child: Text(
                                             "${items.name!} | ",
                                             textAlign: TextAlign.center,
@@ -165,9 +178,11 @@ class DetailMangaView extends GetView<DetailMangaController> {
                                             style: GoogleFonts.squadaOne(),
                                           ),
                                         )
-                                      : Text(
-                                          "Unknown",
-                                          style: GoogleFonts.squadaOne(),
+                                      : Expanded(
+                                          child: Text(
+                                            "Unknown",
+                                            style: GoogleFonts.squadaOne(),
+                                          ),
                                         ),
                               ],
                             ),
@@ -197,10 +212,127 @@ class DetailMangaView extends GetView<DetailMangaController> {
                             ),
                             const SizedBox(
                               height: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                "Character",
+                                style: GoogleFonts.squadaOne(
+                                    fontSize: 16, color: Colors.blue[400]),
+                              ),
+                            ),
+                            Container(
+                              height: MediaQuery.of(context).size.height / 3.5,
+                              // color: Colors.red,
+                              child: FutureBuilder(
+                                future: Future.delayed(
+                                  const Duration(seconds: 2),
+                                  () => controller
+                                      .getCharacterManga(mangas.malId ?? 0),
+                                ),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasError) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                  if (controller.listCharacterManga!.isEmpty) {
+                                    return Center(
+                                      child: Text(
+                                        "No Data",
+                                        style: GoogleFonts.kurale(fontSize: 16),
+                                      ),
+                                    );
+                                  }
+                                  return ListView.separated(
+                                    // padding: EdgeInsets.only(top: 50),
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(
+                                      width: 5,
+                                    ),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:
+                                        controller.listCharacterManga?.length ??
+                                            0,
+                                    itemBuilder: (context, index) {
+                                      char.Character character =
+                                          controller.listCharacterManga![index];
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Get.toNamed(Routes.ANIME_CHARACTER,
+                                              arguments: character);
+                                        },
+                                        child: (controller
+                                                .listCharacterManga!.isNotEmpty)
+                                            ? Column(
+                                                children: [
+                                                  Expanded(
+                                                    child: Container(
+                                                      width: Get.mediaQuery.size
+                                                              .width /
+                                                          5,
+                                                      height: Get.mediaQuery
+                                                          .size.height,
+                                                      // color: Colors.amber,
+                                                      child: (character
+                                                                  .character!
+                                                                  .images!
+                                                                  .jpg!
+                                                                  .imageUrl !=
+                                                              null)
+                                                          ? Image.network(
+                                                              character
+                                                                      .character!
+                                                                      .images
+                                                                      ?.jpg
+                                                                      ?.imageUrl ??
+                                                                  'Kosong',
+                                                              fit: BoxFit.cover,
+                                                            )
+                                                          : const CircularProgressIndicator(),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    character.character?.name ??
+                                                        'NaN',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      "(${character.role ?? 'NaN'})",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            : const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
                             )
                           ],
                         )),
                   ),
+                  // ! Rating
                   Positioned(
                     top: Get.mediaQuery.size.height / 2.7,
                     left: Get.mediaQuery.size.height / 2.5,
@@ -236,7 +368,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               )
             : const Center(

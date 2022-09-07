@@ -886,7 +886,7 @@ class HomeMangaController extends GetxController {
 
   @override
   void onClose() {
-    searchController.dispose();
+    searchController.clear();
     searchController.dispose();
     resultManga.clear();
     super.onClose();

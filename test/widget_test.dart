@@ -10,6 +10,7 @@ import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
 import 'package:my_anime_list/app/data/model/detail_anime_character.dart';
 import 'package:my_anime_list/app/data/model/manga/recomend_model.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
+import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 
 // void main() async {
 //   List<Anime> anime = [];
@@ -172,17 +173,34 @@ import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 //   // listReqManga.addAll(tempMangaList);
 // }
 
-void main() async {
-  // ! fungsi untuk mencari anime berdasarkan nama
+// void main() async {
+//   // ! fungsi untuk mencari anime berdasarkan nama
 
-  Uri link =
-      Uri.parse('https://api.jikan.moe/v4/manga?q=naruto&page=1&sfw=false');
-  var hasil = await http.get(link);
+//   Uri link =
+//       Uri.parse('https://api.jikan.moe/v4/manga?q=naruto&page=1&sfw=false');
+//   var hasil = await http.get(link);
+//   //! Masukkan data ke dalam variable
+//   Map<String, dynamic>? data = (json.decode(hasil.body));
+//   if (data == null) {
+//     return null;
+//   }
+//   var tempData = data["data"].map((e) => manga.Manga?.fromJson(e)).toList();
+//   print(tempData[0].title);
+// }
+
+void main() async {
+  List<detail.DetailAnimeCharacter> animeCharacter = [];
+  // late Future<List<DetailAnimeCharacter>?> futureCharacter;
+  //! Ambil data dari API
+  Uri url = Uri.parse('https://api.jikan.moe/v4/characters/144582/full');
+  var res = await http.get(url);
   //! Masukkan data ke dalam variable
-  Map<String, dynamic>? data = (json.decode(hasil.body));
-  if (data == null) {
-    return null;
-  }
-  var tempData = data["data"].map((e) => manga.Manga?.fromJson(e)).toList();
-  print(tempData[0].title);
+  Map<String, dynamic> parsed = json.decode(res.body)["data"];
+  // ! cek data nya apakah null atau tidak
+
+  var data = detail.DetailAnimeCharacter.fromJson(parsed);
+  // animeCharacter.addAll();
+
+  print(data.name);
+  // ! cek data nya apakah null atau tidak
 }

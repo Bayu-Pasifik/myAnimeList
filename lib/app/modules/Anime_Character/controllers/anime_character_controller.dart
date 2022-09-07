@@ -15,6 +15,7 @@ class AnimeCharacterController extends GetxController {
     //! Masukkan data ke dalam variable
     Map<String, dynamic> parsed = json.decode(res.body)["data"];
     // ! cek data nya apakah null atau tidak
+    
     var data = detail.DetailAnimeCharacter.fromJson(parsed);
     // animeCharacter.addAll();
 
