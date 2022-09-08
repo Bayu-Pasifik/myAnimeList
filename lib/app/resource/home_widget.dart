@@ -49,7 +49,11 @@ class HomeWidget extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               }
-
+              if (controller.listTopAnime.isEmpty) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
               return GetBuilder<HomeController>(
                 builder: (c) {
                   List<Widget> animetop = [

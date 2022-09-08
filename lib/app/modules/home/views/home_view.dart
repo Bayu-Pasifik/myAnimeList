@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-// import 'package:my_anime_list/app/data/model/anime_model.dart' as ani;
+import 'package:http/http.dart' as http;
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
 import 'package:my_anime_list/app/resource/anime_index.dart';
 import 'package:my_anime_list/app/resource/home_widget.dart';
@@ -59,7 +63,8 @@ class HomeView extends GetView<HomeController> {
                     builder: (context, mode) {
                       if (mode == LoadStatus.loading) {
                         return LoadingAnimationWidget.inkDrop(
-                            color: const Color.fromARGB(255, 6, 98, 173), size: 50);
+                            color: const Color.fromARGB(255, 6, 98, 173),
+                            size: 50);
                       }
                       return const SizedBox(
                         height: 5,
@@ -102,7 +107,8 @@ class HomeView extends GetView<HomeController> {
                                       width: 200,
                                       height: 250,
                                       child: Image.network(
-                                        animes.images?["jpg"]?.imageUrl ?? 'Kosong',
+                                        animes.images?["jpg"]?.imageUrl ??
+                                            'Kosong',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -177,41 +183,158 @@ class HomeView extends GetView<HomeController> {
       ),
 
       // ! Season Page
-      // Text("seaason"),
-      // FutureBuilder<List<ses.Season>?>(
-      //   future: controller.seasonList,
-      //   builder: (context, snapshot) {
-      //     if (snapshot.hasError) {
-      //       return Text(snapshot.error.toString());
-      //     }
-      //     if (snapshot.hasData) {
-      //       if (snapshot.connectionState == ConnectionState.waiting) {
-      //         return const Center(
-      //           child: CircularProgressIndicator(),
-      //         );
-      //       }
-      //     }
-      //     // List<String> dropDown = [
-      //     //   for (var items in controller.listSeasonAnime) items.toString()
-      //     // ];
-      //     return DropdownButton<String>(
-      //         isExpanded: true,
-      //         value: "${controller.listSeasonAnime[0].year}",
-      //         items: [
-      //           DropdownMenuItem(
-      //             value: "Satu",
-      //             child: Text("${controller.listSeasonAnime[0].seasons}"),
-      //           ),
-      //           DropdownMenuItem(
-      //             value: "dua",
-      //             child: Text("${controller.listSeasonAnime[1].seasons}"),
-      //           ),
-      //         ],
-      //         onChanged: (value) {
-      //           print(value);
-      //         });
-      //   },
-      // ),
+      GetBuilder<HomeController>(
+        builder: (c) {
+          return SafeArea(
+              child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                DropdownSearch<String>(
+                  popupProps: const PopupProps.dialog(
+                      showSelectedItems: true, showSearchBox: true),
+                  asyncItems: (String filter) async {
+                    Uri url = Uri.parse('https://api.jikan.moe/v4/seasons');
+                    var res = await http.get(url);
+                    List<String> allYear = [];
+                    var data =
+                        (json.decode(res.body) as Map<String, dynamic>)['data'];
+                    data!.forEach(((element) {
+                      allYear.add(element['year'].toString());
+                    }));
+                    return allYear;
+                  },
+                  onChanged: (yearValue) {
+                    c.year.value = int.parse(yearValue!);
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                DropdownSearch<String>(
+                  popupProps: const PopupProps.dialog(showSelectedItems: true),
+                  items: const ["WINTER", "SPRING", "SUMMER", "FALL"],
+                  // itemAsString: (item) => controller.season.value,
+                  onChanged: (seasonValue) {
+                    c.season.value = seasonValue!;
+                  },
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: ElevatedButton(
+                      onPressed: (() {
+                        c.listSeasonAnime.clear();
+                        c.pageSeason.clear();
+                        c.refreshSeason(c.year.value, c.season.value);
+                      }),
+                      child: const Text("Search")),
+                ),
+                Expanded(
+                    child: SmartRefresher(
+                  controller: c.seasonRefresh,
+                  enablePullDown: true,
+                  enablePullUp: true,
+                  onRefresh: () =>
+                      c.refreshSeason(c.year.value, c.season.value),
+                  onLoading: () => c.loadSeason(c.year.value, c.season.value),
+                  footer: CustomFooter(
+                    builder: (context, mode) {
+                      if (mode == LoadStatus.loading) {
+                        return LoadingAnimationWidget.inkDrop(
+                            color: const Color.fromARGB(255, 6, 98, 173),
+                            size: 50);
+                        // } else if (mode == LoadStatus.noMore) {
+                        //   return Center(
+                        //     child: Padding(
+                        //       padding: const EdgeInsets.all(15),
+                        //       child: Text(
+                        //         "No More Data",
+                        //         style: GoogleFonts.kurale(
+                        //             // color: Colors.red,
+                        //             fontSize: 25,
+                        //             fontWeight: FontWeight.normal),
+                        //       ),
+                        //     ),
+                        //   );
+                      }
+                      return const SizedBox(
+                        height: 5,
+                        width: 5,
+                      );
+                    },
+                  ),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(10),
+                    itemCount: c.listSeasonAnime.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 0.8,
+                            crossAxisSpacing: 40,
+                            mainAxisExtent: 200,
+                            mainAxisSpacing: 20),
+                    itemBuilder: (context, index) {
+                      ani.Animes animes = c.listSeasonAnime[index];
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: 200,
+                              height: 300,
+                              color: Colors.blue,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_ANIME,
+                                    arguments: animes);
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      width: 200,
+                                      height: 250,
+                                      child: Image.network(
+                                        animes.images?["jpg"]?.imageUrl ??
+                                            'Kosong',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "${animes.title}",
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        overflow: TextOverflow.ellipsis,
+                                        color: Colors.white),
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      "${animes.status}",
+                                      style: const TextStyle(
+                                          fontSize: 15, color: Colors.white),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                )),
+              ],
+            ),
+          ));
+        },
+      ),
     ];
     return Scaffold(
         appBar: AppBar(
@@ -266,7 +389,7 @@ class HomeView extends GetView<HomeController> {
                 TabItem(icon: Icons.search, title: 'search'),
                 TabItem(icon: Icons.bookmarks_outlined, title: 'index'),
                 TabItem(icon: Icons.movie_filter_outlined, title: 'Genres'),
-                // TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
+                TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
               ],
               initialActiveIndex: controller.selectIndex.value,
               style: TabStyle.textIn, //optional, default as 0

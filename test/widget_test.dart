@@ -11,7 +11,7 @@ import 'package:my_anime_list/app/data/model/detail_anime_character.dart';
 import 'package:my_anime_list/app/data/model/manga/recomend_model.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
-
+import 'package:my_anime_list/app/data/model/season_model.dart' as ses;
 // void main() async {
 //   List<Anime> anime = [];
 // List<Anime> resultAnime = [];
@@ -189,18 +189,20 @@ import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 // }
 
 void main() async {
-  List<detail.DetailAnimeCharacter> animeCharacter = [];
-  // late Future<List<DetailAnimeCharacter>?> futureCharacter;
-  //! Ambil data dari API
-  Uri url = Uri.parse('https://api.jikan.moe/v4/characters/144582/full');
+  List<String> allTh = [];
+  Uri url = Uri.parse('https://api.jikan.moe/v4/seasons');
   var res = await http.get(url);
-  //! Masukkan data ke dalam variable
-  Map<String, dynamic> parsed = json.decode(res.body)["data"];
-  // ! cek data nya apakah null atau tidak
+  // var data = (json.decode(res.body) as Map<String, dynamic>);
+  // var data = (json.decode(res.body));
+  List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
+  // var allYear = data!.map((e) => ses.Season.fromJson(e)).toList();
+  // data!.forEach(((element) {
+  //   allTh.add(element['year'].toString());
+  // }));
+  var session = data!.forEach((element) {
+    var ses = element['seasons'];
+    print(ses);
+  });
 
-  var data = detail.DetailAnimeCharacter.fromJson(parsed);
-  // animeCharacter.addAll();
-
-  print(data.name);
-  // ! cek data nya apakah null atau tidak
+  // print("Season : ${allYear[0].year}");
 }

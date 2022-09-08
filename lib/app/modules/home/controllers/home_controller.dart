@@ -12,9 +12,14 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class HomeController extends GetxController {
   final CarouselController carouselController = CarouselController();
   late TextEditingController searchController;
+  var year = 2020.obs;
+  var season = 'Summer'.obs;
+  int halSeason = 1;
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSearch = {};
+  Map<String, dynamic> pageSeason = {};
   RefreshController genreRefresh = RefreshController(initialRefresh: true);
+  RefreshController seasonRefresh = RefreshController(initialRefresh: true);
   RefreshController refreshControllerSearch =
       RefreshController(initialRefresh: true);
   RefreshController refreshControllerA =
@@ -84,7 +89,7 @@ class HomeController extends GetxController {
   late Future<List?> animeUpcoming;
   List<char.Character> listCharacterAnime = [];
   List<gen.Genre> listGenreAnime = [];
-  List<ses.Season> listSeasonAnime = [];
+  List<dynamic> listSeasonAnime = [];
   List<dynamic> resultAnime = [];
   List<dynamic> listAiringAnime = [];
   List<dynamic> listUpcoming = [];
@@ -283,20 +288,19 @@ class HomeController extends GetxController {
   }
 
   // ! fungsi untuk genre anime
-  Future<List<ses.Season>?> getallSeason() async {
+  Future<Map<String, dynamic>?> getSession(
+      int tahun, String musim, int p) async {
     //! Ambil data dari API
-    Uri url = Uri.parse('https://api.jikan.moe/v4/seasons');
+    Uri url =
+        Uri.parse('https://api.jikan.moe/v4/seasons/$tahun/$musim?page=$p');
     var res = await http.get(url);
     //! Masukkan data ke dalam variable
-    List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
-    // ! cek data nya apakah null atau tidak
-    if (data == null || data.isEmpty) {
-      return [];
-    } else {
-      listSeasonAnime = data.map((e) => ses.Season.fromJson(e)).toList();
-      update();
-      return listSeasonAnime;
-    }
+    Map<String, dynamic> data = json.decode(res.body);
+    var tempSeason = data['data'].map((e) => Animes.fromJson(e)).toList();
+    listSeasonAnime.addAll(tempSeason);
+    pageSeason = data['pagination'];
+    update();
+    return data;
   }
 
   // ! fungsi untuk genre anime
@@ -893,6 +897,31 @@ class HomeController extends GetxController {
     }
   }
 
+  void refreshSeason(int th, String key) async {
+    if (seasonRefresh.initialRefresh == true) {
+      listSeasonAnime.clear();
+      halSeason = 1;
+      await getSession(year.value, season.value, halSeason);
+      update();
+      return seasonRefresh.refreshCompleted();
+    } else {
+      return seasonRefresh.refreshFailed();
+    }
+  }
+
+  void loadSeason(int th, String key) async {
+    if (pageSeason["has_next_page"] == true) {
+      halSeason = halSeason + 1;
+      await getSession(year.value, season.value, halSeason);
+      update();
+      return seasonRefresh.loadComplete();
+    } else {
+      Get.snackbar("No Data", "There is no more data",
+          snackPosition: SnackPosition.BOTTOM);
+      return seasonRefresh.loadNoData();
+    }
+  }
+
   @override
   void onInit() {
     searchController = TextEditingController();
@@ -901,8 +930,7 @@ class HomeController extends GetxController {
     animeUpcoming =
         Future.delayed(const Duration(seconds: 1), () => upcomingAnime());
     genreList = Future.delayed(const Duration(seconds: 2), () => getAllGenre());
-    seasonList =
-        Future.delayed(const Duration(seconds: 5), () => getallSeason());
+
     super.onInit();
   }
 
