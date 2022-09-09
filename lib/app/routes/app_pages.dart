@@ -8,8 +8,12 @@ import '../modules/Anime_Character/bindings/anime_character_binding.dart';
 import '../modules/Anime_Character/views/anime_character_view.dart';
 import '../modules/Anime_Upcoming/bindings/anime_upcoming_binding.dart';
 import '../modules/Anime_Upcoming/views/anime_upcoming_view.dart';
+import '../modules/Detail_Anime_Studio/bindings/detail_anime_studio_binding.dart';
+import '../modules/Detail_Anime_Studio/views/detail_anime_studio_view.dart';
 import '../modules/Detail_Manga/bindings/detail_manga_binding.dart';
 import '../modules/Detail_Manga/views/detail_manga_view.dart';
+import '../modules/Detail_Studios/bindings/detail_studios_binding.dart';
+import '../modules/Detail_Studios/views/detail_studios_view.dart';
 import '../modules/Genre_Manga_Page/bindings/genre_manga_page_binding.dart';
 import '../modules/Genre_Manga_Page/views/genre_manga_page_view.dart';
 import '../modules/Home_Manga/bindings/home_manga_binding.dart';
@@ -117,6 +121,16 @@ class AppPages {
       name: _Paths.GENRE_MANGA_PAGE,
       page: () => const GenreMangaPageView(),
       binding: GenreMangaPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_STUDIOS,
+      page: () => const DetailStudiosView(),
+      binding: DetailStudiosBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_ANIME_STUDIO,
+      page: () => const DetailAnimeStudioView(),
+      binding: DetailAnimeStudioBinding(),
     ),
   ];
 }

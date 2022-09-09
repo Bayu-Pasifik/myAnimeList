@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
-import 'package:my_anime_list/app/data/model/season_model.dart' as ses;
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 import 'dart:convert';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
 
 class HomeController extends GetxController {
   final CarouselController carouselController = CarouselController();
@@ -15,9 +15,12 @@ class HomeController extends GetxController {
   var year = 2020.obs;
   var season = 'Summer'.obs;
   var halSeason = 1.obs;
+  int halStudios = 1;
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSearch = {};
   Map<String, dynamic> pageSeason = {};
+  Map<String, dynamic> pageStudios = {};
+  RefreshController studiosRefresh = RefreshController(initialRefresh: true);
   RefreshController genreRefresh = RefreshController(initialRefresh: true);
   RefreshController seasonRefresh = RefreshController(initialRefresh: true);
   RefreshController refreshControllerSearch =
@@ -83,12 +86,12 @@ class HomeController extends GetxController {
 
   late Future<List<char.Character>?> characterList;
   late Future<List<gen.Genre>?> genreList;
-  late Future<List<ses.Season>?> seasonList;
   late Future<List?> animeTop;
   late Future<List?> animeAiring;
   late Future<List?> animeUpcoming;
   List<char.Character> listCharacterAnime = [];
   List<gen.Genre> listGenreAnime = [];
+  List<dynamic> listStudios = [];
   List<dynamic> listSeasonAnime = [];
   List<dynamic> resultAnime = [];
   List<dynamic> listAiringAnime = [];
@@ -122,6 +125,7 @@ class HomeController extends GetxController {
   List<dynamic> animeIndexY = [].obs;
   List<dynamic> animeIndexZ = [].obs;
 
+  // ! fungsi untuk pindah halaman pada home
   void chagePage(int index) {
     selectIndex.value = index;
     update();
@@ -287,7 +291,7 @@ class HomeController extends GetxController {
     return null;
   }
 
-  // ! fungsi untuk genre anime
+  // ! fungsi untuk season anime
   Future<Map<String, dynamic>?> getSession(
       int tahun, String musim, int p) async {
     //! Ambil data dari API
@@ -301,6 +305,23 @@ class HomeController extends GetxController {
     listSeasonAnime.addAll(tempSeason);
     update();
     pageSeason = data['pagination'];
+    update();
+    return data;
+  }
+
+  // ! fungsi untuk studios anime
+  Future<Map<String, dynamic>?> getStudios(int p) async {
+    //! Ambil data dari API
+    Uri url = Uri.parse('https://api.jikan.moe/v4/producers?page=$p');
+    var res = await http.get(url);
+    //! Masukkan data ke dalam variable
+    Map<String, dynamic> data = json.decode(res.body);
+    var tempStudios =
+        data['data'].map((e) => studio.Studios.fromJson(e)).toList();
+    update();
+    listStudios.addAll(tempStudios);
+    update();
+    pageStudios = data['pagination'];
     update();
     return data;
   }
@@ -925,6 +946,35 @@ class HomeController extends GetxController {
           snackPosition: SnackPosition.BOTTOM);
       pageSeason.clear();
       return seasonRefresh.loadNoData();
+    }
+  }
+
+  void refreshStudios() async {
+    if (studiosRefresh.initialRefresh == true) {
+      // ls.clear();
+      halStudios = 1;
+      update();
+      await getStudios(halStudios);
+      update();
+      return studiosRefresh.refreshCompleted();
+    } else {
+      return studiosRefresh.refreshFailed();
+    }
+  }
+
+  void loadStudio() async {
+    if (pageStudios["has_next_page"] == true) {
+      // debugPrint(pageSeason["has_next_page"].toString());
+      halStudios = halStudios + 1;
+      update();
+      await getStudios(halStudios);
+      update();
+      return studiosRefresh.loadComplete();
+    } else {
+      Get.snackbar("No Data", "There is no more data",
+          snackPosition: SnackPosition.BOTTOM);
+      pageSeason.clear();
+      return studiosRefresh.loadNoData();
     }
   }
 

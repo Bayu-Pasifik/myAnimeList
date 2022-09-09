@@ -10,8 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
 import 'package:my_anime_list/app/resource/anime_index.dart';
 import 'package:my_anime_list/app/resource/home_widget.dart';
+import 'package:my_anime_list/app/resource/studios_widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
-import 'package:my_anime_list/app/data/model/season_model.dart' as ses;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../data/model/genre_model.dart' as gen;
 import '../controllers/home_controller.dart';
@@ -348,7 +348,11 @@ class HomeView extends GetView<HomeController> {
             ),
           ));
         },
-      )
+      ),
+
+      // ! Studios Page
+      // const Text("Studios"),
+      animeStudios()
     ];
     return Scaffold(
         appBar: AppBar(
@@ -404,6 +408,7 @@ class HomeView extends GetView<HomeController> {
                 TabItem(icon: Icons.bookmarks_outlined, title: 'index'),
                 TabItem(icon: Icons.movie_filter_outlined, title: 'Genres'),
                 TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
+                TabItem(icon: Icons.business, title: 'Studios'),
               ],
               initialActiveIndex: controller.selectIndex.value,
               style: TabStyle.textIn, //optional, default as 0

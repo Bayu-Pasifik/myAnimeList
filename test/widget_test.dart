@@ -11,7 +11,7 @@ import 'package:my_anime_list/app/data/model/detail_anime_character.dart';
 import 'package:my_anime_list/app/data/model/manga/recomend_model.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
-import 'package:my_anime_list/app/data/model/season_model.dart' as ses;
+import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
 // void main() async {
 //   List<Anime> anime = [];
 // List<Anime> resultAnime = [];
@@ -188,21 +188,31 @@ import 'package:my_anime_list/app/data/model/season_model.dart' as ses;
 //   print(tempData[0].title);
 // }
 
+// void main() async {
+//   List<String> allTh = [];
+//   Uri url = Uri.parse('https://api.jikan.moe/v4/seasons');
+//   var res = await http.get(url);
+//   // var data = (json.decode(res.body) as Map<String, dynamic>);
+//   // var data = (json.decode(res.body));
+//   List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
+//   // var allYear = data!.map((e) => ses.Season.fromJson(e)).toList();
+//   // data!.forEach(((element) {
+//   //   allTh.add(element['year'].toString());
+//   // }));
+//   var session = data!.forEach((element) {
+//     var ses = element['seasons'];
+//     print(ses);
+//   });
+
+//   // print("Season : ${allYear[0].year}");
+// }
+
 void main() async {
-  List<String> allTh = [];
-  Uri url = Uri.parse('https://api.jikan.moe/v4/seasons');
+  Uri url = Uri.parse('https://api.jikan.moe/v4/producers');
   var res = await http.get(url);
   // var data = (json.decode(res.body) as Map<String, dynamic>);
   // var data = (json.decode(res.body));
   List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
-  // var allYear = data!.map((e) => ses.Season.fromJson(e)).toList();
-  // data!.forEach(((element) {
-  //   allTh.add(element['year'].toString());
-  // }));
-  var session = data!.forEach((element) {
-    var ses = element['seasons'];
-    print(ses);
-  });
-
-  // print("Season : ${allYear[0].year}");
+  var temptStudios = data!.map((e) => studio.Studios.fromJson(e)).toList();
+  print(temptStudios[1].about);
 }
