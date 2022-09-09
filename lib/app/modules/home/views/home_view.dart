@@ -190,9 +190,13 @@ class HomeView extends GetView<HomeController> {
             padding: const EdgeInsets.all(15),
             child: Column(
               children: [
+                // ! dropdown tahun
                 DropdownSearch<String>(
                   popupProps: const PopupProps.dialog(
-                      showSelectedItems: true, showSearchBox: true),
+                      showSelectedItems: true,
+                      showSearchBox: true,
+                      searchFieldProps: TextFieldProps(
+                          keyboardType: TextInputType.numberWithOptions())),
                   asyncItems: (String filter) async {
                     Uri url = Uri.parse('https://api.jikan.moe/v4/seasons');
                     var res = await http.get(url);
@@ -202,22 +206,31 @@ class HomeView extends GetView<HomeController> {
                     data!.forEach(((element) {
                       allYear.add(element['year'].toString());
                     }));
+
                     return allYear;
                   },
                   onChanged: (yearValue) {
                     c.year.value = int.parse(yearValue!);
+                    c.listSeasonAnime.clear();
+                    c.pageSeason.clear();
+                    c.seasonRefresh.resetNoData();
                   },
+                  selectedItem: c.year.value.toString(),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
+                // ! dropdown musim
                 DropdownSearch<String>(
                   popupProps: const PopupProps.dialog(showSelectedItems: true),
                   items: const ["WINTER", "SPRING", "SUMMER", "FALL"],
-                  // itemAsString: (item) => controller.season.value,
                   onChanged: (seasonValue) {
                     c.season.value = seasonValue!;
+                    c.listSeasonAnime.clear();
+                    c.pageSeason.clear();
+                    c.seasonRefresh.resetNoData();
                   },
+                  selectedItem: c.season.value,
                 ),
                 const SizedBox(
                   height: 5,
@@ -228,6 +241,7 @@ class HomeView extends GetView<HomeController> {
                       onPressed: (() {
                         c.listSeasonAnime.clear();
                         c.pageSeason.clear();
+
                         c.refreshSeason(c.year.value, c.season.value);
                       }),
                       child: const Text("Search")),
@@ -246,19 +260,19 @@ class HomeView extends GetView<HomeController> {
                         return LoadingAnimationWidget.inkDrop(
                             color: const Color.fromARGB(255, 6, 98, 173),
                             size: 50);
-                        // } else if (mode == LoadStatus.noMore) {
-                        //   return Center(
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.all(15),
-                        //       child: Text(
-                        //         "No More Data",
-                        //         style: GoogleFonts.kurale(
-                        //             // color: Colors.red,
-                        //             fontSize: 25,
-                        //             fontWeight: FontWeight.normal),
-                        //       ),
-                        //     ),
-                        //   );
+                      } else if (mode == LoadStatus.noMore) {
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Text(
+                              "No More Data",
+                              style: GoogleFonts.kurale(
+                                  // color: Colors.red,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                          ),
+                        );
                       }
                       return const SizedBox(
                         height: 5,
@@ -334,7 +348,7 @@ class HomeView extends GetView<HomeController> {
             ),
           ));
         },
-      ),
+      )
     ];
     return Scaffold(
         appBar: AppBar(

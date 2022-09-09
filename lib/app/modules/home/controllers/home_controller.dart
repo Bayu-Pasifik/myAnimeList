@@ -14,7 +14,7 @@ class HomeController extends GetxController {
   late TextEditingController searchController;
   var year = 2020.obs;
   var season = 'Summer'.obs;
-  int halSeason = 1;
+  var halSeason = 1.obs;
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSearch = {};
   Map<String, dynamic> pageSeason = {};
@@ -297,7 +297,9 @@ class HomeController extends GetxController {
     //! Masukkan data ke dalam variable
     Map<String, dynamic> data = json.decode(res.body);
     var tempSeason = data['data'].map((e) => Animes.fromJson(e)).toList();
+    update();
     listSeasonAnime.addAll(tempSeason);
+    update();
     pageSeason = data['pagination'];
     update();
     return data;
@@ -900,8 +902,9 @@ class HomeController extends GetxController {
   void refreshSeason(int th, String key) async {
     if (seasonRefresh.initialRefresh == true) {
       listSeasonAnime.clear();
-      halSeason = 1;
-      await getSession(year.value, season.value, halSeason);
+      halSeason.value = 1;
+      update();
+      await getSession(year.value, season.value, halSeason.value);
       update();
       return seasonRefresh.refreshCompleted();
     } else {
@@ -911,13 +914,16 @@ class HomeController extends GetxController {
 
   void loadSeason(int th, String key) async {
     if (pageSeason["has_next_page"] == true) {
+      debugPrint(pageSeason["has_next_page"].toString());
       halSeason = halSeason + 1;
-      await getSession(year.value, season.value, halSeason);
+      update();
+      await getSession(year.value, season.value, halSeason.value);
       update();
       return seasonRefresh.loadComplete();
     } else {
       Get.snackbar("No Data", "There is no more data",
           snackPosition: SnackPosition.BOTTOM);
+      pageSeason.clear();
       return seasonRefresh.loadNoData();
     }
   }
