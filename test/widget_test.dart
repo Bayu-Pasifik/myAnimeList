@@ -207,12 +207,29 @@ import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
 //   // print("Season : ${allYear[0].year}");
 // }
 
+// void main() async {
+//   Uri url = Uri.parse('https://api.jikan.moe/v4/producers');
+//   var res = await http.get(url);
+//   // var data = (json.decode(res.body) as Map<String, dynamic>);
+//   // var data = (json.decode(res.body));
+//   List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
+//   var temptStudios = data!.map((e) => studio.Studios.fromJson(e)).toList();
+//   print(temptStudios[1].about);
+// }
+
 void main() async {
-  Uri url = Uri.parse('https://api.jikan.moe/v4/producers');
+  List<dynamic> listSeasonAnime = [];
+  Map<String, dynamic> dataSeason;
+  //! Ambil data dari API
+  Uri url = Uri.parse('https://api.jikan.moe/v4/seasons/1939/summer?page=1');
   var res = await http.get(url);
-  // var data = (json.decode(res.body) as Map<String, dynamic>);
-  // var data = (json.decode(res.body));
-  List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
-  var temptStudios = data!.map((e) => studio.Studios.fromJson(e)).toList();
-  print(temptStudios[1].about);
+  //! Masukkan data ke dalam variable
+  dataSeason = json.decode(res.body);
+  // if (dataSeason["data"] != null) {
+  //   var tempSeason = dataSeason['data'].map((e) => Animes.fromJson(e)).toList();
+  //   listSeasonAnime.addAll(tempSeason);
+  // } else {
+  //   listSeasonAnime = [];
+  // }
+  print(dataSeason['data']);
 }

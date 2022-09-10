@@ -92,7 +92,7 @@ class HomeController extends GetxController {
   List<char.Character> listCharacterAnime = [];
   List<gen.Genre> listGenreAnime = [];
   List<dynamic> listStudios = [];
-  List<dynamic> listSeasonAnime = [];
+  List<dynamic> listSeasonAnime = [].obs;
   List<dynamic> resultAnime = [];
   List<dynamic> listAiringAnime = [];
   List<dynamic> listUpcoming = [];
@@ -124,6 +124,8 @@ class HomeController extends GetxController {
   List<dynamic> animeIndexX = [].obs;
   List<dynamic> animeIndexY = [].obs;
   List<dynamic> animeIndexZ = [].obs;
+
+  Map<String, dynamic> dataSeason = {};
 
   // ! fungsi untuk pindah halaman pada home
   void chagePage(int index) {
@@ -299,14 +301,16 @@ class HomeController extends GetxController {
         Uri.parse('https://api.jikan.moe/v4/seasons/$tahun/$musim?page=$p');
     var res = await http.get(url);
     //! Masukkan data ke dalam variable
-    Map<String, dynamic> data = json.decode(res.body);
-    var tempSeason = data['data'].map((e) => Animes.fromJson(e)).toList();
+    // Map<String, dynamic> data = json.decode(res.body);
+    dataSeason = json.decode(res.body);
+    var tempSeason = dataSeason['data'].map((e) => Animes.fromJson(e)).toList();
     update();
     listSeasonAnime.addAll(tempSeason);
+    debugPrint("Isi dataSeason anime: ${listSeasonAnime}");
     update();
-    pageSeason = data['pagination'];
+    pageSeason = dataSeason['pagination'];
     update();
-    return data;
+    return dataSeason;
   }
 
   // ! fungsi untuk studios anime
@@ -935,7 +939,6 @@ class HomeController extends GetxController {
 
   void loadSeason(int th, String key) async {
     if (pageSeason["has_next_page"] == true) {
-      debugPrint(pageSeason["has_next_page"].toString());
       halSeason = halSeason + 1;
       update();
       await getSession(year.value, season.value, halSeason.value);

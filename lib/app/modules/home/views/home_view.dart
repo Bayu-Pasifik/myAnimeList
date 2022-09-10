@@ -1,12 +1,15 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:delayed_display/delayed_display.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
 import 'package:my_anime_list/app/resource/anime_index.dart';
 import 'package:my_anime_list/app/resource/home_widget.dart';
@@ -241,109 +244,117 @@ class HomeView extends GetView<HomeController> {
                       onPressed: (() {
                         c.listSeasonAnime.clear();
                         c.pageSeason.clear();
-
                         c.refreshSeason(c.year.value, c.season.value);
                       }),
                       child: const Text("Search")),
                 ),
                 Expanded(
                     child: SmartRefresher(
-                  controller: c.seasonRefresh,
-                  enablePullDown: true,
-                  enablePullUp: true,
-                  onRefresh: () =>
-                      c.refreshSeason(c.year.value, c.season.value),
-                  onLoading: () => c.loadSeason(c.year.value, c.season.value),
-                  footer: CustomFooter(
-                    builder: (context, mode) {
-                      if (mode == LoadStatus.loading) {
-                        return LoadingAnimationWidget.inkDrop(
-                            color: const Color.fromARGB(255, 6, 98, 173),
-                            size: 50);
-                      } else if (mode == LoadStatus.noMore) {
-                        return Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Text(
-                              "No More Data",
-                              style: GoogleFonts.kurale(
-                                  // color: Colors.red,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                          ),
-                        );
-                      }
-                      return const SizedBox(
-                        height: 5,
-                        width: 5,
-                      );
-                    },
-                  ),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(10),
-                    itemCount: c.listSeasonAnime.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200,
-                            childAspectRatio: 0.8,
-                            crossAxisSpacing: 40,
-                            mainAxisExtent: 200,
-                            mainAxisSpacing: 20),
-                    itemBuilder: (context, index) {
-                      ani.Animes animes = c.listSeasonAnime[index];
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: 200,
-                              height: 300,
-                              color: Colors.blue,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed(Routes.DETAIL_ANIME,
-                                    arguments: animes);
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: SizedBox(
-                                      width: 200,
-                                      height: 250,
-                                      child: Image.network(
-                                        animes.images?["jpg"]?.imageUrl ??
-                                            'Kosong',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                        controller: c.seasonRefresh,
+                        enablePullDown: true,
+                        enablePullUp: true,
+                        onRefresh: () =>
+                            c.refreshSeason(c.year.value, c.season.value),
+                        onLoading: () =>
+                            c.loadSeason(c.year.value, c.season.value),
+                        footer: CustomFooter(
+                          builder: (context, mode) {
+                            if (mode == LoadStatus.loading) {
+                              return LoadingAnimationWidget.inkDrop(
+                                  color: const Color.fromARGB(255, 6, 98, 173),
+                                  size: 50);
+                            } else if (mode == LoadStatus.noMore) {
+                              return Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15),
+                                  child: Text(
+                                    "No More Data",
+                                    style: GoogleFonts.kurale(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.normal),
                                   ),
-                                  Text(
-                                    "${animes.title}",
-                                    style: const TextStyle(
-                                        fontSize: 15,
-                                        overflow: TextOverflow.ellipsis,
-                                        color: Colors.white),
-                                  ),
-                                  Center(
-                                    child: Text(
-                                      "${animes.status}",
-                                      style: const TextStyle(
-                                          fontSize: 15, color: Colors.white),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
+                                ),
+                              );
+                            }
+                            return const SizedBox(
+                              height: 5,
+                              width: 5,
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                )),
+                        child: (c.listSeasonAnime.isNotEmpty &&
+                                c.dataSeason['data'] != [])
+                            ? GridView.builder(
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.all(10),
+                                itemCount: c.listSeasonAnime.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                                        maxCrossAxisExtent: 200,
+                                        childAspectRatio: 0.8,
+                                        crossAxisSpacing: 40,
+                                        mainAxisExtent: 200,
+                                        mainAxisSpacing: 20),
+                                itemBuilder: (context, index) {
+                                  ani.Animes animes = c.listSeasonAnime[index];
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          width: 200,
+                                          height: 300,
+                                          color: Colors.blue,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Get.toNamed(Routes.DETAIL_ANIME,
+                                                arguments: animes);
+                                          },
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                child: SizedBox(
+                                                  width: 200,
+                                                  height: 250,
+                                                  child: Image.network(
+                                                    animes.images?["jpg"]
+                                                            ?.imageUrl ??
+                                                        'Kosong',
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                "${animes.title}",
+                                                style: const TextStyle(
+                                                    fontSize: 15,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    color: Colors.white),
+                                              ),
+                                              Center(
+                                                child: Text(
+                                                  "${animes.status}",
+                                                  style: const TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              )
+                            : DelayedDisplay(
+                                delay: const Duration(seconds: 3),
+                                child: Lottie.asset(
+                                    "assets/lottie/kesalahan.json")))),
               ],
             ),
           ));
