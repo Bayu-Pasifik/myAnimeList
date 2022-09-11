@@ -150,6 +150,40 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                             softWrap: true,
                           ),
                         ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Text(
+                          "Voice Actors",
+                          style: GoogleFonts.squadaOne(
+                              color: Colors.blue[400], fontSize: 16),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        ListView.builder(
+                          itemCount: character.voiceActors!.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            char.VoiceActor? voices =
+                                character.voiceActors?[index];
+                            return ListTile(
+                              leading: (voices != null)
+                                  ? CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                          "${voices.person!.images!.jpg!.imageUrl}"),
+                                    )
+                                  : const Text("No Data"),
+                              title: (voices != null)
+                                  ? Text("${voices.person!.name}")
+                                  : const Text("No data"),
+                              subtitle: (voices != null)
+                                  ? Text("${voices.language}")
+                                  : const Text("No data"),
+                            );
+                          },
+                        )
                       ],
                     ),
                   ),

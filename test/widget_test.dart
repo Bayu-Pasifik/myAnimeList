@@ -217,19 +217,32 @@ import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
 //   print(temptStudios[1].about);
 // }
 
+// void main() async {
+//   List<dynamic> listSeasonAnime = [];
+//   Map<String, dynamic> dataSeason;
+//   //! Ambil data dari API
+//   Uri url = Uri.parse('https://api.jikan.moe/v4/seasons/1939/summer?page=1');
+//   var res = await http.get(url);
+//   //! Masukkan data ke dalam variable
+//   dataSeason = json.decode(res.body);
+//   // if (dataSeason["data"] != null) {
+//   //   var tempSeason = dataSeason['data'].map((e) => Animes.fromJson(e)).toList();
+//   //   listSeasonAnime.addAll(tempSeason);
+//   // } else {
+//   //   listSeasonAnime = [];
+//   // }
+//   print(dataSeason['data']);
+// }
+
 void main() async {
-  List<dynamic> listSeasonAnime = [];
-  Map<String, dynamic> dataSeason;
   //! Ambil data dari API
-  Uri url = Uri.parse('https://api.jikan.moe/v4/seasons/1939/summer?page=1');
+  Uri url = Uri.parse('https://api.jikan.moe/v4/characters/40881/full');
   var res = await http.get(url);
   //! Masukkan data ke dalam variable
-  dataSeason = json.decode(res.body);
-  // if (dataSeason["data"] != null) {
-  //   var tempSeason = dataSeason['data'].map((e) => Animes.fromJson(e)).toList();
-  //   listSeasonAnime.addAll(tempSeason);
-  // } else {
-  //   listSeasonAnime = [];
-  // }
-  print(dataSeason['data']);
+  Map<String, dynamic> parsed = json.decode(res.body)["data"];
+  // ! cek data nya apakah null atau tidak
+
+  var data = detail.DetailAnimeCharacter.fromJson(parsed);
+  // animeCharacter.addAll();
+  print(data.voices);
 }
