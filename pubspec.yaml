@@ -21,6 +21,7 @@ dependencies:
   dropdown_search: 5.0.2
   delayed_display: 2.0.0
   get_storage: 2.0.3
+  introduction_screen: 3.0.2
   flutter: 
     sdk: flutter
 

@@ -13,7 +13,7 @@ class AnimeUpcomingView extends GetView<AnimeUpcomingController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('AnimeUpcomingView'),
+          title: const Text('Upcoming Anime'),
           centerTitle: true,
         ),
         body: GetBuilder<AnimeUpcomingController>(

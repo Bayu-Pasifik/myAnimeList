@@ -18,6 +18,8 @@ import '../modules/Genre_Manga_Page/bindings/genre_manga_page_binding.dart';
 import '../modules/Genre_Manga_Page/views/genre_manga_page_view.dart';
 import '../modules/Home_Manga/bindings/home_manga_binding.dart';
 import '../modules/Home_Manga/views/home_manga_view.dart';
+import '../modules/Introduction/bindings/introduction_binding.dart';
+import '../modules/Introduction/views/introduction_view.dart';
 import '../modules/Manga_Character/bindings/manga_character_binding.dart';
 import '../modules/Manga_Character/views/manga_character_view.dart';
 import '../modules/Manhua_Page/bindings/manhua_page_binding.dart';
@@ -131,6 +133,11 @@ class AppPages {
       name: _Paths.DETAIL_ANIME_STUDIO,
       page: () => const DetailAnimeStudioView(),
       binding: DetailAnimeStudioBinding(),
+    ),
+    GetPage(
+      name: _Paths.INTRODUCTION,
+      page: () => const IntroductionView(),
+      binding: IntroductionBinding(),
     ),
   ];
 }

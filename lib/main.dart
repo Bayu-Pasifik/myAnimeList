@@ -16,7 +16,7 @@ void main() async {
       // darkTheme: ThemeData.dark(),
       theme:
           box.read("themeDark") == null ? ThemeData.light() : ThemeData.dark(),
-      initialRoute: AppPages.INITIAL,
+      initialRoute: Routes.INTRODUCTION,
       getPages: AppPages.routes,
     ),
   );
