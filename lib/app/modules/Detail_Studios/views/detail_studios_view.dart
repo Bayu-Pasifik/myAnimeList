@@ -37,7 +37,7 @@ class DetailStudiosView extends GetView<DetailStudiosController> {
               child: Container(
                 width: Get.mediaQuery.size.width,
                 height: Get.mediaQuery.size.height,
-                color: const Color.fromARGB(255, 248, 247, 247),
+                color: Get.isDarkMode ? Colors.grey[900] : Colors.grey[300],
               ),
             ),
           ),
@@ -129,6 +129,9 @@ class DetailStudiosView extends GetView<DetailStudiosController> {
                       height: 20,
                     ),
                     ExpandablePanel(
+                      theme: ExpandableThemeData(
+                          iconColor:
+                              Get.isDarkMode ? Colors.white : Colors.black),
                       header: Text(
                         "Description",
                         style: GoogleFonts.squadaOne(

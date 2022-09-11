@@ -693,23 +693,15 @@ class HomeWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
                   "Currently Airing",
-                  style: TextStyle(
-                      color: Colors.blue[900],
-                      fontWeight: FontWeight.bold,
-                      shadows: const [BoxShadow(blurRadius: 1)]),
+                  style: GoogleFonts.squadaOne(color: Colors.blue[900]),
                 ),
               ),
               TextButton(
                   onPressed: () {
                     Get.toNamed(Routes.ANIME_AIRING);
                   },
-                  child: Text(
-                    "Load More",
-                    style: TextStyle(
-                        color: Colors.blue[900],
-                        fontWeight: FontWeight.bold,
-                        shadows: const [BoxShadow(blurRadius: 1)]),
-                  ))
+                  child: Text("Load More",
+                      style: GoogleFonts.squadaOne(color: Colors.blue[900])))
             ],
           ),
           FutureBuilder<List?>(
@@ -1075,10 +1067,7 @@ class HomeWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
                   "Upcoming Anime",
-                  style: TextStyle(
-                      color: Colors.blue[900],
-                      fontWeight: FontWeight.bold,
-                      shadows: const [BoxShadow(blurRadius: 1)]),
+                  style: GoogleFonts.squadaOne(color: Colors.blue[900]),
                 ),
               ),
               TextButton(
@@ -1087,10 +1076,7 @@ class HomeWidget extends StatelessWidget {
                   },
                   child: Text(
                     "Load More",
-                    style: TextStyle(
-                        color: Colors.blue[900],
-                        fontWeight: FontWeight.bold,
-                        shadows: const [BoxShadow(blurRadius: 1)]),
+                    style: GoogleFonts.squadaOne(color: Colors.blue[900]),
                   ))
             ],
           ),

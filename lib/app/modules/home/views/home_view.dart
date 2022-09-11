@@ -431,6 +431,7 @@ class HomeView extends GetView<HomeController> {
                 TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
                 TabItem(icon: Icons.business, title: 'Studios'),
               ],
+              backgroundColor: Get.isDarkMode ? Colors.grey[900] : Colors.blue,
               initialActiveIndex: controller.selectIndex.value,
               style: TabStyle.textIn, //optional, default as 0
               onTap: (index) {
