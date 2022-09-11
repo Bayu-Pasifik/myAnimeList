@@ -4,25 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
-import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
-    as detail;
-import 'package:my_anime_list/app/routes/app_pages.dart';
-import '../controllers/anime_character_controller.dart';
+import '../controllers/detail_voice_actor_controller.dart';
+import 'package:my_anime_list/app/data/model/detail_voiceActor_model.dart'
+    as va;
 
-class AnimeCharacterView extends GetView<AnimeCharacterController> {
-  const AnimeCharacterView({Key? key}) : super(key: key);
+class DetailVoiceActorView extends GetView<DetailVoiceActorController> {
+  const DetailVoiceActorView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // final ani.Animes anime = Get.arguments['anime'];
-    final char.Character character = Get.arguments;
+    char.VoiceActor voiceActor = Get.arguments;
     return Scaffold(
         appBar: AppBar(
-          title: Text('${character.character!.name}'),
+          title: Text('${voiceActor.person!.name}'),
           centerTitle: true,
-          // backgroundColor: Colors.transparent,
         ),
-        body: FutureBuilder<detail.DetailAnimeCharacter?>(
-          future: controller.getCharacter(character.character!.malId!),
+        body: FutureBuilder<va.DetailVoiceActor?>(
+          future: controller.getPeople(voiceActor.person?.malId ?? 0),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -122,7 +119,7 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                         Center(
                             child: Text(
                           textAlign: TextAlign.center,
-                          "( ${snapshot.data!.nameKanji} )",
+                          "( ${snapshot.data!.givenName} ${snapshot.data!.familyName} )",
                           style: GoogleFonts.notoSans(fontSize: 16),
                           overflow: TextOverflow.visible,
                           maxLines: 2,
@@ -132,8 +129,9 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                         ),
                         ExpandablePanel(
                           theme: ExpandableThemeData(
-                              iconColor:
-                                  Get.isDarkMode ? Colors.white : Colors.black),
+                              iconColor: Get.isDarkMode
+                                  ? Colors.white
+                                  : Colors.black),
                           header: Text(
                             "Description",
                             style: GoogleFonts.squadaOne(
@@ -158,36 +156,42 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                           height: 40,
                         ),
                         Text(
-                          "Voice Actors",
+                          "Voice Casting",
                           style: GoogleFonts.squadaOne(
                               color: Colors.blue[400], fontSize: 16),
                         ),
                         const SizedBox(
                           height: 15,
                         ),
+                        // ! voice Actors widgets
                         ListView.builder(
-                          itemCount: character.voiceActors!.length,
+                          itemCount: snapshot.data!.voices!.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            char.VoiceActor? voices =
-                                character.voiceActors?[index];
+                            va.Voice? suara = snapshot.data?.voices![index];
+
                             return ListTile(
-                              leading: (voices != null)
+                              leading: (suara != null)
                                   ? CircleAvatar(
                                       backgroundImage: NetworkImage(
-                                          "${voices.person!.images!.jpg!.imageUrl}"),
+                                          "${suara.character!.images!.jpg!.imageUrl}"),
                                     )
                                   : const Text("No Data"),
-                              title: (voices != null)
-                                  ? Text("${voices.person!.name}")
+                              title: (suara != null)
+                                  ? Text("${suara.character!.name}")
                                   : const Text("No data"),
-                              subtitle: (voices != null)
-                                  ? Text("${voices.language}")
+                              subtitle: (suara != null)
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text("${suara.anime!.title}"),
+                                      ],
+                                    )
                                   : const Text("No data"),
-                              onTap: () => Get.toNamed(
-                                  Routes.DETAIL_VOICE_ACTOR,
-                                  arguments: voices),
                             );
                           },
                         )

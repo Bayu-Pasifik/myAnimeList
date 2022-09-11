@@ -153,6 +153,7 @@ class HomeController extends GetxController {
     }
     print(box.changes);
     print(isDark);
+    print(Get.isDarkMode);
     isDark.toggle();
   }
 

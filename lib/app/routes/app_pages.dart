@@ -14,6 +14,8 @@ import '../modules/Detail_Manga/bindings/detail_manga_binding.dart';
 import '../modules/Detail_Manga/views/detail_manga_view.dart';
 import '../modules/Detail_Studios/bindings/detail_studios_binding.dart';
 import '../modules/Detail_Studios/views/detail_studios_view.dart';
+import '../modules/Detail_VoiceActor/bindings/detail_voice_actor_binding.dart';
+import '../modules/Detail_VoiceActor/views/detail_voice_actor_view.dart';
 import '../modules/Genre_Manga_Page/bindings/genre_manga_page_binding.dart';
 import '../modules/Genre_Manga_Page/views/genre_manga_page_view.dart';
 import '../modules/Home_Manga/bindings/home_manga_binding.dart';
@@ -138,6 +140,11 @@ class AppPages {
       name: _Paths.INTRODUCTION,
       page: () => const IntroductionView(),
       binding: IntroductionBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_VOICE_ACTOR,
+      page: () => const DetailVoiceActorView(),
+      binding: DetailVoiceActorBinding(),
     ),
   ];
 }

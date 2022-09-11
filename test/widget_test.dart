@@ -12,6 +12,8 @@ import 'package:my_anime_list/app/data/model/manga/recomend_model.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
+import 'package:my_anime_list/app/data/model/detail_voiceActor_model.dart'
+    as Va;
 // void main() async {
 //   List<Anime> anime = [];
 // List<Anime> resultAnime = [];
@@ -236,13 +238,15 @@ import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
 
 void main() async {
   //! Ambil data dari API
-  Uri url = Uri.parse('https://api.jikan.moe/v4/characters/40881/full');
+  Uri url = Uri.parse('https://api.jikan.moe/v4/people/4328/full');
   var res = await http.get(url);
   //! Masukkan data ke dalam variable
   Map<String, dynamic> parsed = json.decode(res.body)["data"];
   // ! cek data nya apakah null atau tidak
 
-  var data = detail.DetailAnimeCharacter.fromJson(parsed);
+  var data = Va.DetailVoiceActor.fromJson(parsed);
   // animeCharacter.addAll();
-  print(data.voices);
+  print(data.name);
+  print("${data.givenName} " "${data.familyName}");
+  print(data.about);
 }

@@ -200,6 +200,8 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
             Padding(
               padding: const EdgeInsets.all(5),
               child: ExpandablePanel(
+                theme: ExpandableThemeData(
+                    iconColor: Get.isDarkMode ? Colors.white : Colors.black),
                 header: Text(
                   "Synopsis",
                   style:

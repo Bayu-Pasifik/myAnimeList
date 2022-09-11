@@ -26,6 +26,7 @@ abstract class Routes {
   static const DETAIL_STUDIOS = _Paths.DETAIL_STUDIOS;
   static const DETAIL_ANIME_STUDIO = _Paths.DETAIL_ANIME_STUDIO;
   static const INTRODUCTION = _Paths.INTRODUCTION;
+  static const DETAIL_VOICE_ACTOR = _Paths.DETAIL_VOICE_ACTOR;
 }
 
 abstract class _Paths {
@@ -53,4 +54,5 @@ abstract class _Paths {
   static const DETAIL_STUDIOS = '/detail-studios';
   static const DETAIL_ANIME_STUDIO = '/detail-anime-studio';
   static const INTRODUCTION = '/introduction';
+  static const DETAIL_VOICE_ACTOR = '/detail-voice-actor';
 }
