@@ -34,7 +34,7 @@ GetBuilder<HomeMangaController> mangaByIndexE(HomeMangaController controller) {
                 maxCrossAxisExtent: 200,
                 childAspectRatio: 0.8,
                 crossAxisSpacing: 20,
-                mainAxisExtent: 300,
+                mainAxisExtent: 200,
                 mainAxisSpacing: 20),
             itemBuilder: (context, index) {
               manga.Manga mangas = c.mangaIndexE[index];
@@ -58,7 +58,7 @@ GetBuilder<HomeMangaController> mangaByIndexE(HomeMangaController controller) {
                               width: 200,
                               height: 250,
                               child: Image.network(
-                                "${mangas.images?["jpg"]?.imageUrl ?? 'Kosong'}",
+                                mangas.images?["jpg"]?.imageUrl ?? 'Kosong',
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -72,7 +72,8 @@ GetBuilder<HomeMangaController> mangaByIndexE(HomeMangaController controller) {
                           ),
                           Text(
                             "${mangas.status}",
-                            style: const TextStyle(fontSize: 20, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white),
                           )
                         ],
                       ),

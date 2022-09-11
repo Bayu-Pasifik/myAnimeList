@@ -34,7 +34,7 @@ GetBuilder<HomeMangaController> mangaByIndexF(HomeMangaController controller) {
                 maxCrossAxisExtent: 200,
                 childAspectRatio: 0.8,
                 crossAxisSpacing: 20,
-                mainAxisExtent: 300,
+                mainAxisExtent: 200,
                 mainAxisSpacing: 20),
             itemBuilder: (context, index) {
               manga.Manga mangas = c.mangaIndexF[index];

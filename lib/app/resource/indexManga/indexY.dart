@@ -34,7 +34,7 @@ GetBuilder<HomeMangaController> mangaByIndexY(HomeMangaController controller) {
                 maxCrossAxisExtent: 300,
                 childAspectRatio: 0.8,
                 crossAxisSpacing: 20,
-                mainAxisExtent: 300,
+                mainAxisExtent: 200,
                 mainAxisSpacing: 20),
             itemBuilder: (context, index) {
               manga.Manga mangas = c.mangaIndexY[index];
@@ -58,6 +58,7 @@ GetBuilder<HomeMangaController> mangaByIndexY(HomeMangaController controller) {
                               width: 200,
                               height: 250,
                               child: Image.network(
+                                // ignore: unnecessary_string_interpolations
                                 "${mangas.images?["jpg"]?.imageUrl ?? 'Kosong'}",
                                 fit: BoxFit.cover,
                               ),

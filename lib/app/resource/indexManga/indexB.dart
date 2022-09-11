@@ -35,7 +35,7 @@ GetBuilder<HomeMangaController> mangaByIndexB(HomeMangaController controller) {
                 maxCrossAxisExtent: 200,
                 childAspectRatio: 0.8,
                 crossAxisSpacing: 40,
-                mainAxisExtent: 300,
+                mainAxisExtent: 200,
                 mainAxisSpacing: 20),
             itemBuilder: (context, index) {
               manga.Manga mangas = c.mangaIndexB[index];
@@ -74,7 +74,8 @@ GetBuilder<HomeMangaController> mangaByIndexB(HomeMangaController controller) {
                           ),
                           Text(
                             "${mangas.status}",
-                            style: const TextStyle(fontSize: 20, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white),
                           )
                         ],
                       ),

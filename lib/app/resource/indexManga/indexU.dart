@@ -19,7 +19,7 @@ GetBuilder<HomeMangaController> mangaByIndexU(HomeMangaController controller) {
             builder: (context, mode) {
               if (mode == LoadStatus.loading) {
                 return LoadingAnimationWidget.inkDrop(
-                    color: Color.fromARGB(255, 6, 98, 173), size: 50);
+                    color: const Color.fromARGB(255, 6, 98, 173), size: 50);
               }
               return const SizedBox(
                 height: 5,
@@ -34,7 +34,7 @@ GetBuilder<HomeMangaController> mangaByIndexU(HomeMangaController controller) {
                 maxCrossAxisExtent: 200,
                 childAspectRatio: 0.8,
                 crossAxisSpacing: 20,
-                mainAxisExtent: 300,
+                mainAxisExtent: 200,
                 mainAxisSpacing: 20),
             itemBuilder: (context, index) {
               manga.Manga mangas = c.mangaIndexU[index];
@@ -58,7 +58,7 @@ GetBuilder<HomeMangaController> mangaByIndexU(HomeMangaController controller) {
                               width: 200,
                               height: 250,
                               child: Image.network(
-                                "${mangas.images?["jpg"]?.imageUrl ?? 'Kosong'}",
+                                mangas.images?["jpg"]?.imageUrl ?? 'Kosong',
                                 fit: BoxFit.cover,
                               ),
                             ),

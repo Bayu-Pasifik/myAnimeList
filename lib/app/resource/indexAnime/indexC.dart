@@ -35,7 +35,7 @@ GetBuilder<HomeController> animeByIndexC(HomeController controller) {
                 maxCrossAxisExtent: 200,
                 childAspectRatio: 0.8,
                 crossAxisSpacing: 40,
-                mainAxisExtent: 300,
+                mainAxisExtent: 200,
                 mainAxisSpacing: 20),
             itemBuilder: (context, index) {
               anim.Animes animes = c.animeIndexC[index];
