@@ -159,11 +159,13 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                         const SizedBox(
                           height: 40,
                         ),
-                        Text(
-                          "Voice Actors",
-                          style: GoogleFonts.squadaOne(
-                              color: Colors.blue[400], fontSize: 16),
-                        ),
+                        (character.voiceActors!.isNotEmpty)
+                            ? Text(
+                                "Voice Actors",
+                                style: GoogleFonts.squadaOne(
+                                    color: Colors.blue[400], fontSize: 16),
+                              )
+                            : const SizedBox(),
                         const SizedBox(
                           height: 15,
                         ),
