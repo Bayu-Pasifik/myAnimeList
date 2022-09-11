@@ -20,6 +20,7 @@ dependencies:
   pie_chart: 5.3.2
   dropdown_search: 5.0.2
   delayed_display: 2.0.0
+  get_storage: 2.0.3
   flutter: 
     sdk: flutter
 

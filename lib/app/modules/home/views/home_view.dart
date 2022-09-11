@@ -362,12 +362,22 @@ class HomeView extends GetView<HomeController> {
       ),
 
       // ! Studios Page
-      // const Text("Studios"),
       animeStudios()
     ];
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  controller.changeTheme();
+                },
+                icon: Obx(
+                  () => controller.isDark.isFalse
+                      ? const Icon(Icons.sunny)
+                      : const Icon(Icons.mode_night_outlined),
+                ))
+          ],
         ),
         drawer: Drawer(
           elevation: 200,

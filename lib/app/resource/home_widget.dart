@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/modules/home/controllers/home_controller.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 
@@ -19,10 +20,7 @@ class HomeWidget extends StatelessWidget {
               children: [
                 Text(
                   "Top Airing",
-                  style: TextStyle(
-                      color: Colors.blue[900],
-                      fontWeight: FontWeight.bold,
-                      shadows: const [BoxShadow(blurRadius: 1)]),
+                  style: GoogleFonts.squadaOne(color: Colors.blue[900]),
                 ),
                 TextButton(
                     onPressed: () {
@@ -30,10 +28,7 @@ class HomeWidget extends StatelessWidget {
                     },
                     child: Text(
                       "Load More",
-                      style: TextStyle(
-                          color: Colors.blue[900],
-                          fontWeight: FontWeight.bold,
-                          shadows: const [BoxShadow(blurRadius: 1)]),
+                      style: GoogleFonts.squadaOne(color: Colors.blue[900]),
                     ))
               ],
             ),

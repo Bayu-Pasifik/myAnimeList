@@ -40,7 +40,7 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                     ? Container(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
-                        color: Colors.amber,
+                        // color: Colors.amber,
                         child: Image.network(
                           "${snapshot.data?.anime?[0].anime?.images?['jpg']?.largeImageUrl}",
                           fit: BoxFit.cover,
@@ -52,7 +52,7 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                         ? Container(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height,
-                            color: Colors.amber,
+                            // color: Colors.amber,
                             child: Image.network(
                               snapshot.data?.manga?[0].manga?.images?['jpg']
                                       ?.largeImageUrl ??
@@ -69,14 +69,16 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
-                      color: Colors.white,
+                      color: (Get.isDarkMode)
+                          ? Colors.grey[600]
+                          : Colors.grey[200],
                     ),
                   ),
                 ),
                 // ! center image
                 Positioned(
                   top: Get.mediaQuery.size.height / 6,
-                  left: Get.mediaQuery.size.width / 3.2,
+                  left: Get.mediaQuery.size.width / 3.4,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
@@ -107,6 +109,7 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                       children: [
                         Center(
                             child: Text(
+                          textAlign: TextAlign.center,
                           "${snapshot.data!.name}",
                           style: GoogleFonts.breeSerif(fontSize: 16),
                           overflow: TextOverflow.visible,
@@ -117,6 +120,7 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                         ),
                         Center(
                             child: Text(
+                          textAlign: TextAlign.center,
                           "( ${snapshot.data!.nameKanji} )",
                           style: GoogleFonts.notoSans(fontSize: 16),
                           overflow: TextOverflow.visible,
@@ -146,9 +150,6 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                             softWrap: true,
                           ),
                         ),
-                        // SizedBox(
-                        //   height: MediaQuery.of(context).size.height,
-                        // ),
                       ],
                     ),
                   ),

@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
@@ -16,6 +18,7 @@ class HomeController extends GetxController {
   var season = 'Summer'.obs;
   var halSeason = 1.obs;
   int halStudios = 1;
+  var isDark = false.obs;
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSearch = {};
   Map<String, dynamic> pageSeason = {};
@@ -131,6 +134,26 @@ class HomeController extends GetxController {
   void chagePage(int index) {
     selectIndex.value = index;
     update();
+  }
+
+  // ! fungsi untuk ganti tema yang sudah disimpan di local storage
+  void changeTheme() async {
+    isDark.isTrue
+        ? Get.changeTheme(ThemeData.dark())
+        : Get.changeTheme(ThemeData.light());
+
+    final box = GetStorage();
+
+    if (isDark.value == true) {
+      // ! dark to light
+      await box.write("themeDark", true);
+    } else {
+      // ! light to dark
+      await box.remove("themeDark");
+    }
+    print(box.changes);
+    print(isDark);
+    isDark.toggle();
   }
 
   // ! fungsi untuk mencari anime berdasarkan nama

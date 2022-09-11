@@ -15,7 +15,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
     final ani.Animes anime = Get.arguments;
     return Scaffold(
         body: Container(
-      color: Colors.grey[200],
+      // color: Colors.grey[200],
       child: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -81,6 +81,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                           padding: const EdgeInsets.only(top: 5),
                           child: Row(
                             children: [
+                              // ! Stars
                               Align(
                                 alignment: Alignment.topLeft,
                                 child: Icon(
@@ -94,8 +95,8 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                                     alignment: Alignment.topLeft,
                                     child: Text(
                                       "${anime.score ?? '0'} ",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                      style:
+                                          GoogleFonts.squadaOne(fontSize: 16),
                                     )),
                               ),
                               Padding(
@@ -104,19 +105,15 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                                     alignment: Alignment.topLeft,
                                     child: Text(
                                       "(${anime.scoredBy ?? '0'}) users",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                      style:
+                                          GoogleFonts.squadaOne(fontSize: 16),
                                     )),
                               ),
                             ],
                           ),
                         ),
-                        Text(
-                          "Ranked # ${anime.rank ?? 'No rank'}",
-                          style: TextStyle(
-                              color: Colors.grey[900],
-                              fontWeight: FontWeight.bold),
-                        ),
+                        Text("Ranked # ${anime.rank ?? 'No rank'}",
+                            style: GoogleFonts.squadaOne(fontSize: 16)),
                         const SizedBox(
                           height: 15,
                         ),
