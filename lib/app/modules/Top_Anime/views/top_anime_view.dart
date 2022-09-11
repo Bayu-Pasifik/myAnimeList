@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -13,7 +14,12 @@ class TopAnimeView extends GetView<TopAnimeController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Top Anime'),
+          title: Text(
+            'Top Anime',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.breeSerif(
+                textStyle: const TextStyle(overflow: TextOverflow.ellipsis)),
+          ),
           centerTitle: true,
         ),
         body: GetBuilder<TopAnimeController>(
@@ -28,7 +34,8 @@ class TopAnimeView extends GetView<TopAnimeController> {
                   builder: (context, mode) {
                     if (mode == LoadStatus.loading) {
                       return LoadingAnimationWidget.inkDrop(
-                          color: const Color.fromARGB(255, 6, 98, 173), size: 50);
+                          color: const Color.fromARGB(255, 6, 98, 173),
+                          size: 50);
                     }
                     return const SizedBox(
                       height: 5,
@@ -49,7 +56,7 @@ class TopAnimeView extends GetView<TopAnimeController> {
                     anim.Animes animes = c.listTopAnime[index];
                     return GestureDetector(
                       onTap: () {
-                        debugPrint(c.listTopAnime.toString());
+                        // debugPrint(c.listTopAnime.toString());
                         Get.toNamed(Routes.DETAIL_ANIME, arguments: animes);
                       },
                       child: ClipRRect(
@@ -77,15 +84,17 @@ class TopAnimeView extends GetView<TopAnimeController> {
                                 ),
                                 Text(
                                   "${animes.title}",
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      overflow: TextOverflow.ellipsis,
-                                      color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.breeSerif(
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis)),
                                 ),
                                 Text(
                                   "${animes.status}",
-                                  style: const TextStyle(
-                                      fontSize: 20, color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.breeSerif(
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis)),
                                 )
                               ],
                             ),

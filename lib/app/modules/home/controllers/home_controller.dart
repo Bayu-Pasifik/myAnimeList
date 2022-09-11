@@ -151,9 +151,6 @@ class HomeController extends GetxController {
       // ! light to dark
       await box.remove("themeDark");
     }
-    print(box.changes);
-    print(isDark);
-    print(Get.isDarkMode);
     isDark.toggle();
   }
 

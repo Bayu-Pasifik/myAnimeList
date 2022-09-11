@@ -40,7 +40,7 @@ class DetailVoiceActorView extends GetView<DetailVoiceActorController> {
                         height: MediaQuery.of(context).size.height,
                         // color: Colors.amber,
                         child: Image.network(
-                          "${snapshot.data?.anime?[0].anime?.images?['jpg']?.largeImageUrl}",
+                          snapshot.data?.images!.jpg!.imageUrl ?? 'NaN',
                           fit: BoxFit.cover,
                         )
 
@@ -129,9 +129,8 @@ class DetailVoiceActorView extends GetView<DetailVoiceActorController> {
                         ),
                         ExpandablePanel(
                           theme: ExpandableThemeData(
-                              iconColor: Get.isDarkMode
-                                  ? Colors.white
-                                  : Colors.black),
+                              iconColor:
+                                  Get.isDarkMode ? Colors.white : Colors.black),
                           header: Text(
                             "Description",
                             style: GoogleFonts.squadaOne(

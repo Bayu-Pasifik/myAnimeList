@@ -167,10 +167,18 @@ class HomeView extends GetView<HomeController> {
               gen.Genre genre = controller.listGenreAnime[index];
               return ListTile(
                 leading: CircleAvatar(
+                    backgroundColor:
+                        Get.isDarkMode ? Colors.white : Colors.grey[900],
                     child: Center(
-                  child: Text("${index + 1}"),
-                )),
-                title: Text("${genre.name}"),
+                      child: Text("${index + 1}"),
+                    )),
+                title: Text(
+                  "${genre.name}",
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.breeSerif(
+                      textStyle:
+                          const TextStyle(overflow: TextOverflow.ellipsis)),
+                ),
                 onTap: () {
                   Get.toNamed(Routes.GENRE_ANIME_RESULT, arguments: genre);
                 },
@@ -329,18 +337,20 @@ class HomeView extends GetView<HomeController> {
                                               ),
                                               Text(
                                                 "${animes.title}",
-                                                style: const TextStyle(
-                                                    fontSize: 15,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    color: Colors.white),
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.breeSerif(
+                                                    textStyle: const TextStyle(
+                                                        overflow: TextOverflow
+                                                            .ellipsis)),
                                               ),
                                               Center(
                                                 child: Text(
                                                   "${animes.status}",
-                                                  style: const TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.white),
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.breeSerif(
+                                                      textStyle: const TextStyle(
+                                                          overflow: TextOverflow
+                                                              .ellipsis)),
                                                 ),
                                               )
                                             ],
@@ -386,23 +396,20 @@ class HomeView extends GetView<HomeController> {
               width: double.infinity,
               height: 150,
               color: Colors.blue[300],
-              child: const Align(
+              child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: 8),
-                    child: Text(
-                      "Chose Your Destination",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          shadows: [BoxShadow(blurRadius: 1)],
-                          fontSize: 20),
-                    ),
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text("Chose Your Destination",
+                        style: GoogleFonts.breeSerif(fontSize: 20)),
                   )),
             ),
             ListTile(
               leading: const Icon(Icons.movie_creation_outlined),
-              title: const Text("Anime"),
+              title: Text(
+                "Anime",
+                style: GoogleFonts.breeSerif(fontSize: 16),
+              ),
               onTap: () {
                 // Get.offNamed(Routes.HOME_PAGE);
               },
@@ -412,7 +419,10 @@ class HomeView extends GetView<HomeController> {
             ),
             ListTile(
               leading: const Icon(Icons.book_outlined),
-              title: const Text("Manga"),
+              title: Text(
+                "Manga",
+                style: GoogleFonts.breeSerif(fontSize: 16),
+              ),
               onTap: () {
                 Get.offNamed(Routes.HOME_MANGA);
               },
@@ -431,7 +441,8 @@ class HomeView extends GetView<HomeController> {
                 TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
                 TabItem(icon: Icons.business, title: 'Studios'),
               ],
-              backgroundColor: Get.isDarkMode ? Colors.grey[900] : Colors.blue,
+              backgroundColor:
+                  controller.isDark.isFalse ? Colors.grey[900] : Colors.blue,
               initialActiveIndex: controller.selectIndex.value,
               style: TabStyle.textIn, //optional, default as 0
               onTap: (index) {

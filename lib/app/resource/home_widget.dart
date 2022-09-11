@@ -20,7 +20,9 @@ class HomeWidget extends StatelessWidget {
               children: [
                 Text(
                   "Top Airing",
-                  style: GoogleFonts.squadaOne(color: Colors.blue[900]),
+                  style: GoogleFonts.squadaOne(
+                      color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                      fontSize: 18),
                 ),
                 TextButton(
                     onPressed: () {
@@ -28,7 +30,10 @@ class HomeWidget extends StatelessWidget {
                     },
                     child: Text(
                       "Load More",
-                      style: GoogleFonts.squadaOne(color: Colors.blue[900]),
+                      style: GoogleFonts.squadaOne(
+                          color:
+                              Get.isDarkMode ? Colors.white : Colors.blue[900],
+                          fontSize: 18),
                     ))
               ],
             ),
@@ -693,7 +698,9 @@ class HomeWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
                   "Currently Airing",
-                  style: GoogleFonts.squadaOne(color: Colors.blue[900]),
+                  style: GoogleFonts.squadaOne(
+                      color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                      fontSize: 18),
                 ),
               ),
               TextButton(
@@ -701,7 +708,10 @@ class HomeWidget extends StatelessWidget {
                     Get.toNamed(Routes.ANIME_AIRING);
                   },
                   child: Text("Load More",
-                      style: GoogleFonts.squadaOne(color: Colors.blue[900])))
+                      style: GoogleFonts.squadaOne(
+                          color:
+                              Get.isDarkMode ? Colors.white : Colors.blue[900],
+                          fontSize: 18)))
             ],
           ),
           FutureBuilder<List?>(
@@ -1067,7 +1077,9 @@ class HomeWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
                   "Upcoming Anime",
-                  style: GoogleFonts.squadaOne(color: Colors.blue[900]),
+                  style: GoogleFonts.squadaOne(
+                      color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                      fontSize: 18),
                 ),
               ),
               TextButton(
@@ -1076,7 +1088,9 @@ class HomeWidget extends StatelessWidget {
                   },
                   child: Text(
                     "Load More",
-                    style: GoogleFonts.squadaOne(color: Colors.blue[900]),
+                    style: GoogleFonts.squadaOne(
+                        color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                        fontSize: 18),
                   ))
             ],
           ),

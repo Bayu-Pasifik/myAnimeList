@@ -46,7 +46,9 @@ class DetailMangaView extends GetView<DetailMangaController> {
                       child: Container(
                         width: Get.mediaQuery.size.width,
                         height: Get.mediaQuery.size.height,
-                        color: const Color.fromARGB(255, 248, 247, 247),
+                        color: Get.isDarkMode
+                            ? Colors.grey[900]
+                            : Colors.grey[300],
                       ),
                     ),
                   ),
@@ -190,6 +192,10 @@ class DetailMangaView extends GetView<DetailMangaController> {
                               height: 20,
                             ),
                             ExpandablePanel(
+                              theme: ExpandableThemeData(
+                                  iconColor: Get.isDarkMode
+                                      ? Colors.white
+                                      : Colors.black),
                               header: Text(
                                 "Synopsis",
                                 style: GoogleFonts.squadaOne(
@@ -221,6 +227,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                                     fontSize: 16, color: Colors.blue[400]),
                               ),
                             ),
+                            // ! future Character
                             Container(
                               height: MediaQuery.of(context).size.height / 3.5,
                               // color: Colors.red,
@@ -251,6 +258,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                                       ),
                                     );
                                   }
+                                  // ! Character
                                   return ListView.separated(
                                     // padding: EdgeInsets.only(top: 50),
                                     separatorBuilder: (context, index) =>
@@ -354,15 +362,16 @@ class DetailMangaView extends GetView<DetailMangaController> {
                                   const Duration(seconds: 1, milliseconds: 30),
                               initialAngleInDegree: 0,
                               totalValue: 10,
-                              ringStrokeWidth: 10,
+                              ringStrokeWidth: 8,
                               legendOptions:
                                   const LegendOptions(showLegends: false),
-                              chartValuesOptions: const ChartValuesOptions(
+                              chartValuesOptions: ChartValuesOptions(
                                   decimalPlaces: 1,
                                   showChartValues: false,
                                   showChartValuesOutside: true,
-                                  chartValueBackgroundColor:
-                                      Color.fromARGB(0, 255, 255, 255)),
+                                  chartValueBackgroundColor: Get.isDarkMode
+                                      ? const Color(0xffffffff)
+                                      : const Color.fromARGB(0, 255, 255, 255)),
                             ),
                           ),
                         ],

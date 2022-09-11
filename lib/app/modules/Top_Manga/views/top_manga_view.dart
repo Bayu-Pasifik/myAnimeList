@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -13,7 +14,12 @@ class TopMangaView extends GetView<TopMangaController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Top Manga'),
+          title: Text(
+            'Top Manga',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.breeSerif(
+                textStyle: const TextStyle(overflow: TextOverflow.ellipsis)),
+          ),
           centerTitle: true,
         ),
         body: GetBuilder<TopMangaController>(
@@ -78,15 +84,17 @@ class TopMangaView extends GetView<TopMangaController> {
                                 ),
                                 Text(
                                   "${mangas.title}",
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      overflow: TextOverflow.ellipsis,
-                                      color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.breeSerif(
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis)),
                                 ),
                                 Text(
                                   "${mangas.status}",
-                                  style: const TextStyle(
-                                      fontSize: 20, color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.breeSerif(
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis)),
                                 )
                               ],
                             ),

@@ -1,5 +1,6 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -114,17 +115,20 @@ class HomeMangaView extends GetView<HomeMangaController> {
                                         ),
                                         Text(
                                           "${mangas.title}",
-                                          style: const TextStyle(
-                                              fontSize: 15,
-                                              overflow: TextOverflow.ellipsis,
-                                              color: Colors.white),
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.breeSerif(
+                                              textStyle: const TextStyle(
+                                                  overflow:
+                                                      TextOverflow.ellipsis)),
                                         ),
                                         Center(
                                           child: Text(
                                             "${mangas.status}",
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.breeSerif(
+                                                textStyle: const TextStyle(
+                                                    overflow:
+                                                        TextOverflow.ellipsis)),
                                           ),
                                         )
                                       ],
@@ -165,10 +169,18 @@ class HomeMangaView extends GetView<HomeMangaController> {
               gen.Genre genre = controller.listGenreAnime[index];
               return ListTile(
                 leading: CircleAvatar(
+                    backgroundColor:
+                        Get.isDarkMode ? Colors.white : Colors.grey[900],
                     child: Center(
-                  child: Text("${index + 1}"),
-                )),
-                title: Text("${genre.name}"),
+                      child: Text("${index + 1}"),
+                    )),
+                title: Text(
+                  "${genre.name}",
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.breeSerif(
+                      textStyle:
+                          const TextStyle(overflow: TextOverflow.ellipsis)),
+                ),
                 onTap: () {
                   Get.toNamed(Routes.GENRE_MANGA_PAGE, arguments: genre);
                 },
@@ -185,9 +197,19 @@ class HomeMangaView extends GetView<HomeMangaController> {
     ];
     return Scaffold(
         appBar: AppBar(
-          // title: const Text('Manga Page'),
           centerTitle: true,
           elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  controller.changeTheme();
+                },
+                icon: Obx(
+                  () => controller.isDark.isFalse
+                      ? const Icon(Icons.sunny)
+                      : const Icon(Icons.mode_night_outlined),
+                ))
+          ],
         ),
         drawer: Drawer(
           elevation: 200,
@@ -196,23 +218,21 @@ class HomeMangaView extends GetView<HomeMangaController> {
               width: double.infinity,
               height: 150,
               color: Colors.blue[300],
-              child: const Align(
+              child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: 8),
-                    child: Text(
-                      "Chose Your Destination",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          shadows: [BoxShadow(blurRadius: 1)],
-                          fontSize: 20),
-                    ),
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text("Chose Your Destination",
+                        style: GoogleFonts.breeSerif(
+                            fontSize: 20, color: Colors.white)),
                   )),
             ),
             ListTile(
               leading: const Icon(Icons.movie_creation_outlined),
-              title: const Text("Anime"),
+              title: Text(
+                "Anime",
+                style: GoogleFonts.breeSerif(fontSize: 16),
+              ),
               onTap: () {
                 Get.offNamed(Routes.HOME);
               },
@@ -222,7 +242,10 @@ class HomeMangaView extends GetView<HomeMangaController> {
             ),
             ListTile(
               leading: const Icon(Icons.book_outlined),
-              title: const Text("Manga"),
+              title: Text(
+                "Manga",
+                style: GoogleFonts.breeSerif(fontSize: 16),
+              ),
               onTap: () {
                 // Get.offNamed(Routes.HOME_MANGA);
               },
@@ -236,6 +259,8 @@ class HomeMangaView extends GetView<HomeMangaController> {
             builder: (controller) => widgets[controller.selectIndex.value]),
         bottomNavigationBar: Obx(
           () => ConvexAppBar(
+              backgroundColor:
+                  controller.isDark.isFalse ? Colors.grey[900] : Colors.blue,
               items: const [
                 TabItem(icon: Icons.home, title: 'Home'),
                 TabItem(icon: Icons.search, title: 'search'),

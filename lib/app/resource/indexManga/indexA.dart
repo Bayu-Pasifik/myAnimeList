@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/modules/Home_Manga/controllers/home_manga_controller.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
@@ -56,7 +57,7 @@ GetBuilder<HomeMangaController> mangaByIndexA(HomeMangaController controller) {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
-                            child: Container(
+                            child: SizedBox(
                               width: 200,
                               height: 250,
                               child: Image.network(
@@ -67,15 +68,17 @@ GetBuilder<HomeMangaController> mangaByIndexA(HomeMangaController controller) {
                           ),
                           Text(
                             "${mangas.title}",
-                            style: const TextStyle(
-                                fontSize: 20,
-                                overflow: TextOverflow.ellipsis,
-                                color: Colors.white),
+                            textAlign: TextAlign.center,
+                                  style: GoogleFonts.breeSerif(
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis)),
                           ),
                           Text(
                             "${mangas.status}",
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.white),
+                           textAlign: TextAlign.center,
+                                  style: GoogleFonts.breeSerif(
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis)),
                           )
                         ],
                       ),

@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 
@@ -66,14 +67,17 @@ GetBuilder<HomeController> animeByIndexF(HomeController controller) {
                           ),
                           Text(
                             "${animes.title}",
-                            style: const TextStyle(
-                                fontSize: 20,
-                                overflow: TextOverflow.ellipsis,
-                                color: Colors.white),
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.breeSerif(
+                                textStyle: const TextStyle(
+                                    overflow: TextOverflow.ellipsis)),
                           ),
                           Text(
                             "${animes.status}",
-                            style: const TextStyle(fontSize: 20, color: Colors.white),
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.breeSerif(
+                                textStyle: const TextStyle(
+                                    overflow: TextOverflow.ellipsis)),
                           )
                         ],
                       ),

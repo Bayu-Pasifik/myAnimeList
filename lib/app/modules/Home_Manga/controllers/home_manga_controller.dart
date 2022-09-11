@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
@@ -14,6 +16,7 @@ class HomeMangaController extends GetxController {
   Rx<int> selectIndex = 0.obs;
   Rx<int> currentSlider = 0.obs;
   int hal = 1;
+  var isDark = false.obs;
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSearch = {};
   late Future<List?> mangaTop;
@@ -279,6 +282,24 @@ class HomeMangaController extends GetxController {
   void chagePage(int index) {
     selectIndex.value = index;
     update();
+  }
+
+  // ! fungsi untuk ganti tema yang sudah disimpan di local storage
+  void changeTheme() async {
+    isDark.isTrue
+        ? Get.changeTheme(ThemeData.dark())
+        : Get.changeTheme(ThemeData.light());
+
+    final box = GetStorage();
+
+    if (isDark.value == true) {
+      // ! dark to light
+      await box.write("themeDark", true);
+    } else {
+      // ! light to dark
+      await box.remove("themeDark");
+    }
+    isDark.toggle();
   }
 
   // ! fungsi untuk top manga

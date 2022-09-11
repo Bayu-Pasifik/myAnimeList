@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:my_anime_list/app/routes/app_pages.dart';
@@ -12,11 +13,16 @@ class ManhwaPageView extends GetView<ManhwaPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('All Manhwa'),
-        centerTitle: true,
-      ),
-      body: GetBuilder<ManhwaPageController>(
+        appBar: AppBar(
+          title: Text(
+            'All Manhwa',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.breeSerif(
+                textStyle: const TextStyle(overflow: TextOverflow.ellipsis)),
+          ),
+          centerTitle: true,
+        ),
+        body: GetBuilder<ManhwaPageController>(
           builder: (c) {
             return SmartRefresher(
                 controller: c.topRefresh,
@@ -78,15 +84,17 @@ class ManhwaPageView extends GetView<ManhwaPageController> {
                                 ),
                                 Text(
                                   "${mangas.title}",
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      overflow: TextOverflow.ellipsis,
-                                      color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.breeSerif(
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis)),
                                 ),
                                 Text(
                                   "${mangas.status}",
-                                  style: const TextStyle(
-                                      fontSize: 20, color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.breeSerif(
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis)),
                                 )
                               ],
                             ),
@@ -112,7 +120,6 @@ class ManhwaPageView extends GetView<ManhwaPageController> {
                   },
                 ));
           },
-        )
-    );
+        ));
   }
 }

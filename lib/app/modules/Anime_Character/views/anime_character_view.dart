@@ -42,9 +42,11 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
                         // color: Colors.amber,
-                        child: Image.network(
-                          "${snapshot.data?.anime?[0].anime?.images?['jpg']?.largeImageUrl}",
-                          fit: BoxFit.cover,
+                        child: ClipRRect(
+                          child: Image.network(
+                            "${snapshot.data?.anime?[0].anime?.images?['jpg']?.largeImageUrl}",
+                            fit: BoxFit.cover,
+                          ),
                         )
 
                         // child: ,

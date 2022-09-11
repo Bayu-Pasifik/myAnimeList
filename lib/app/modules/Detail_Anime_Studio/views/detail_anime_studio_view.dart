@@ -23,8 +23,7 @@ class DetailAnimeStudioView extends GetView<DetailAnimeStudioController> {
           return SafeArea(
               child: Padding(
             padding: const EdgeInsets.all(15),
-            child: Expanded(
-                child: SmartRefresher(
+            child: SmartRefresher(
               controller: c.animeStudioRefresh,
               enablePullDown: true,
               enablePullUp: true,
@@ -48,9 +47,7 @@ class DetailAnimeStudioView extends GetView<DetailAnimeStudioController> {
                         child: Text(
                           "No More Data",
                           style: GoogleFonts.kurale(
-                              // color: Colors.red,
-                              fontSize: 25,
-                              fontWeight: FontWeight.normal),
+                              fontSize: 25, fontWeight: FontWeight.normal),
                         ),
                       ),
                     );
@@ -101,16 +98,18 @@ class DetailAnimeStudioView extends GetView<DetailAnimeStudioController> {
                               ),
                               Text(
                                 "${animes.title}",
-                                style: const TextStyle(
-                                    fontSize: 15,
-                                    overflow: TextOverflow.ellipsis,
-                                    color: Colors.white),
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.breeSerif(
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                               Center(
                                 child: Text(
                                   "${animes.status}",
-                                  style: const TextStyle(
-                                      fontSize: 15, color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.breeSerif(
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis)),
                                 ),
                               )
                             ],
@@ -121,7 +120,7 @@ class DetailAnimeStudioView extends GetView<DetailAnimeStudioController> {
                   );
                 },
               ),
-            )),
+            ),
           ));
         },
       ),

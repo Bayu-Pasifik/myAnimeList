@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:my_anime_list/app/routes/app_pages.dart';
@@ -13,7 +14,12 @@ class ManhuaPageView extends GetView<ManhuaPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('All Manhua'),
+          title: Text(
+            'All Manhua',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.breeSerif(
+                textStyle: const TextStyle(overflow: TextOverflow.ellipsis)),
+          ),
           centerTitle: true,
         ),
         body: GetBuilder<ManhuaPageController>(
@@ -78,15 +84,17 @@ class ManhuaPageView extends GetView<ManhuaPageController> {
                                 ),
                                 Text(
                                   "${mangas.title}",
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      overflow: TextOverflow.ellipsis,
-                                      color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.breeSerif(
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis)),
                                 ),
                                 Text(
                                   "${mangas.status}",
-                                  style: const TextStyle(
-                                      fontSize: 20, color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.breeSerif(
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis)),
                                 )
                               ],
                             ),

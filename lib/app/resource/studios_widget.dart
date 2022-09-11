@@ -81,10 +81,10 @@ GetBuilder<HomeController> animeStudios() {
                           ),
                           Text(
                             "${studios.titles![0].title}",
-                            style: const TextStyle(
-                                fontSize: 20,
-                                overflow: TextOverflow.ellipsis,
-                                color: Colors.white),
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.breeSerif(
+                                textStyle: const TextStyle(
+                                    overflow: TextOverflow.ellipsis)),
                           ),
                         ],
                       ),

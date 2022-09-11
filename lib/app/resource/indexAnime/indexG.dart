@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 
@@ -55,25 +56,28 @@ GetBuilder<HomeController> animeByIndexG(HomeController controller) {
                       Column(
                         children: [
                           Expanded(
-                            child: Container(
+                            child: SizedBox(
                               width: 200,
                               height: 250,
                               child: Image.network(
-                                "${animes.images?["jpg"]?.imageUrl ?? 'Kosong'}",
+                                animes.images?["jpg"]?.imageUrl ?? 'Kosong',
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
                           Text(
                             "${animes.title}",
-                            style: const TextStyle(
-                                fontSize: 20,
-                                overflow: TextOverflow.ellipsis,
-                                color: Colors.white),
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.breeSerif(
+                                textStyle: const TextStyle(
+                                    overflow: TextOverflow.ellipsis)),
                           ),
                           Text(
                             "${animes.status}",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.breeSerif(
+                                textStyle: const TextStyle(
+                                    overflow: TextOverflow.ellipsis)),
                           )
                         ],
                       ),
