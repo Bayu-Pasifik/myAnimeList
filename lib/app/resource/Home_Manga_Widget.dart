@@ -107,9 +107,12 @@ class HomeMangaWidget extends StatelessWidget {
                                         alignment: Alignment.bottomCenter,
                                         child: Text(
                                           "${c.listMangaManga[0].title}",
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.start,
+                                          style: GoogleFonts.breeSerif(
+                                              fontSize: 20,
+                                              textStyle: const TextStyle(
+                                                  overflow:
+                                                      TextOverflow.ellipsis)),
                                         )),
                                   ],
                                 ),
@@ -165,10 +168,11 @@ class HomeMangaWidget extends StatelessWidget {
                                   alignment: Alignment.bottomLeft,
                                   child: Text(
                                     "${c.listMangaManga[1].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    textAlign: TextAlign.start,
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20,
+                                        textStyle: const TextStyle(
+                                            overflow: TextOverflow.ellipsis)),
                                   )),
                             ],
                           ),
@@ -223,10 +227,11 @@ class HomeMangaWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listMangaManga[2].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    textAlign: TextAlign.start,
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20,
+                                        textStyle: const TextStyle(
+                                            overflow: TextOverflow.ellipsis)),
                                   )),
                             ],
                           ),
@@ -281,10 +286,11 @@ class HomeMangaWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listMangaManga[3].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    textAlign: TextAlign.start,
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20,
+                                        textStyle: const TextStyle(
+                                            overflow: TextOverflow.ellipsis)),
                                   )),
                             ],
                           ),
@@ -345,10 +351,11 @@ class HomeMangaWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listMangaManga[4].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    textAlign: TextAlign.start,
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20,
+                                        textStyle: const TextStyle(
+                                            overflow: TextOverflow.ellipsis)),
                                   )),
                             ],
                           ),
@@ -403,10 +410,11 @@ class HomeMangaWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listMangaManga[5].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    textAlign: TextAlign.start,
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20,
+                                        textStyle: const TextStyle(
+                                            overflow: TextOverflow.ellipsis)),
                                   )),
                             ],
                           ),
@@ -461,10 +469,11 @@ class HomeMangaWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listMangaManga[6].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    textAlign: TextAlign.start,
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20,
+                                        textStyle: const TextStyle(
+                                            overflow: TextOverflow.ellipsis)),
                                   )),
                             ],
                           ),
@@ -519,10 +528,11 @@ class HomeMangaWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listMangaManga[7].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    textAlign: TextAlign.start,
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20,
+                                        textStyle: const TextStyle(
+                                            overflow: TextOverflow.ellipsis)),
                                   )),
                             ],
                           ),
@@ -574,10 +584,11 @@ class HomeMangaWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listMangaManga[8].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    textAlign: TextAlign.start,
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20,
+                                        textStyle: const TextStyle(
+                                            overflow: TextOverflow.ellipsis)),
                                   )),
                             ],
                           ),
@@ -632,10 +643,11 @@ class HomeMangaWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${controller.listMangaManga[9].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    textAlign: TextAlign.start,
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20,
+                                        textStyle: const TextStyle(
+                                            overflow: TextOverflow.ellipsis)),
                                   )),
                             ],
                           ),
@@ -741,7 +753,14 @@ class HomeMangaWidget extends StatelessWidget {
                     ),
                     items: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -752,7 +771,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhwa[0]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listManhwa[0].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -764,17 +783,25 @@ class HomeMangaWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listManhwa[0].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -785,7 +812,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhwa[1]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listManhwa[1].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -797,17 +824,25 @@ class HomeMangaWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listManhwa[1].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -818,7 +853,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhwa[2]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listManhwa[2].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -830,17 +865,25 @@ class HomeMangaWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listManhwa[2].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -851,7 +894,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhwa[3]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listManhwa[3].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -863,17 +906,25 @@ class HomeMangaWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listManhwa[3].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -884,7 +935,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhwa[4]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listManhwa[4].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -896,17 +947,25 @@ class HomeMangaWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listManhwa[4].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -917,7 +976,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhwa[5]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listManhwa[5].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -929,17 +988,25 @@ class HomeMangaWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listManhwa[5].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -950,7 +1017,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhwa[6]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listManhwa[6].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -962,17 +1029,25 @@ class HomeMangaWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listManhwa[6].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -983,7 +1058,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhwa[7]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listManhwa[7].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -995,17 +1070,25 @@ class HomeMangaWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listManhwa[7].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1016,7 +1099,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhwa[8]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listManhwa[8].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -1028,17 +1111,25 @@ class HomeMangaWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listManhwa[8].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1049,7 +1140,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhwa[9]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listManhwa[9].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -1061,10 +1152,11 @@ class HomeMangaWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listManhwa[9].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
@@ -1126,7 +1218,14 @@ class HomeMangaWidget extends StatelessWidget {
                     ),
                     items: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1137,7 +1236,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhua[0]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listManhua.isNotEmpty)
                                       ? Image.network(
                                           "${c.listManhua[0].images['jpg'].imageUrl}",
@@ -1152,10 +1251,11 @@ class HomeMangaWidget extends StatelessWidget {
                               child: (c.listManhua.isNotEmpty)
                                   ? Text(
                                       "${c.listManhua[0].title}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20,
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
                                     )
                                   : const CircularProgressIndicator(),
                             ),
@@ -1163,7 +1263,14 @@ class HomeMangaWidget extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1174,7 +1281,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhua[1]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listManhua.isNotEmpty)
                                       ? Image.network(
                                           "${c.listManhua[1].images['jpg'].imageUrl}",
@@ -1189,10 +1296,11 @@ class HomeMangaWidget extends StatelessWidget {
                               child: (c.listManhua.isNotEmpty)
                                   ? Text(
                                       "${c.listManhua[1].title}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20,
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
                                     )
                                   : const CircularProgressIndicator(),
                             ),
@@ -1200,7 +1308,14 @@ class HomeMangaWidget extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1211,7 +1326,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhua[2]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listManhua.isNotEmpty)
                                       ? Image.network(
                                           "${c.listManhua[2].images['jpg'].imageUrl}",
@@ -1226,10 +1341,11 @@ class HomeMangaWidget extends StatelessWidget {
                               child: (c.listManhua.isNotEmpty)
                                   ? Text(
                                       "${c.listManhua[2].title}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20,
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
                                     )
                                   : const CircularProgressIndicator(),
                             ),
@@ -1237,7 +1353,14 @@ class HomeMangaWidget extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1248,7 +1371,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhua[3]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listManhua.isNotEmpty)
                                       ? Image.network(
                                           "${c.listManhua[3].images['jpg'].imageUrl}",
@@ -1263,10 +1386,11 @@ class HomeMangaWidget extends StatelessWidget {
                               child: (c.listManhua.isNotEmpty)
                                   ? Text(
                                       "${c.listManhua[3].title}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20,
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
                                     )
                                   : const CircularProgressIndicator(),
                             ),
@@ -1274,7 +1398,14 @@ class HomeMangaWidget extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1285,7 +1416,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhua[4]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listManhua.isNotEmpty)
                                       ? Image.network(
                                           "${c.listManhua[4].images['jpg'].imageUrl}",
@@ -1300,10 +1431,11 @@ class HomeMangaWidget extends StatelessWidget {
                               child: (c.listManhua.isNotEmpty)
                                   ? Text(
                                       "${c.listManhua[4].title}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20,
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
                                     )
                                   : const CircularProgressIndicator(),
                             ),
@@ -1311,7 +1443,14 @@ class HomeMangaWidget extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1322,7 +1461,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhua[5]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listManhua.isNotEmpty)
                                       ? Image.network(
                                           "${c.listManhua[5].images['jpg'].imageUrl}",
@@ -1337,10 +1476,11 @@ class HomeMangaWidget extends StatelessWidget {
                               child: (c.listManhua.isNotEmpty)
                                   ? Text(
                                       "${c.listManhua[5].title}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20,
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
                                     )
                                   : const CircularProgressIndicator(),
                             ),
@@ -1348,7 +1488,14 @@ class HomeMangaWidget extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1359,7 +1506,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhua[6]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listManhua.isNotEmpty)
                                       ? Image.network(
                                           "${c.listManhua[6].images['jpg'].imageUrl}",
@@ -1374,10 +1521,11 @@ class HomeMangaWidget extends StatelessWidget {
                               child: (c.listManhua.isNotEmpty)
                                   ? Text(
                                       "${c.listManhua[6].title}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20,
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
                                     )
                                   : const CircularProgressIndicator(),
                             ),
@@ -1385,7 +1533,14 @@ class HomeMangaWidget extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1396,7 +1551,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhua[7]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listManhua.isNotEmpty)
                                       ? Image.network(
                                           "${c.listManhua[7].images['jpg'].imageUrl}",
@@ -1411,10 +1566,11 @@ class HomeMangaWidget extends StatelessWidget {
                               child: (c.listManhua.isNotEmpty)
                                   ? Text(
                                       "${c.listManhua[7].title}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20,
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
                                     )
                                   : const CircularProgressIndicator(),
                             ),
@@ -1422,7 +1578,14 @@ class HomeMangaWidget extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1433,7 +1596,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhua[8]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listManhua.isNotEmpty)
                                       ? Image.network(
                                           "${c.listManhua[8].images['jpg'].imageUrl}",
@@ -1448,10 +1611,11 @@ class HomeMangaWidget extends StatelessWidget {
                               child: (c.listManhua.isNotEmpty)
                                   ? Text(
                                       "${c.listManhua[8].title}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20,
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
                                     )
                                   : const CircularProgressIndicator(),
                             ),
@@ -1459,7 +1623,14 @@ class HomeMangaWidget extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1470,7 +1641,7 @@ class HomeMangaWidget extends StatelessWidget {
                                       arguments: c.listManhua[9]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listManhua.isNotEmpty)
                                       ? Image.network(
                                           "${c.listManhua[9].images['jpg'].imageUrl}",
@@ -1485,10 +1656,11 @@ class HomeMangaWidget extends StatelessWidget {
                               child: (c.listManhua.isNotEmpty)
                                   ? Text(
                                       "${c.listManhua[9].title}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20,
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
                                     )
                                   : const CircularProgressIndicator(),
                             ),
