@@ -54,17 +54,15 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // ! padding image
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 3),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          anime.images?['jpg']?.imageUrl ?? 'kosong',
-                          fit: BoxFit.cover,
-                        ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5, left: 3),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        anime.images?['jpg']?.imageUrl ?? 'kosong',
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -89,25 +87,31 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                                   color: Colors.yellow[700],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5, left: 2),
-                                child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text(
-                                      "${anime.score ?? '0'} ",
-                                      style:
-                                          GoogleFonts.squadaOne(fontSize: 16),
-                                    )),
+                              Expanded(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, left: 2),
+                                  child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        "${anime.score ?? '0'} ",
+                                        style:
+                                            GoogleFonts.squadaOne(fontSize: 16),
+                                      )),
+                                ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5, left: 2),
-                                child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text(
-                                      "(${anime.scoredBy ?? '0'}) users",
-                                      style:
-                                          GoogleFonts.squadaOne(fontSize: 16),
-                                    )),
+                              Expanded(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, left: 2),
+                                  child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        "(${anime.scoredBy ?? '0'}) users",
+                                        style:
+                                            GoogleFonts.squadaOne(fontSize: 16),
+                                      )),
+                                ),
                               ),
                             ],
                           ),

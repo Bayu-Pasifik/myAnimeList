@@ -67,138 +67,337 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                         : const Center(child: CircularProgressIndicator()),
                 Positioned(
                   top: 200,
+                  bottom: 0,
+                  right: 0,
+                  left: 0,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       color: (Get.isDarkMode)
                           ? Colors.grey[900]
                           : Colors.grey[200],
+                      child: ListView(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        children: [
+                          // ! center image
+                          (snapshot.data!.images!.jpg!.imageUrl != null)
+                              ? Center(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: SizedBox(
+                                      height: Get.mediaQuery.size.height / 2.5,
+                                      child: Image.network(
+                                        "${snapshot.data!.images!.jpg!.imageUrl}",
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : const CircularProgressIndicator(),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          // ! name and kanji name
+                          Center(
+                              child: Text(
+                            textAlign: TextAlign.center,
+                            "${snapshot.data!.name}",
+                            style: GoogleFonts.breeSerif(fontSize: 16),
+                            overflow: TextOverflow.visible,
+                            maxLines: 2,
+                          )),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Center(
+                              child: Text(
+                            textAlign: TextAlign.center,
+                            "( ${snapshot.data!.nameKanji} )",
+                            style: GoogleFonts.notoSans(fontSize: 16),
+                            overflow: TextOverflow.visible,
+                            maxLines: 2,
+                          )),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          ExpandablePanel(
+                            theme: ExpandableThemeData(
+                                iconColor: Get.isDarkMode
+                                    ? Colors.white
+                                    : Colors.black),
+                            header: Text(
+                              "Description",
+                              style: GoogleFonts.squadaOne(
+                                  fontSize: 16, color: Colors.blue[400]),
+                            ),
+                            collapsed: Text(
+                              "${snapshot.data?.about}",
+                              softWrap: true,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.kurale(
+                                  fontSize: 16, fontWeight: FontWeight.normal),
+                            ),
+                            expanded: Text(
+                              "${snapshot.data?.about}",
+                              style: GoogleFonts.kurale(
+                                  fontSize: 16, fontWeight: FontWeight.normal),
+                              softWrap: true,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          (character.voiceActors!.isNotEmpty)
+                              ? Text(
+                                  "Voice Actors",
+                                  style: GoogleFonts.squadaOne(
+                                      color: Colors.blue[400], fontSize: 16),
+                                )
+                              : const SizedBox(),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          ListView.builder(
+                            itemCount: character.voiceActors!.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              char.VoiceActor? voices =
+                                  character.voiceActors?[index];
+                              return ListTile(
+                                leading: (voices != null)
+                                    ? CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            "${voices.person!.images!.jpg!.imageUrl}"),
+                                      )
+                                    : Text(
+                                        "No Data",
+                                        textAlign: TextAlign.start,
+                                        style: GoogleFonts.breeSerif(
+                                            textStyle: const TextStyle(
+                                                overflow:
+                                                    TextOverflow.ellipsis)),
+                                      ),
+                                title: (voices != null)
+                                    ? Text(
+                                        "${voices.person!.name}",
+                                        textAlign: TextAlign.start,
+                                        style: GoogleFonts.breeSerif(
+                                            textStyle: const TextStyle(
+                                                overflow:
+                                                    TextOverflow.ellipsis)),
+                                      )
+                                    : Text(
+                                        "No data",
+                                        textAlign: TextAlign.start,
+                                        style: GoogleFonts.breeSerif(
+                                            textStyle: const TextStyle(
+                                                overflow:
+                                                    TextOverflow.ellipsis)),
+                                      ),
+                                subtitle: (voices != null)
+                                    ? Text(
+                                        "${voices.language}",
+                                        textAlign: TextAlign.start,
+                                        style: GoogleFonts.breeSerif(
+                                            textStyle: const TextStyle(
+                                                overflow:
+                                                    TextOverflow.ellipsis)),
+                                      )
+                                    : Text(
+                                        "No data",
+                                        textAlign: TextAlign.start,
+                                        style: GoogleFonts.breeSerif(
+                                            textStyle: const TextStyle(
+                                                overflow:
+                                                    TextOverflow.ellipsis)),
+                                      ),
+                                onTap: () => Get.toNamed(
+                                    Routes.DETAIL_VOICE_ACTOR,
+                                    arguments: voices),
+                              );
+                            },
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 // ! center image
-                Positioned(
-                  top: Get.mediaQuery.size.height / 6,
-                  left: Get.mediaQuery.size.width / 3.4,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                        width: 150,
-                        height: 200,
-                        // color: Colors.red,
-                        child: (snapshot.data!.images!.jpg!.imageUrl != null)
-                            ? Image.network(
-                                "${snapshot.data!.images!.jpg!.imageUrl}",
-                                fit: BoxFit.cover,
-                              )
-                            : const CircularProgressIndicator()),
-                  ),
-                ),
+                // Positioned(
+                //   top: Get.mediaQuery.size.height / 6,
+                //   left: Get.mediaQuery.size.width / 3.4,
+                //   child: ClipRRect(
+                //     borderRadius: BorderRadius.circular(10),
+                //     child: Container(
+                //         width: 150,
+                //         height: 200,
+                //         // color: Colors.red,
+                //         child: (snapshot.data!.images!.jpg!.imageUrl != null)
+                //             ? Image.network(
+                //                 "${snapshot.data!.images!.jpg!.imageUrl}",
+                //                 fit: BoxFit.cover,
+                //               )
+                //             : const CircularProgressIndicator()),
+                //   ),
+                // ),
 
                 // ! widget for name and description
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.48,
-                  bottom: 0.0,
-                  right: 0.0,
-                  left: 0.0,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    // color: Colors.amber,
-                    child: ListView(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      children: [
-                        Center(
-                            child: Text(
-                          textAlign: TextAlign.center,
-                          "${snapshot.data!.name}",
-                          style: GoogleFonts.breeSerif(fontSize: 16),
-                          overflow: TextOverflow.visible,
-                          maxLines: 2,
-                        )),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Center(
-                            child: Text(
-                          textAlign: TextAlign.center,
-                          "( ${snapshot.data!.nameKanji} )",
-                          style: GoogleFonts.notoSans(fontSize: 16),
-                          overflow: TextOverflow.visible,
-                          maxLines: 2,
-                        )),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        ExpandablePanel(
-                          theme: ExpandableThemeData(
-                              iconColor:
-                                  Get.isDarkMode ? Colors.white : Colors.black),
-                          header: Text(
-                            "Description",
-                            style: GoogleFonts.squadaOne(
-                                fontSize: 16, color: Colors.blue[400]),
-                          ),
-                          collapsed: Text(
-                            "${snapshot.data?.about}",
-                            softWrap: true,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.kurale(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                          ),
-                          expanded: Text(
-                            "${snapshot.data?.about}",
-                            style: GoogleFonts.kurale(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            softWrap: true,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        (character.voiceActors!.isNotEmpty)
-                            ? Text(
-                                "Voice Actors",
-                                style: GoogleFonts.squadaOne(
-                                    color: Colors.blue[400], fontSize: 16),
-                              )
-                            : const SizedBox(),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        ListView.builder(
-                          itemCount: character.voiceActors!.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            char.VoiceActor? voices =
-                                character.voiceActors?[index];
-                            return ListTile(
-                              leading: (voices != null)
-                                  ? CircleAvatar(
-                                      backgroundImage: NetworkImage(
-                                          "${voices.person!.images!.jpg!.imageUrl}"),
-                                    )
-                                  : const Text("No Data"),
-                              title: (voices != null)
-                                  ? Text("${voices.person!.name}")
-                                  : const Text("No data"),
-                              subtitle: (voices != null)
-                                  ? Text("${voices.language}")
-                                  : const Text("No data"),
-                              onTap: () => Get.toNamed(
-                                  Routes.DETAIL_VOICE_ACTOR,
-                                  arguments: voices),
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                )
+                // Positioned(
+                //   top: MediaQuery.of(context).size.height * 0.3,
+                //   bottom: 0.0,
+                //   right: 0.0,
+                //   left: 0.0,
+                //   child: Container(
+                //     width: MediaQuery.of(context).size.width,
+                //     height: MediaQuery.of(context).size.height,
+                //     // color: Colors.amber,
+                //     child: ListView(
+                //       padding: const EdgeInsets.only(left: 10, right: 10),
+                //       children: [
+                //         // ! center image
+                //         (snapshot.data!.images!.jpg!.imageUrl != null)
+                //             ? Center(
+                //                 child: ClipRRect(
+                //                   borderRadius: BorderRadius.circular(20),
+                //                   child: SizedBox(
+                //                     height: 200,
+                //                     child: Image.network(
+                //                       "${snapshot.data!.images!.jpg!.imageUrl}",
+                //                       fit: BoxFit.fitHeight,
+                //                     ),
+                //                   ),
+                //                 ),
+                //               )
+                //             : const CircularProgressIndicator(),
+                //         const SizedBox(
+                //           height: 5,
+                //         ),
+                //         // ! name and kanji name
+                //         Center(
+                //             child: Text(
+                //           textAlign: TextAlign.center,
+                //           "${snapshot.data!.name}",
+                //           style: GoogleFonts.breeSerif(fontSize: 16),
+                //           overflow: TextOverflow.visible,
+                //           maxLines: 2,
+                //         )),
+                //         const SizedBox(
+                //           height: 5,
+                //         ),
+                //         Center(
+                //             child: Text(
+                //           textAlign: TextAlign.center,
+                //           "( ${snapshot.data!.nameKanji} )",
+                //           style: GoogleFonts.notoSans(fontSize: 16),
+                //           overflow: TextOverflow.visible,
+                //           maxLines: 2,
+                //         )),
+                //         const SizedBox(
+                //           height: 40,
+                //         ),
+                //         ExpandablePanel(
+                //           theme: ExpandableThemeData(
+                //               iconColor:
+                //                   Get.isDarkMode ? Colors.white : Colors.black),
+                //           header: Text(
+                //             "Description",
+                //             style: GoogleFonts.squadaOne(
+                //                 fontSize: 16, color: Colors.blue[400]),
+                //           ),
+                //           collapsed: Text(
+                //             "${snapshot.data?.about}",
+                //             softWrap: true,
+                //             maxLines: 2,
+                //             overflow: TextOverflow.ellipsis,
+                //             style: GoogleFonts.kurale(
+                //                 fontSize: 16, fontWeight: FontWeight.normal),
+                //           ),
+                //           expanded: Text(
+                //             "${snapshot.data?.about}",
+                //             style: GoogleFonts.kurale(
+                //                 fontSize: 16, fontWeight: FontWeight.normal),
+                //             softWrap: true,
+                //           ),
+                //         ),
+                //         const SizedBox(
+                //           height: 40,
+                //         ),
+                //         (character.voiceActors!.isNotEmpty)
+                //             ? Text(
+                //                 "Voice Actors",
+                //                 style: GoogleFonts.squadaOne(
+                //                     color: Colors.blue[400], fontSize: 16),
+                //               )
+                //             : const SizedBox(),
+                //         const SizedBox(
+                //           height: 15,
+                //         ),
+                //         ListView.builder(
+                //           itemCount: character.voiceActors!.length,
+                //           shrinkWrap: true,
+                //           physics: const NeverScrollableScrollPhysics(),
+                //           itemBuilder: (context, index) {
+                //             char.VoiceActor? voices =
+                //                 character.voiceActors?[index];
+                //             return ListTile(
+                //               leading: (voices != null)
+                //                   ? CircleAvatar(
+                //                       backgroundImage: NetworkImage(
+                //                           "${voices.person!.images!.jpg!.imageUrl}"),
+                //                     )
+                //                   : Text(
+                //                       "No Data",
+                //                       textAlign: TextAlign.start,
+                //                       style: GoogleFonts.breeSerif(
+                //                           textStyle: const TextStyle(
+                //                               overflow: TextOverflow.ellipsis)),
+                //                     ),
+                //               title: (voices != null)
+                //                   ? Text(
+                //                       "${voices.person!.name}",
+                //                       textAlign: TextAlign.start,
+                //                       style: GoogleFonts.breeSerif(
+                //                           textStyle: const TextStyle(
+                //                               overflow: TextOverflow.ellipsis)),
+                //                     )
+                //                   : Text(
+                //                       "No data",
+                //                       textAlign: TextAlign.start,
+                //                       style: GoogleFonts.breeSerif(
+                //                           textStyle: const TextStyle(
+                //                               overflow: TextOverflow.ellipsis)),
+                //                     ),
+                //               subtitle: (voices != null)
+                //                   ? Text(
+                //                       "${voices.language}",
+                //                       textAlign: TextAlign.start,
+                //                       style: GoogleFonts.breeSerif(
+                //                           textStyle: const TextStyle(
+                //                               overflow: TextOverflow.ellipsis)),
+                //                     )
+                //                   : Text(
+                //                       "No data",
+                //                       textAlign: TextAlign.start,
+                //                       style: GoogleFonts.breeSerif(
+                //                           textStyle: const TextStyle(
+                //                               overflow: TextOverflow.ellipsis)),
+                //                     ),
+                //               onTap: () => Get.toNamed(
+                //                   Routes.DETAIL_VOICE_ACTOR,
+                //                   arguments: voices),
+                //             );
+                //           },
+                //         )
+                //       ],
+                //     ),
+                //   ),
+                // )
               ],
             );
           },

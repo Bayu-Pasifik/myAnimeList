@@ -15,7 +15,7 @@ class IntroductionView extends GetView<IntroductionController> {
     return Scaffold(
         body: IntroductionScreen(
       onDone: () {
-        Get.toNamed(Routes.HOME);
+        Get.offNamed(Routes.HOME);
       },
       showDoneButton: true,
       showNextButton: true,

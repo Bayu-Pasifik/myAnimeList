@@ -105,9 +105,7 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[0].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                                    style: GoogleFonts.breeSerif(fontSize: 20),
                                   )),
                             ],
                           ),
@@ -159,14 +157,10 @@ class HomeWidget extends StatelessWidget {
                                 ],
                               ),
                               Align(
-                                  alignment: Alignment.bottomLeft,
-                                  child: Text(
-                                    "${c.listTopAnime[1].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
-                                  )),
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text("${c.listTopAnime[1].title}",
+                                      style:
+                                          GoogleFonts.breeSerif(fontSize: 20))),
                             ],
                           ),
                         ],
@@ -218,13 +212,9 @@ class HomeWidget extends StatelessWidget {
                               ),
                               Align(
                                   alignment: Alignment.bottomCenter,
-                                  child: Text(
-                                    "${c.listTopAnime[2].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
-                                  )),
+                                  child: Text("${c.listTopAnime[2].title}",
+                                      style:
+                                          GoogleFonts.breeSerif(fontSize: 20))),
                             ],
                           ),
                         ],
@@ -278,10 +268,7 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[3].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    style: GoogleFonts.breeSerif(fontSize: 20),
                                   )),
                             ],
                           ),
@@ -342,10 +329,7 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[4].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    style: GoogleFonts.breeSerif(fontSize: 20),
                                   )),
                             ],
                           ),
@@ -388,10 +372,8 @@ class HomeWidget extends StatelessWidget {
                                     alignment: Alignment.topRight,
                                     child: Text(
                                       "${c.listTopAnime[5].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      style:
+                                          GoogleFonts.breeSerif(fontSize: 20),
                                     ),
                                   ),
                                 ],
@@ -458,10 +440,7 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[6].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    style: GoogleFonts.breeSerif(fontSize: 20),
                                   )),
                             ],
                           ),
@@ -516,10 +495,7 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[7].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    style: GoogleFonts.breeSerif(fontSize: 20),
                                   )),
                             ],
                           ),
@@ -571,10 +547,7 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[8].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    style: GoogleFonts.breeSerif(fontSize: 20),
                                   )),
                             ],
                           ),
@@ -629,10 +602,7 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${controller.listTopAnime[9].title}",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [BoxShadow(blurRadius: 1)]),
+                                    style: GoogleFonts.breeSerif(fontSize: 20),
                                   )),
                             ],
                           ),
@@ -691,28 +661,32 @@ class HomeWidget extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 5),
-                child: Text(
-                  "Currently Airing",
-                  style: GoogleFonts.squadaOne(
-                      color: Get.isDarkMode ? Colors.white : Colors.blue[900],
-                      fontSize: 18),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(
+                    "Currently Airing",
+                    style: GoogleFonts.squadaOne(
+                        color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                        fontSize: 18),
+                  ),
                 ),
-              ),
-              TextButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.ANIME_AIRING);
-                  },
-                  child: Text("Load More",
-                      style: GoogleFonts.squadaOne(
-                          color:
-                              Get.isDarkMode ? Colors.white : Colors.blue[900],
-                          fontSize: 18)))
-            ],
+                TextButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.ANIME_AIRING);
+                    },
+                    child: Text("Load More",
+                        style: GoogleFonts.squadaOne(
+                            color: Get.isDarkMode
+                                ? Colors.white
+                                : Colors.blue[900],
+                            fontSize: 18)))
+              ],
+            ),
           ),
           FutureBuilder<List?>(
             future: controller.animeAiring,
@@ -726,13 +700,20 @@ class HomeWidget extends StatelessWidget {
                 builder: (c) {
                   return CarouselSlider(
                     options: CarouselOptions(
-                      aspectRatio: 2.5,
+                      // aspectRatio: 16 / 9,
                       scrollDirection: Axis.horizontal,
                       enableInfiniteScroll: true,
                     ),
                     items: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -743,7 +724,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listAiringAnime[0]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listAiringAnime[0].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -755,17 +736,25 @@ class HomeWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listAiringAnime[0].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -776,7 +765,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listAiringAnime[1]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listAiringAnime[1].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -788,17 +777,24 @@ class HomeWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listAiringAnime[1].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -809,7 +805,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listAiringAnime[2]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listAiringAnime[2].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -821,17 +817,24 @@ class HomeWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listAiringAnime[2].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -842,7 +845,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listAiringAnime[3]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listAiringAnime[3].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -854,17 +857,24 @@ class HomeWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listAiringAnime[3].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -875,7 +885,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listAiringAnime[4]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listAiringAnime[4].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -887,17 +897,24 @@ class HomeWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listAiringAnime[4].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -908,7 +925,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listAiringAnime[5]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listAiringAnime[5].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -920,17 +937,24 @@ class HomeWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listAiringAnime[5].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -941,7 +965,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listAiringAnime[6]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listAiringAnime[6].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -953,17 +977,24 @@ class HomeWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listAiringAnime[6].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -974,7 +1005,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listAiringAnime[7]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listAiringAnime[7].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -986,17 +1017,24 @@ class HomeWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listAiringAnime[7].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1007,7 +1045,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listAiringAnime[8]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listAiringAnime[8].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -1019,17 +1057,24 @@ class HomeWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listAiringAnime[8].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1040,7 +1085,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listAiringAnime[9]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Image.network(
                                     "${c.listAiringAnime[9].images['jpg'].imageUrl}",
                                     fit: BoxFit.cover,
@@ -1052,10 +1097,10 @@ class HomeWidget extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: Text(
                                 "${c.listAiringAnime[9].title}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
@@ -1070,29 +1115,33 @@ class HomeWidget extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 5),
-                child: Text(
-                  "Upcoming Anime",
-                  style: GoogleFonts.squadaOne(
-                      color: Get.isDarkMode ? Colors.white : Colors.blue[900],
-                      fontSize: 18),
-                ),
-              ),
-              TextButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.ANIME_UPCOMING);
-                  },
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
                   child: Text(
-                    "Load More",
+                    "Upcoming Anime",
                     style: GoogleFonts.squadaOne(
                         color: Get.isDarkMode ? Colors.white : Colors.blue[900],
                         fontSize: 18),
-                  ))
-            ],
+                  ),
+                ),
+                TextButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.ANIME_UPCOMING);
+                    },
+                    child: Text(
+                      "Load More",
+                      style: GoogleFonts.squadaOne(
+                          color:
+                              Get.isDarkMode ? Colors.white : Colors.blue[900],
+                          fontSize: 18),
+                    ))
+              ],
+            ),
           ),
           FutureBuilder<List?>(
             future: controller.animeUpcoming,
@@ -1111,13 +1160,20 @@ class HomeWidget extends StatelessWidget {
                 builder: (c) {
                   return CarouselSlider(
                     options: CarouselOptions(
-                      aspectRatio: 2.5,
+                      // aspectRatio: 2.5,
                       scrollDirection: Axis.horizontal,
                       enableInfiniteScroll: true,
                     ),
                     items: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1128,7 +1184,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listUpcoming[0]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listTopAnime.isNotEmpty)
                                       ? Image.network(
                                           "${c.listUpcoming[0].images['jpg'].imageUrl}",
@@ -1143,10 +1199,11 @@ class HomeWidget extends StatelessWidget {
                               child: (c.listTopAnime.isNotEmpty)
                                   ? Text(
                                       "${c.listUpcoming[0].title}",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20,
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
                                     )
                                   : const Text("Kosong"),
                             ),
@@ -1154,7 +1211,14 @@ class HomeWidget extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1165,7 +1229,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listUpcoming[1]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listUpcoming.isNotEmpty)
                                       ? Image.network(
                                           "${c.listUpcoming[1].images['jpg'].imageUrl}",
@@ -1181,17 +1245,25 @@ class HomeWidget extends StatelessWidget {
                                 (c.listUpcoming.isNotEmpty)
                                     ? "${c.listUpcoming[1].title}"
                                     : "Kosong",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1202,7 +1274,7 @@ class HomeWidget extends StatelessWidget {
                                       arguments: c.listUpcoming[2]);
                                 },
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   child: (c.listUpcoming.isNotEmpty)
                                       ? Image.network(
                                           "${c.listUpcoming[2].images['jpg'].imageUrl}",
@@ -1218,17 +1290,25 @@ class HomeWidget extends StatelessWidget {
                                 (c.listUpcoming.isNotEmpty)
                                     ? "${c.listUpcoming[2].title}"
                                     : "Kosong",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1241,7 +1321,7 @@ class HomeWidget extends StatelessWidget {
                                 child: (c.listUpcoming.isNotEmpty)
                                     ? SizedBox(
                                         width:
-                                            MediaQuery.of(context).size.height,
+                                            MediaQuery.of(context).size.width,
                                         child: Image.network(
                                           "${c.listUpcoming[3].images['jpg'].imageUrl}",
                                           fit: BoxFit.cover,
@@ -1256,17 +1336,25 @@ class HomeWidget extends StatelessWidget {
                                 (c.listUpcoming.isNotEmpty)
                                     ? "${c.listUpcoming[3].title}"
                                     : "....",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1279,7 +1367,7 @@ class HomeWidget extends StatelessWidget {
                                 child: (c.listUpcoming.isNotEmpty)
                                     ? SizedBox(
                                         width:
-                                            MediaQuery.of(context).size.height,
+                                            MediaQuery.of(context).size.width,
                                         child: Image.network(
                                           "${c.listUpcoming[4].images['jpg'].imageUrl}",
                                           fit: BoxFit.cover,
@@ -1294,17 +1382,25 @@ class HomeWidget extends StatelessWidget {
                                 (c.listUpcoming.isNotEmpty)
                                     ? "${c.listUpcoming[4].title}"
                                     : "....",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1317,7 +1413,7 @@ class HomeWidget extends StatelessWidget {
                                 child: (c.listUpcoming.isNotEmpty)
                                     ? SizedBox(
                                         width:
-                                            MediaQuery.of(context).size.height,
+                                            MediaQuery.of(context).size.width,
                                         child: Image.network(
                                           "${c.listUpcoming[5].images['jpg'].imageUrl}",
                                           fit: BoxFit.cover,
@@ -1332,17 +1428,25 @@ class HomeWidget extends StatelessWidget {
                                 (c.listUpcoming.isNotEmpty)
                                     ? "${c.listUpcoming[5].title}"
                                     : "....",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1355,7 +1459,7 @@ class HomeWidget extends StatelessWidget {
                                 child: (c.listUpcoming.isNotEmpty)
                                     ? SizedBox(
                                         width:
-                                            MediaQuery.of(context).size.height,
+                                            MediaQuery.of(context).size.width,
                                         child: Image.network(
                                           "${c.listUpcoming[6].images['jpg'].imageUrl}",
                                           fit: BoxFit.cover,
@@ -1370,17 +1474,25 @@ class HomeWidget extends StatelessWidget {
                                 (c.listUpcoming.isNotEmpty)
                                     ? "${c.listUpcoming[6].title}"
                                     : "....",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1393,7 +1505,7 @@ class HomeWidget extends StatelessWidget {
                                 child: (c.listUpcoming.isNotEmpty)
                                     ? SizedBox(
                                         width:
-                                            MediaQuery.of(context).size.height,
+                                            MediaQuery.of(context).size.width,
                                         child: Image.network(
                                           "${c.listUpcoming[7].images['jpg'].imageUrl}",
                                           fit: BoxFit.cover,
@@ -1408,17 +1520,25 @@ class HomeWidget extends StatelessWidget {
                                 (c.listUpcoming.isNotEmpty)
                                     ? "${c.listUpcoming[7].title}"
                                     : "....",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1431,7 +1551,7 @@ class HomeWidget extends StatelessWidget {
                                 child: (c.listUpcoming.isNotEmpty)
                                     ? SizedBox(
                                         width:
-                                            MediaQuery.of(context).size.height,
+                                            MediaQuery.of(context).size.width,
                                         child: Image.network(
                                           "${c.listUpcoming[8].images['jpg'].imageUrl}",
                                           fit: BoxFit.cover,
@@ -1446,17 +1566,25 @@ class HomeWidget extends StatelessWidget {
                                 (c.listUpcoming.isNotEmpty)
                                     ? "${c.listUpcoming[8].title}"
                                     : "....",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: context.isPhone
+                            ? const EdgeInsets.symmetric(horizontal: 10)
+                            : context.isSmallTablet
+                                ? const EdgeInsets.symmetric(horizontal: 20)
+                                : (context.isLargeTablet)
+                                    ? const EdgeInsets.symmetric(horizontal: 30)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 50),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -1469,7 +1597,7 @@ class HomeWidget extends StatelessWidget {
                                 child: (c.listUpcoming.isNotEmpty)
                                     ? SizedBox(
                                         width:
-                                            MediaQuery.of(context).size.height,
+                                            MediaQuery.of(context).size.width,
                                         child: Image.network(
                                           "${c.listUpcoming[9].images['jpg'].imageUrl}",
                                           fit: BoxFit.cover,
@@ -1484,10 +1612,11 @@ class HomeWidget extends StatelessWidget {
                                 (c.listUpcoming.isNotEmpty)
                                     ? "${c.listUpcoming[9].title}"
                                     : ".....",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [BoxShadow(blurRadius: 1)]),
+                                textAlign: TextAlign.start,
+                                style: GoogleFonts.breeSerif(
+                                    fontSize: 20,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                             ),
                           ],
