@@ -100,10 +100,10 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                                       )),
                                 ),
                               ),
+
                               Expanded(
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 5, left: 2),
+                                  padding: const EdgeInsets.only(top: 5),
                                   child: Align(
                                       alignment: Alignment.topLeft,
                                       child: Text(
@@ -281,20 +281,23 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                         child: Column(
                           children: [
                             Expanded(
-                              child: SizedBox(
-                                width: 150,
-                                height: 300,
-                                // color: Colors.amber,
-                                child: (character
-                                            .character!.images!.jpg!.imageUrl !=
-                                        null)
-                                    ? Image.network(
-                                        character.character!.images?.jpg
-                                                ?.imageUrl ??
-                                            'Kosong',
-                                        fit: BoxFit.cover,
-                                      )
-                                    : const CircularProgressIndicator(),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: SizedBox(
+                                  width: 150,
+                                  height: 300,
+                                  // color: Colors.amber,
+                                  child: (character.character!.images!.jpg!
+                                              .imageUrl !=
+                                          null)
+                                      ? Image.network(
+                                          character.character!.images?.jpg
+                                                  ?.imageUrl ??
+                                              'Kosong',
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const CircularProgressIndicator(),
+                                ),
                               ),
                             ),
                             const SizedBox(
