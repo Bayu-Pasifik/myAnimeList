@@ -1,12 +1,18 @@
 # my_anime_list
+This is my first complete flutter project 
+Application Feature
+[V] Introduction Screen
+[V] Read detailed information about Anime and Manga
+[V] Search Anime and Manga Based on Name 
+[V] Search Anime and Manga Based on Alphabetical 
+[V] Search Anime and Manga Based on Genre
+[V] Search Anime Based on Seasons
+[V] Search Anime Studios Based on Alphabetical
+[V] Read detailed information Anime and Manga Character
+[V] Read Detailed information about studios
+[V] Read Detailed information about Voice Actors
+[V] Persistance Theme
 
-[V] Dark Theme
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
