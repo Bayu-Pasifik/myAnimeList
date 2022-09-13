@@ -1,6 +1,6 @@
 # my_anime_list
 
-### This is my first complete [flutter](https://flutter.dev/) project using [jikan Api](https://docs.api.jikan.moe/) 
+### This is my first complete [Flutter](https://flutter.dev/) project using [Jikan Api](https://docs.api.jikan.moe/) 
 
 #### Application Feature
 
