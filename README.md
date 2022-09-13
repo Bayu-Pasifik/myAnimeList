@@ -1,8 +1,11 @@
 # my_anime_list
-This is my first complete flutter project 
+
+### This is my first complete flutter project using [jikan Api](https://docs.api.jikan.moe/) 
+```
 Application Feature
-[V] Introduction Screen /n
+[V] Introduction Screen 
 [V] Read detailed information about Anime and Manga
+[V] Playing anime trailer if exist
 [V] Search Anime and Manga Based on Name 
 [V] Search Anime and Manga Based on Alphabetical 
 [V] Search Anime and Manga Based on Genre
@@ -12,7 +15,7 @@ Application Feature
 [V] Read Detailed information about studios
 [V] Read Detailed information about Voice Actors
 [V] Persistance Theme
-
+```
 
 A few resources to get you started if this is your first Flutter project:
 
