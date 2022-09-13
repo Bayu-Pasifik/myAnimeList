@@ -1,7 +1,7 @@
 # my_anime_list
 This is my first complete flutter project 
 Application Feature
-[V] Introduction Screen
+[V] Introduction Screen /n
 [V] Read detailed information about Anime and Manga
 [V] Search Anime and Manga Based on Name 
 [V] Search Anime and Manga Based on Alphabetical 
