@@ -22,6 +22,7 @@ dependencies:
   delayed_display: 2.0.0
   get_storage: 2.0.3
   introduction_screen: 3.0.2
+  sliding_up_panel: 2.0.0+1
   flutter: 
     sdk: flutter
 

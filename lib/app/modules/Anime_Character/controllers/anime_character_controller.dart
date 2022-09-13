@@ -4,10 +4,12 @@ import 'dart:convert';
 import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
     as detail;
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class AnimeCharacterController extends GetxController {
   List<detail.DetailAnimeCharacter> animeCharacter = [];
   List<char.Character> listCharacterAnime = [];
+  final PanelController panelController = PanelController();
 
   Future<detail.DetailAnimeCharacter> getCharacter(int id) async {
     //! Ambil data dari API
@@ -21,5 +23,12 @@ class AnimeCharacterController extends GetxController {
     // animeCharacter.addAll();
 
     return data;
+  }
+
+  // ! panel controller
+  void toglePanel() {
+    panelController.isPanelOpen
+        ? panelController.close()
+        : panelController.open();
   }
 }

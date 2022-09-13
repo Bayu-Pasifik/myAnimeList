@@ -3,8 +3,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_anime_list/app/data/model/detail_voiceActor_model.dart'
     as va;
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class DetailVoiceActorController extends GetxController {
+  final PanelController panelController = PanelController();
+
   Future<va.DetailVoiceActor> getPeople(int id) async {
     //! Ambil data dari API
     Uri url = Uri.parse('https://api.jikan.moe/v4/people/$id/full');
@@ -14,5 +17,11 @@ class DetailVoiceActorController extends GetxController {
     // ! cek data nya apakah null atau tidak
     var data = va.DetailVoiceActor.fromJson(parsed);
     return data;
+  }
+
+  void toglePanel() {
+    panelController.isPanelOpen
+        ? panelController.close()
+        : panelController.open();
   }
 }
