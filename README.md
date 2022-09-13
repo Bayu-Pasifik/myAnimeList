@@ -42,7 +42,7 @@
 ![Screenshot_20220913-202921](https://user-images.githubusercontent.com/80769251/189918369-15f7124d-aa64-4ea1-b7e7-39e99748b8d9.png)
 
 ## [V] Read Detailed information about Voice Actors
- ![Screenshot_20220913-202348](https://user-images.githubusercontent.com/80769251/189919271-f7dd8f59-39a4-4939-908c-7eb7106563fa.png)
+![Screenshot_20220913-202411](https://user-images.githubusercontent.com/80769251/189920632-9aaa70af-2ae5-4c5b-8eb0-6f24eb1220a7.png)
  
 ## [V] Persistance Theme
   ### Dark Theme
