@@ -1,5 +1,7 @@
 # my_anime_list
 
+[V] Dark Theme
+
 A new Flutter project.
 
 ## Getting Started
