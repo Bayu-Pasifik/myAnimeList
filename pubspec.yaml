@@ -23,6 +23,7 @@ dependencies:
   get_storage: 2.0.3
   introduction_screen: 3.0.2
   sliding_up_panel: 2.0.0+1
+  flutter_launcher_icons: 0.10.0
   flutter: 
     sdk: flutter
 
@@ -31,6 +32,10 @@ dev_dependencies:
   flutter_test: 
     sdk: flutter
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/animate.png"
 flutter: 
   assets: 
     - assets/lottie/

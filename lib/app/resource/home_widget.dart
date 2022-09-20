@@ -21,7 +21,8 @@ class HomeWidget extends StatelessWidget {
                 Text(
                   "Top Airing",
                   style: GoogleFonts.squadaOne(
-                      color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                      color:
+                          Get.isDarkMode ? Colors.blue[400] : Colors.blue[900],
                       fontSize: 18),
                 ),
                 TextButton(
@@ -31,8 +32,9 @@ class HomeWidget extends StatelessWidget {
                     child: Text(
                       "Load More",
                       style: GoogleFonts.squadaOne(
-                          color:
-                              Get.isDarkMode ? Colors.white : Colors.blue[900],
+                          color: Get.isDarkMode
+                              ? Colors.blue[400]
+                              : Colors.blue[900],
                           fontSize: 18),
                     ))
               ],
@@ -105,7 +107,8 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[0].title}",
-                                    style: GoogleFonts.breeSerif(fontSize: 20),
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20, color: Colors.white),
                                   )),
                             ],
                           ),
@@ -159,8 +162,8 @@ class HomeWidget extends StatelessWidget {
                               Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Text("${c.listTopAnime[1].title}",
-                                      style:
-                                          GoogleFonts.breeSerif(fontSize: 20))),
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20, color: Colors.white))),
                             ],
                           ),
                         ],
@@ -213,8 +216,8 @@ class HomeWidget extends StatelessWidget {
                               Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Text("${c.listTopAnime[2].title}",
-                                      style:
-                                          GoogleFonts.breeSerif(fontSize: 20))),
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20, color: Colors.white))),
                             ],
                           ),
                         ],
@@ -268,7 +271,8 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[3].title}",
-                                    style: GoogleFonts.breeSerif(fontSize: 20),
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20, color: Colors.white),
                                   )),
                             ],
                           ),
@@ -329,7 +333,8 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[4].title}",
-                                    style: GoogleFonts.breeSerif(fontSize: 20),
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20, color: Colors.white),
                                   )),
                             ],
                           ),
@@ -372,8 +377,8 @@ class HomeWidget extends StatelessWidget {
                                     alignment: Alignment.topRight,
                                     child: Text(
                                       "${c.listTopAnime[5].score}",
-                                      style:
-                                          GoogleFonts.breeSerif(fontSize: 20),
+                                      style: GoogleFonts.breeSerif(
+                                          fontSize: 20, color: Colors.white),
                                     ),
                                   ),
                                 ],
@@ -440,7 +445,8 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[6].title}",
-                                    style: GoogleFonts.breeSerif(fontSize: 20),
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20, color: Colors.white),
                                   )),
                             ],
                           ),
@@ -495,7 +501,8 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[7].title}",
-                                    style: GoogleFonts.breeSerif(fontSize: 20),
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20, color: Colors.white),
                                   )),
                             ],
                           ),
@@ -547,7 +554,8 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${c.listTopAnime[8].title}",
-                                    style: GoogleFonts.breeSerif(fontSize: 20),
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20, color: Colors.white),
                                   )),
                             ],
                           ),
@@ -602,7 +610,8 @@ class HomeWidget extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
                                     "${controller.listTopAnime[9].title}",
-                                    style: GoogleFonts.breeSerif(fontSize: 20),
+                                    style: GoogleFonts.breeSerif(
+                                        fontSize: 20, color: Colors.white),
                                   )),
                             ],
                           ),
@@ -671,7 +680,9 @@ class HomeWidget extends StatelessWidget {
                   child: Text(
                     "Currently Airing",
                     style: GoogleFonts.squadaOne(
-                        color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                        color: Get.isDarkMode
+                            ? Colors.blue[400]
+                            : Colors.blue[900],
                         fontSize: 18),
                   ),
                 ),
@@ -682,7 +693,7 @@ class HomeWidget extends StatelessWidget {
                     child: Text("Load More",
                         style: GoogleFonts.squadaOne(
                             color: Get.isDarkMode
-                                ? Colors.white
+                                ? Colors.blue[400]
                                 : Colors.blue[900],
                             fontSize: 18)))
               ],
@@ -739,6 +750,7 @@ class HomeWidget extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -779,6 +791,7 @@ class HomeWidget extends StatelessWidget {
                                 "${c.listAiringAnime[1].title}",
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -819,6 +832,7 @@ class HomeWidget extends StatelessWidget {
                                 "${c.listAiringAnime[2].title}",
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -859,6 +873,7 @@ class HomeWidget extends StatelessWidget {
                                 "${c.listAiringAnime[3].title}",
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -899,6 +914,7 @@ class HomeWidget extends StatelessWidget {
                                 "${c.listAiringAnime[4].title}",
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -939,6 +955,7 @@ class HomeWidget extends StatelessWidget {
                                 "${c.listAiringAnime[5].title}",
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -979,6 +996,7 @@ class HomeWidget extends StatelessWidget {
                                 "${c.listAiringAnime[6].title}",
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1019,6 +1037,7 @@ class HomeWidget extends StatelessWidget {
                                 "${c.listAiringAnime[7].title}",
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1059,6 +1078,7 @@ class HomeWidget extends StatelessWidget {
                                 "${c.listAiringAnime[8].title}",
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1099,6 +1119,7 @@ class HomeWidget extends StatelessWidget {
                                 "${c.listAiringAnime[9].title}",
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1125,7 +1146,9 @@ class HomeWidget extends StatelessWidget {
                   child: Text(
                     "Upcoming Anime",
                     style: GoogleFonts.squadaOne(
-                        color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                        color: Get.isDarkMode
+                            ? Colors.blue[400]
+                            : Colors.blue[900],
                         fontSize: 18),
                   ),
                 ),
@@ -1136,8 +1159,9 @@ class HomeWidget extends StatelessWidget {
                     child: Text(
                       "Load More",
                       style: GoogleFonts.squadaOne(
-                          color:
-                              Get.isDarkMode ? Colors.white : Colors.blue[900],
+                          color: Get.isDarkMode
+                              ? Colors.blue[400]
+                              : Colors.blue[900],
                           fontSize: 18),
                     ))
               ],
@@ -1202,6 +1226,7 @@ class HomeWidget extends StatelessWidget {
                                       textAlign: TextAlign.start,
                                       style: GoogleFonts.breeSerif(
                                           fontSize: 20,
+                                          color: Colors.white,
                                           textStyle: const TextStyle(
                                               overflow: TextOverflow.ellipsis)),
                                     )
@@ -1248,6 +1273,7 @@ class HomeWidget extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1293,6 +1319,7 @@ class HomeWidget extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1339,6 +1366,7 @@ class HomeWidget extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1385,6 +1413,7 @@ class HomeWidget extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1431,6 +1460,7 @@ class HomeWidget extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1477,6 +1507,7 @@ class HomeWidget extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1523,6 +1554,7 @@ class HomeWidget extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1569,6 +1601,7 @@ class HomeWidget extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
@@ -1615,6 +1648,7 @@ class HomeWidget extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.breeSerif(
                                     fontSize: 20,
+                                    color: Colors.white,
                                     textStyle: const TextStyle(
                                         overflow: TextOverflow.ellipsis)),
                               ),
