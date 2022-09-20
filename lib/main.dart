@@ -8,12 +8,11 @@ import 'app/routes/app_pages.dart';
 void main() async {
   await GetStorage.init();
   final box = GetStorage();
-  // WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "My Anime List",
-      // darkTheme: ThemeData.dark(),
       theme:
           box.read("themeDark") == null ? ThemeData.light() : ThemeData.dark(),
       initialRoute: Routes.INTRODUCTION,

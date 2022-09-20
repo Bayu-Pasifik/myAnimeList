@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -18,7 +17,7 @@ class HomeController extends GetxController {
   var season = 'Summer'.obs;
   var halSeason = 1.obs;
   int halStudios = 1;
-  var isDark = false.obs;
+  Rx<bool> isDark = false.obs;
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSearch = {};
   Map<String, dynamic> pageSeason = {};
@@ -138,20 +137,27 @@ class HomeController extends GetxController {
 
   // ! fungsi untuk ganti tema yang sudah disimpan di local storage
   void changeTheme() async {
-    isDark.isTrue
+    // if (Get.isDarkMode == false) {
+    //   Get.snackbar("Error", "Can't change theme in dark mode");
+    //   isDark.value = true;
+    // }
+    isDark.isFalse
         ? Get.changeTheme(ThemeData.dark())
         : Get.changeTheme(ThemeData.light());
-
+    isDark.toggle();
     final box = GetStorage();
 
-    if (isDark.value == true) {
-      // ! dark to light
-      await box.write("themeDark", true);
-    } else {
+    if (isDark.isTrue) {
       // ! light to dark
+      await box.write("themeDark", true);
+    } else if (isDark.isFalse) {
+      // ! dark to light
       await box.remove("themeDark");
     }
-    isDark.toggle();
+
+    print("nilai get :" "${Get.isDarkMode}");
+    print(box.changes);
+    print("Nilai isDark : ${isDark.value}");
   }
 
   // ! fungsi untuk mencari anime berdasarkan nama
@@ -327,7 +333,7 @@ class HomeController extends GetxController {
     var tempSeason = dataSeason['data'].map((e) => Animes.fromJson(e)).toList();
     update();
     listSeasonAnime.addAll(tempSeason);
-    debugPrint("Isi dataSeason anime: ${listSeasonAnime}");
+    // debugPrint("Isi dataSeason anime: ${listSeasonAnime}");
     update();
     pageSeason = dataSeason['pagination'];
     update();

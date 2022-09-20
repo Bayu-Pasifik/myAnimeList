@@ -29,150 +29,153 @@ class DetailVoiceActorView extends GetView<DetailVoiceActorController> {
                 : const Color.fromARGB(255, 220, 220, 220),
             parallaxEnabled: true,
             parallaxOffset: 0.5,
-            panel: FutureBuilder<va.DetailVoiceActor?>(
-                future: controller.getPeople(voiceActor.person?.malId ?? 0),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (snapshot.hasError) {
-                    return Center(
-                      child: Text(snapshot.error.toString()),
-                    );
-                  }
-                  return ListView(
-                    padding: const EdgeInsets.all(10),
-                    children: [
-                      // ! sliding panel
-                      GestureDetector(
-                        onTap: () => controller.toglePanel(),
-                        child: UnconstrainedBox(
-                          child: Container(
-                            height: 5,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(15)),
+            panel: GestureDetector(
+              onTap: () => controller.toglePanel(),
+              child: FutureBuilder<va.DetailVoiceActor?>(
+                  future: controller.getPeople(voiceActor.person?.malId ?? 0),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    }
+                    return ListView(
+                      padding: const EdgeInsets.all(10),
+                      children: [
+                        // ! sliding panel
+                        GestureDetector(
+                          onTap: () => controller.toglePanel(),
+                          child: UnconstrainedBox(
+                            child: Container(
+                              height: 5,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(15)),
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      UnconstrainedBox(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Container(
-                              width: Get.mediaQuery.size.width / 3,
-                              height: Get.mediaQuery.size.height / 4,
-                              // color: Colors.red,
-                              child:
-                                  (snapshot.data!.images!.jpg!.imageUrl != null)
-                                      ? Image.network(
-                                          "${snapshot.data!.images!.jpg!.imageUrl}",
-                                          fit: BoxFit.cover,
-                                        )
-                                      : const CircularProgressIndicator()),
+                        const SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      Center(
-                          child: Text(
-                        textAlign: TextAlign.center,
-                        "${snapshot.data!.name}",
-                        style: GoogleFonts.breeSerif(fontSize: 16),
-                        overflow: TextOverflow.visible,
-                        maxLines: 2,
-                      )),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Center(
-                          child: Text(
-                        textAlign: TextAlign.center,
-                        "( ${snapshot.data!.givenName} ${snapshot.data!.familyName} )",
-                        style: GoogleFonts.notoSans(fontSize: 16),
-                        overflow: TextOverflow.visible,
-                        maxLines: 2,
-                      )),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      ExpandablePanel(
-                        theme: ExpandableThemeData(
-                            iconColor:
-                                Get.isDarkMode ? Colors.white : Colors.black),
-                        header: Text(
-                          "Description",
-                          style: GoogleFonts.squadaOne(
-                              fontSize: 16, color: Colors.blue[400]),
+                        UnconstrainedBox(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Container(
+                                width: Get.mediaQuery.size.width / 3,
+                                height: Get.mediaQuery.size.height / 4,
+                                // color: Colors.red,
+                                child: (snapshot.data!.images!.jpg!.imageUrl !=
+                                        null)
+                                    ? Image.network(
+                                        "${snapshot.data!.images!.jpg!.imageUrl}",
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const CircularProgressIndicator()),
+                          ),
                         ),
-                        collapsed: Text(
-                          "${snapshot.data?.about}",
-                          softWrap: true,
+                        Center(
+                            child: Text(
+                          textAlign: TextAlign.center,
+                          "${snapshot.data!.name}",
+                          style: GoogleFonts.breeSerif(fontSize: 16),
+                          overflow: TextOverflow.visible,
                           maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.kurale(
-                              fontSize: 16, fontWeight: FontWeight.normal),
+                        )),
+                        const SizedBox(
+                          height: 5,
                         ),
-                        expanded: Text(
-                          "${snapshot.data?.about}",
-                          style: GoogleFonts.kurale(
-                              fontSize: 16, fontWeight: FontWeight.normal),
-                          softWrap: true,
+                        Center(
+                            child: Text(
+                          textAlign: TextAlign.center,
+                          "( ${snapshot.data!.givenName} ${snapshot.data!.familyName} )",
+                          style: GoogleFonts.notoSans(fontSize: 16),
+                          overflow: TextOverflow.visible,
+                          maxLines: 2,
+                        )),
+                        const SizedBox(
+                          height: 40,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Text(
-                        "Voice Casting",
-                        style: GoogleFonts.squadaOne(
-                            color: Colors.blue[400], fontSize: 16),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      // ! voice Acting widgets
-                      ListView.builder(
-                        itemCount: snapshot.data!.voices!.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          va.Voice? suara = snapshot.data?.voices![index];
+                        ExpandablePanel(
+                          theme: ExpandableThemeData(
+                              iconColor:
+                                  Get.isDarkMode ? Colors.white : Colors.black),
+                          header: Text(
+                            "Description",
+                            style: GoogleFonts.squadaOne(
+                                fontSize: 16, color: Colors.blue[400]),
+                          ),
+                          collapsed: Text(
+                            "${snapshot.data?.about}",
+                            softWrap: true,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.kurale(
+                                fontSize: 16, fontWeight: FontWeight.normal),
+                          ),
+                          expanded: Text(
+                            "${snapshot.data?.about}",
+                            style: GoogleFonts.kurale(
+                                fontSize: 16, fontWeight: FontWeight.normal),
+                            softWrap: true,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Text(
+                          "Voice Casting",
+                          style: GoogleFonts.squadaOne(
+                              color: Colors.blue[400], fontSize: 16),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        // ! voice Acting widgets
+                        ListView.builder(
+                          itemCount: snapshot.data!.voices!.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            va.Voice? suara = snapshot.data?.voices![index];
 
-                          return ListTile(
-                            leading: (suara != null)
-                                ? CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                        "${suara.character!.images!.jpg!.imageUrl}"),
-                                  )
-                                : const Text("No Data"),
-                            title: (suara != null)
-                                ? Text(
-                                    "${suara.character!.name}",
-                                    textAlign: TextAlign.start,
-                                    style: GoogleFonts.breeSerif(
-                                        textStyle: const TextStyle(
-                                            overflow: TextOverflow.ellipsis)),
-                                  )
-                                : const Text("No data"),
-                            subtitle: (suara != null)
-                                ? Text(
-                                    "${suara.anime!.title}",
-                                    textAlign: TextAlign.start,
-                                    style: GoogleFonts.breeSerif(
-                                        textStyle: const TextStyle(
-                                            overflow: TextOverflow.ellipsis)),
-                                  )
-                                : const Text("No data"),
-                          );
-                        },
-                      )
-                    ],
-                  );
-                }),
+                            return ListTile(
+                              leading: (suara != null)
+                                  ? CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                          "${suara.character!.images!.jpg!.imageUrl}"),
+                                    )
+                                  : const Text("No Data"),
+                              title: (suara != null)
+                                  ? Text(
+                                      "${suara.character!.name}",
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
+                                    )
+                                  : const Text("No data"),
+                              subtitle: (suara != null)
+                                  ? Text(
+                                      "${suara.anime!.title}",
+                                      textAlign: TextAlign.start,
+                                      style: GoogleFonts.breeSerif(
+                                          textStyle: const TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
+                                    )
+                                  : const Text("No data"),
+                            );
+                          },
+                        )
+                      ],
+                    );
+                  }),
+            ),
             body: FutureBuilder<va.DetailVoiceActor?>(
               future: controller.getPeople(voiceActor.person?.malId ?? 0),
               builder: (context, snapshot) {
