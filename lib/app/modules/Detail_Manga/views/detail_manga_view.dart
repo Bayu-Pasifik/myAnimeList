@@ -20,6 +20,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
       slivers: [
         SliverAppBar(
           expandedHeight: 10,
+          elevation: 0,
           stretch: true,
           pinned: true,
           centerTitle: true,
@@ -51,18 +52,19 @@ class DetailMangaView extends GetView<DetailMangaController> {
             ),
             collapsed: Padding(
               padding: const EdgeInsets.all(10),
-              child: Text("You can view more information about this manga here",
-                  style: GoogleFonts.kurale(
-                    fontWeight: FontWeight.w500,
-                    color: Get.isDarkMode
-                        ? const Color.fromARGB(255, 255, 255, 255)
-                        : const Color.fromARGB(15, 37, 37, 37),
-                  )),
+              child:
+                  Text("You can view more information about this comics here",
+                      style: GoogleFonts.kurale(
+                        fontWeight: FontWeight.w500,
+                        color: Get.isDarkMode
+                            ? const Color.fromARGB(255, 255, 255, 255)
+                            : const Color.fromARGB(15, 37, 37, 37),
+                      )),
             ),
             header: Padding(
               padding: const EdgeInsets.all(5),
               child: Text(
-                "About Manga",
+                "About comics",
                 style:
                     GoogleFonts.squadaOne(color: Colors.blue, fontSize: 20.sp),
               ),
@@ -99,7 +101,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text(
-                        "Japanese Title",
+                        "Japanese / Korean / Chinese Title",
                         style: GoogleFonts.squadaOne(),
                       ),
                     ),
@@ -233,12 +235,15 @@ class DetailMangaView extends GetView<DetailMangaController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10),
-                      child: (mangas.published != null)
+                      child: (mangas.published!.to != null)
                           ? Text(
                               controller.formatDate(mangas.published!.to!),
                               style: GoogleFonts.kurale(),
                             )
-                          : const Text("NAN"),
+                          : Text(
+                              "-",
+                              style: GoogleFonts.kurale(),
+                            ),
                     )
                   ]),
                   TableRow(children: [
@@ -256,7 +261,10 @@ class DetailMangaView extends GetView<DetailMangaController> {
                               "${mangas.chapters} Chapter",
                               style: GoogleFonts.kurale(),
                             )
-                          : const Text("NAN"),
+                          : Text(
+                              "-",
+                              style: GoogleFonts.kurale(),
+                            ),
                     )
                   ]),
                   TableRow(children: [
@@ -274,7 +282,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                               "${mangas.volumes} Volumes",
                               style: GoogleFonts.kurale(),
                             )
-                          : const Text("NAN"),
+                          : Text("-", style: GoogleFonts.kurale()),
                     )
                   ]),
                   TableRow(
