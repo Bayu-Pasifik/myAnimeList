@@ -56,7 +56,7 @@ class TopMangaView extends GetView<TopMangaController> {
                     manga.Manga mangas = c.listTopManga[index];
                     return GestureDetector(
                       onTap: () {
-                        // debugPrint(c.listTopManga.toString());
+                        print("id ${mangas.malId}");
                         Get.toNamed(Routes.DETAIL_MANGA, arguments: mangas);
                       },
                       child: ClipRRect(

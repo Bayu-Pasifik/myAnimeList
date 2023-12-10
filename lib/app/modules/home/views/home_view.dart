@@ -1,4 +1,4 @@
-import 'dart:async';
+
 import 'dart:convert';
 
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
@@ -6,6 +6,7 @@ import 'package:delayed_display/delayed_display.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +24,10 @@ class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
+    if (box.read("themeDark") == true) {
+      controller.isDark.value = true;
+    }
     List<Widget> widgets = [
       // ! home page
       const HomeWidget(),
@@ -374,19 +379,19 @@ class HomeView extends GetView<HomeController> {
       // ! Studios Page
       animeStudios()
     ];
-    return Scaffold(
+    return Obx(() => Scaffold(
         appBar: AppBar(
           elevation: 0,
+          backgroundColor:
+              controller.isDark.isTrue ? Colors.grey[900] : Colors.blue[900],
           actions: [
-            IconButton(
-                onPressed: () {
-                  controller.changeTheme();
-                },
-                icon: Obx(
-                  () => controller.isDark.isFalse
-                      ? const Icon(Icons.sunny)
-                      : const Icon(Icons.mode_night_outlined),
-                ))
+            IconButton(onPressed: () {
+              controller.changeTheme();
+            }, icon: Obx(() {
+              return controller.isDark.isTrue
+                  ? const Icon(Icons.sunny)
+                  : const Icon(Icons.mode_night_outlined);
+            }))
           ],
         ),
         drawer: Drawer(
@@ -430,7 +435,7 @@ class HomeView extends GetView<HomeController> {
           ]),
         ),
         body: GetBuilder<HomeController>(
-            builder: (controller) => widgets[controller.selectIndex.value]),
+            builder: (c) => widgets[c.selectIndex.value]),
         bottomNavigationBar: Obx(
           () => ConvexAppBar(
               items: const [
@@ -441,15 +446,16 @@ class HomeView extends GetView<HomeController> {
                 TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
                 TabItem(icon: Icons.business, title: 'Studios'),
               ],
-              backgroundColor:
-                  controller.isDark.isFalse ? Colors.grey[900] : Colors.blue,
+              backgroundColor: controller.isDark.isTrue
+                  ? Colors.grey[900]
+                  : Colors.blue[900],
               initialActiveIndex: controller.selectIndex.value,
               style: TabStyle.textIn, //optional, default as 0
               onTap: (index) {
                 controller.chagePage(index);
-                debugPrint("index: $index");
+                debugPrint("index: ");
                 debugPrint("controller index: ${controller.selectIndex}");
               }),
-        ));
+        )));
   }
 }

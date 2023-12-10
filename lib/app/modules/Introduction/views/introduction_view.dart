@@ -28,7 +28,8 @@ class IntroductionView extends GetView<IntroductionController> {
         style: GoogleFonts.kurale(),
       ),
       isProgress: true,
-      isTopSafeArea: true,
+      safeAreaList: const [true,true,true,true,true,true,true],
+      // isTopSafeArea: true,
       showBackButton: true,
       back: Text(
         "Back",
@@ -72,21 +73,21 @@ class IntroductionView extends GetView<IntroductionController> {
         PageViewModel(
             title: "Index anime and manga",
             body:
-                "Here you can easyly search anime and manga through alphabets",
+                "Here you can easyly search anime and manga based on alphabets",
             image: Center(child: Lottie.asset("assets/lottie/index.json")),
             decoration: PageDecoration(
                 bodyTextStyle: GoogleFonts.kurale(fontSize: 18),
                 titleTextStyle: GoogleFonts.kurale(fontSize: 18))),
         PageViewModel(
             title: "Find anime",
-            body: "Here you can find anime through seasons",
+            body: "Here you can find anime based on seasons",
             image: Center(child: Lottie.asset("assets/lottie/season.json")),
             decoration: PageDecoration(
                 bodyTextStyle: GoogleFonts.kurale(fontSize: 18),
                 titleTextStyle: GoogleFonts.kurale(fontSize: 18))),
         PageViewModel(
             title: "Find anime",
-            body: "Here you can find anime through Studio",
+            body: "Here you can find anime based on Studio",
             image: Center(child: Lottie.asset("assets/lottie/studios.json")),
             decoration: PageDecoration(
                 bodyTextStyle: GoogleFonts.kurale(fontSize: 18),

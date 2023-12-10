@@ -3,8 +3,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class DetailStudiosController extends GetxController {
+  final PanelController panelController = PanelController();
   List<dynamic> listAnime = [];
   Map<String, dynamic> pageAnime = {};
   RefreshController animeStudioRefresh =
@@ -54,5 +56,12 @@ class DetailStudiosController extends GetxController {
       // pageSeason.clear();
       return animeStudioRefresh.loadNoData();
     }
+  }
+
+  // ! panel controller
+  void toglePanel() {
+    panelController.isPanelOpen
+        ? panelController.close()
+        : panelController.open();
   }
 }

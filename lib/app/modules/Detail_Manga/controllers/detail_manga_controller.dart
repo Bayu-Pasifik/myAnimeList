@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
+import 'package:intl/intl.dart';
 
 class DetailMangaController extends GetxController {
   List<char.Character>? listCharacterManga = [];
@@ -19,6 +20,14 @@ class DetailMangaController extends GetxController {
       update();
       return listCharacterManga;
     }
+  }
+
+  String formatDate(String inputDate) {
+    final inputFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+    final outputFormat = DateFormat("dd-MM-yyyy");
+
+    final date = inputFormat.parse(inputDate);
+    return outputFormat.format(date);
   }
 
   @override

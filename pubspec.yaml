@@ -8,27 +8,44 @@ environment:
 dependencies: 
   cupertino_icons: ^1.0.2
   get: 4.6.5
-  http: 0.13.5
-  youtube_player_flutter: 8.1.0
-  convex_bottom_bar: 3.0.0
-  loading_animation_widget: 1.2.0+2
+  http: ^1.1.0
+  youtube_player_flutter: 8.1.2
+  convex_bottom_bar: 3.2.0
+  loading_animation_widget: 1.2.0+4
   pull_to_refresh: 2.0.0
-  carousel_slider: 4.1.1
+  carousel_slider: 4.2.1
   expandable: 5.0.1
-  lottie: 1.4.2
-  google_fonts: 3.0.1
+  lottie: ^2.5.0
+  google_fonts: ^5.1.0
   pie_chart: 5.3.2
-  dropdown_search: 5.0.2
+  dropdown_search: ^5.0.6
   delayed_display: 2.0.0
-  get_storage: 2.0.3
-  introduction_screen: 3.0.2
+  get_storage: ^2.1.1
+  introduction_screen: ^3.1.11
+  sliding_up_panel: 2.0.0+1
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: 2.3.1
   flutter: 
     sdk: flutter
+  flutter_screenutil: ^5.9.0
+  intl: ^0.19.0
 
 dev_dependencies: 
-  flutter_lints: 2.0.1
+  flutter_lints: ^2.0.2
   flutter_test: 
     sdk: flutter
+
+flutter_icons: 
+  image_path: assets/images/animate.png
+  android: true
+  ios: true
+
+flutter_native_splash: 
+  android: true
+  ios: true
+  web: true
+  image: "assets/images/animate.png"
+  color: "#212121"
 
 flutter: 
   assets: 
