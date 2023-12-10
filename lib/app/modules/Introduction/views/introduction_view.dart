@@ -28,7 +28,8 @@ class IntroductionView extends GetView<IntroductionController> {
         style: GoogleFonts.kurale(),
       ),
       isProgress: true,
-      isTopSafeArea: true,
+      safeAreaList: const [true,true,true,true,true,true,true],
+      // isTopSafeArea: true,
       showBackButton: true,
       back: Text(
         "Back",
