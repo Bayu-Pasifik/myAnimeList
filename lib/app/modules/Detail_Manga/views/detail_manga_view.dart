@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:my_anime_list/app/routes/app_pages.dart';
-import 'package:pie_chart/pie_chart.dart';
 import '../controllers/detail_manga_controller.dart';
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 
