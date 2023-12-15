@@ -46,7 +46,6 @@ class GenreMangaPageView extends GetView<GenreMangaPageController> {
                         height: 200,
                         child: GestureDetector(
                           onTap: () {
-                            
                             Get.toNamed(Routes.DETAIL_MANGA, arguments: item);
                           },
                           child: (item.genres != null &&
@@ -56,28 +55,56 @@ class GenreMangaPageView extends GetView<GenreMangaPageController> {
                                       .contains('Erotica'))
                               ? Image.asset(
                                   "assets/images/Image_not_available.png")
-                              : CachedNetworkImage(
-                                  imageUrl: "${item.images!['jpg']!.imageUrl}",
-                                  imageBuilder: (context, imageProvider) =>
-                                      Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16),
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover,
+                              : Stack(
+                                  children: [
+                                    CachedNetworkImage(
+                                      imageUrl:
+                                          "${item.images!['jpg']!.imageUrl}",
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      progressIndicatorBuilder:
+                                          (context, url, downloadProgress) =>
+                                              Center(
+                                        child: CircularProgressIndicator(
+                                            value: downloadProgress.progress),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                        "assets/images/Image_not_available.png",
                                       ),
                                     ),
-                                  ),
-                                  progressIndicatorBuilder:
-                                      (context, url, downloadProgress) =>
-                                          Center(
-                                    child: CircularProgressIndicator(
-                                        value: downloadProgress.progress),
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      Image.asset(
-                                    "assets/images/Image_not_available.png",
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 6, vertical: 2),
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.blue,
+                                              borderRadius:
+                                                  BorderRadius.circular(6.r)),
+                                          width: 50.w,
+                                          height: 20.h,
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                size: 18.h,
+                                                color: Colors.yellow,
+                                              ),
+                                              Text("${item.score}",
+                                                  style: GoogleFonts.kurale())
+                                            ],
+                                          )),
+                                    )
+                                  ],
                                 ),
                         ),
                       ),

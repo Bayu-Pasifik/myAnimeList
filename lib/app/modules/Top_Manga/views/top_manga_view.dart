@@ -64,7 +64,7 @@ class TopMangaView extends GetView<TopMangaController> {
                                           Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(16),
+                                              BorderRadius.circular(16.r),
                                           image: DecorationImage(
                                             image: imageProvider,
                                             fit: BoxFit.cover,
@@ -136,7 +136,7 @@ class TopMangaView extends GetView<TopMangaController> {
                       "There is an error",
                       style: GoogleFonts.inter(fontSize: 18.sp),
                     ),
-                    const SizedBox(height: 10),
+                     SizedBox(height: 10.h),
                     SizedBox(
                       width: 100.w,
                       height: 50.h,

@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/modules/Home_Manga/controllers/home_manga_controller.dart';
@@ -81,27 +82,39 @@ class HomeMangaWidget extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Align(
-                                            alignment: Alignment.topRight,
-                                            child: Icon(
-                                              Icons.star,
-                                              color: Colors.amber[400],
-                                            )),
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: Text(
-                                            "${c.listMangaManga[0].score}",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                                shadows: [
-                                                  BoxShadow(blurRadius: 1)
-                                                ]),
-                                          ),
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.blue,
+                                            borderRadius:
+                                                BorderRadius.circular(6.r)),
+                                        width: 60.w,
+                                        height: 20.h,
+                                        child: Row(
+                                          children: [
+                                            Align(
+                                                alignment: Alignment.topLeft,
+                                                child: Icon(
+                                                  Icons.star,
+                                                  size: 18.h,
+                                                  color: Colors.amber[400],
+                                                )),
+                                            Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Text(
+                                                "${c.listMangaManga[0].score}",
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                    shadows: [
+                                                      BoxShadow(blurRadius: 1)
+                                                    ]),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                     Align(
                                         alignment: Alignment.bottomCenter,
@@ -144,25 +157,38 @@ class HomeMangaWidget extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listMangaManga[1].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  width: 60.w,
+                                  height: 20.h,
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 18.h,
+                                            color: Colors.amber[400],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "${c.listMangaManga[1].score}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              shadows: [
+                                                BoxShadow(blurRadius: 1)
+                                              ]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.bottomLeft,
@@ -206,19 +232,37 @@ class HomeMangaWidget extends StatelessWidget {
                               Row(
                                 children: [
                                   Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listMangaManga[2].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    alignment: Alignment.topLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                              BorderRadius.circular(6.r)),
+                                      width: 60.w,
+                                      height: 20.h,
+                                      child: Row(
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Icon(
+                                                Icons.star,
+                                                size: 18.h,
+                                                color: Colors.amber[400],
+                                              )),
+                                          Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text(
+                                              "${c.listMangaManga[2].score}",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  shadows: [
+                                                    BoxShadow(blurRadius: 1)
+                                                  ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -265,19 +309,37 @@ class HomeMangaWidget extends StatelessWidget {
                               Row(
                                 children: [
                                   Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listMangaManga[3].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    alignment: Alignment.topLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                              BorderRadius.circular(6.r)),
+                                      width: 60.w,
+                                      height: 20.h,
+                                      child: Row(
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Icon(
+                                                Icons.star,
+                                                size: 18.h,
+                                                color: Colors.amber[400],
+                                              )),
+                                          Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text(
+                                              "${c.listMangaManga[3].score}",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  shadows: [
+                                                    BoxShadow(blurRadius: 1)
+                                                  ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -330,19 +392,37 @@ class HomeMangaWidget extends StatelessWidget {
                               Row(
                                 children: [
                                   Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listMangaManga[4].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    alignment: Alignment.topLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                              BorderRadius.circular(6.r)),
+                                      width: 60.w,
+                                      height: 20.h,
+                                      child: Row(
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Icon(
+                                                Icons.star,
+                                                size: 18.h,
+                                                color: Colors.amber[400],
+                                              )),
+                                          Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text(
+                                              "${c.listMangaManga[4].score}",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  shadows: [
+                                                    BoxShadow(blurRadius: 1)
+                                                  ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -389,19 +469,37 @@ class HomeMangaWidget extends StatelessWidget {
                               Row(
                                 children: [
                                   Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listMangaManga[5].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    alignment: Alignment.topLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                              BorderRadius.circular(6.r)),
+                                      width: 60.w,
+                                      height: 20.h,
+                                      child: Row(
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Icon(
+                                                Icons.star,
+                                                size: 18.h,
+                                                color: Colors.amber[400],
+                                              )),
+                                          Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text(
+                                              "${c.listMangaManga[5].score}",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  shadows: [
+                                                    BoxShadow(blurRadius: 1)
+                                                  ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -448,19 +546,37 @@ class HomeMangaWidget extends StatelessWidget {
                               Row(
                                 children: [
                                   Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listMangaManga[6].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    alignment: Alignment.topLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                              BorderRadius.circular(6.r)),
+                                      width: 60.w,
+                                      height: 20.h,
+                                      child: Row(
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Icon(
+                                                Icons.star,
+                                                size: 18.h,
+                                                color: Colors.amber[400],
+                                              )),
+                                          Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text(
+                                              "${c.listMangaManga[6].score}",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  shadows: [
+                                                    BoxShadow(blurRadius: 1)
+                                                  ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -507,19 +623,37 @@ class HomeMangaWidget extends StatelessWidget {
                               Row(
                                 children: [
                                   Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listMangaManga[7].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    alignment: Alignment.topLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                              BorderRadius.circular(6.r)),
+                                      width: 60.w,
+                                      height: 20.h,
+                                      child: Row(
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Icon(
+                                                Icons.star,
+                                                size: 18.h,
+                                                color: Colors.amber[400],
+                                              )),
+                                          Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text(
+                                              "${c.listMangaManga[7].score}",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  shadows: [
+                                                    BoxShadow(blurRadius: 1)
+                                                  ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -563,19 +697,37 @@ class HomeMangaWidget extends StatelessWidget {
                               Row(
                                 children: [
                                   Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listMangaManga[8].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    alignment: Alignment.topLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                              BorderRadius.circular(6.r)),
+                                      width: 60.w,
+                                      height: 20.h,
+                                      child: Row(
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Icon(
+                                                Icons.star,
+                                                size: 18.h,
+                                                color: Colors.amber[400],
+                                              )),
+                                          Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text(
+                                              "${c.listMangaManga[8].score}",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  shadows: [
+                                                    BoxShadow(blurRadius: 1)
+                                                  ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -622,19 +774,37 @@ class HomeMangaWidget extends StatelessWidget {
                               Row(
                                 children: [
                                   Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${controller.listMangaManga[9].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
+                                    alignment: Alignment.topLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                              BorderRadius.circular(6.r)),
+                                      width: 60.w,
+                                      height: 20.h,
+                                      child: Row(
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Icon(
+                                                Icons.star,
+                                                size: 18.h,
+                                                color: Colors.amber[400],
+                                              )),
+                                          Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text(
+                                              "${c.listMangaManga[9].score}",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  shadows: [
+                                                    BoxShadow(blurRadius: 1)
+                                                  ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
