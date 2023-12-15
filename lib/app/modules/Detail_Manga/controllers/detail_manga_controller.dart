@@ -17,18 +17,23 @@ class DetailMangaController extends GetxController {
       return [];
     } else {
       listCharacterManga = data.map((e) => char.Character.fromJson(e)).toList();
-      List<char.Character> listChar = List<char.Character>.from(listCharacterManga!);
+      List<char.Character> listChar =
+          List<char.Character>.from(listCharacterManga!);
       update();
       return listChar;
     }
   }
 
   String formatDate(String inputDate) {
-    final inputFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-    final outputFormat = DateFormat("dd-MM-yyyy");
+    try {
+      final inputFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+      final outputFormat = DateFormat("dd-MM-yyyy");
 
-    final date = inputFormat.parse(inputDate);
-    return outputFormat.format(date);
+      final date = inputFormat.parse(inputDate);
+      return outputFormat.format(date);
+    } catch (e) {
+      return e.toString();
+    }
   }
 
   @override

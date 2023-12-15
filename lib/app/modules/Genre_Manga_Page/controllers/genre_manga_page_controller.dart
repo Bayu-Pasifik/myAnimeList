@@ -1,50 +1,48 @@
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
+import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 
 class GenreMangaPageController extends GetxController {
-  List<dynamic> listManga = [];
+  final gen.Genre genre = Get.arguments;
   Map<String, dynamic> page = {};
-  int hal = 1;
-  RefreshController genreRefresh = RefreshController(initialRefresh: true);
+  final PagingController<int, manga.Manga> mangaIndexByGenre =
+      PagingController<int, manga.Manga>(firstPageKey: 1);
   // ! fungsi untuk fetching genre anime berdasarkan index
-  Future<List?> genreAnime(int g, int p) async {
-    Uri url = Uri.parse('https://api.jikan.moe/v4/anime?genres=$g&page=$p');
+  void genreAnime(int g, int p) async {
+    Uri url = Uri.parse('https://api.jikan.moe/v4/manga?genres=$g&page=$p');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
-      var tempAnimeList =
+      var tempmangaList =
           data["data"].map((e) => manga.Manga.fromJson(e)).toList();
-      listManga.addAll(tempAnimeList);
+      List<manga.Manga> listManga = List<manga.Manga>.from(tempmangaList);
       page = data["pagination"];
-      update();
-      return listManga;
+      final isLastPage = page['has_next_page'] == false;
+      if (isLastPage) {
+        Get.snackbar("Error", "No more data");
+        mangaIndexByGenre.appendLastPage(listManga);
+      } else {
+        mangaIndexByGenre.appendPage(listManga, p + 1);
+      }
     } else {
       return null;
     }
   }
 
-  void refreshData(int gen) async {
-    if (genreRefresh.initialRefresh == true) {
-      hal = 1;
-      await genreAnime(gen, hal);
-      update();
-      return genreRefresh.refreshCompleted();
-    } else {
-      return genreRefresh.refreshFailed();
-    }
+  @override
+  void onInit() {
+    mangaIndexByGenre.addPageRequestListener((pageKey) {
+      genreAnime(genre.malId!, pageKey);
+    });
+    super.onInit();
   }
 
-  void loadData(int gen) async {
-    if (page["has_next_page"] == true) {
-      hal = hal + 1;
-      await genreAnime(gen, hal);
-      update();
-      return genreRefresh.loadComplete();
-    } else {
-      return genreRefresh.loadNoData();
-    }
+  @override
+  void dispose() {
+    mangaIndexByGenre.dispose();
+    super.dispose();
   }
 }

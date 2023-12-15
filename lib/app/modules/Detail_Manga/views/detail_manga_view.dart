@@ -216,7 +216,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10),
-                      child: (mangas.published != null)
+                      child: (mangas.published!.from!.isNotEmpty)
                           ? Text(
                               controller.formatDate(mangas.published!.from!),
                               style: GoogleFonts.kurale(),
@@ -410,6 +410,19 @@ class DetailMangaView extends GetView<DetailMangaController> {
               future: controller.getCharacterManga(mangas.malId!),
               builder: (context, snapshot) {
                 // print(snapshot.data!.isEmpty);
+
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('${snapshot.error}'),
+                  );
+                }
+                if (snapshot.hasData) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }
                 if (snapshot.data == null || snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
@@ -422,18 +435,6 @@ class DetailMangaView extends GetView<DetailMangaController> {
                       ),
                     ),
                   );
-                }
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text('${snapshot.error}'),
-                  );
-                }
-                if (snapshot.hasData) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
                 }
                 return ListView.separated(
                   separatorBuilder: (context, index) => const SizedBox(

@@ -8,7 +8,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/modules/Home_Manga/controllers/home_manga_controller.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
-import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 
 class MangaIndexTemplate extends StatelessWidget {
   final String index;
@@ -18,12 +17,11 @@ class MangaIndexTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeMangaController>();
-    print(index);
     return PagedGridView<int, manga.Manga>(
         padding: EdgeInsets.all(10.h),
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 180,
-            childAspectRatio: 1 / 1.5,
+            maxCrossAxisExtent: 300,
+            childAspectRatio: 1 / 1.6,
             crossAxisSpacing: 20,
             mainAxisSpacing: 20),
         pagingController: index == 'A'
@@ -131,7 +129,14 @@ class MangaIndexTemplate extends StatelessWidget {
                     fontSize: 16.sp,
                     textStyle: const TextStyle(overflow: TextOverflow.ellipsis),
                   ),
-                )
+                ),
+                Text(
+                  "(${item.status})",
+                  style: GoogleFonts.kurale(
+                    fontSize: 16.sp,
+                    textStyle: const TextStyle(overflow: TextOverflow.ellipsis),
+                  ),
+                ),
               ],
             );
           },
