@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:my_anime_list/app/modules/Home_Manga/controllers/home_manga_controller.dart';
 import 'package:my_anime_list/app/modules/template/template_manga_index.dart';
 
 class MangaIndex extends StatelessWidget {

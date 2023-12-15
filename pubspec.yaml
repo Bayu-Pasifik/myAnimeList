@@ -52,5 +52,6 @@ flutter_native_splash:
 flutter: 
   assets: 
     - assets/lottie/
+    - assets/images/
   uses-material-design: true
 

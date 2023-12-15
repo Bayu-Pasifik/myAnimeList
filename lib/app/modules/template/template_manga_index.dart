@@ -8,6 +8,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/modules/Home_Manga/controllers/home_manga_controller.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
+import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 
 class MangaIndexTemplate extends StatelessWidget {
   final String index;
@@ -84,43 +85,55 @@ class MangaIndexTemplate extends StatelessWidget {
                                                                                                             : controller.mangaIndexZ,
         builderDelegate: PagedChildBuilderDelegate<manga.Manga>(
           animateTransitions: true,
-          itemBuilder: (context, item, index) {
-            return Column(children: [
-              Expanded(
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  child: GestureDetector(
-                    onTap: () =>
-                        Get.toNamed(Routes.DETAIL_MANGA, arguments: item),
-                    child: CachedNetworkImage(
-                      imageUrl: "${item.images!['jpg']!.imageUrl}",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          image: DecorationImage(
-                              image: imageProvider, fit: BoxFit.cover),
-                        ),
-                      ),
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) => Center(
-                        child: CircularProgressIndicator(
-                            value: downloadProgress.progress),
-                      ),
-                      errorWidget: (context, url, error) =>
-                          Image.asset("assets/images/Image_not_available.png"),
+          itemBuilder: (context, item, number) {
+            // List<manga.Genres>? genres = item.genres;
+            return Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    child: GestureDetector(
+                      onTap: () =>
+                          Get.toNamed(Routes.DETAIL_MANGA, arguments: item),
+                      child: (item.genres != null &&
+                              number < item.genres!.length &&
+                              item.genres![number].name != null &&
+                              item.genres![number].name!.contains('Erotica'))
+                          ? Image.asset("assets/images/Image_not_available.png")
+                          : CachedNetworkImage(
+                              imageUrl: "${item.images!['jpg']!.imageUrl}",
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) => Center(
+                                child: CircularProgressIndicator(
+                                    value: downloadProgress.progress),
+                              ),
+                              errorWidget: (context, url, error) => Image.asset(
+                                "assets/images/Image_not_available.png",
+                              ),
+                            ),
                     ),
                   ),
                 ),
-              ),
-              Text(
-                "${item.title}",
-                style: GoogleFonts.kurale(
+                Text(
+                  "${item.title}",
+                  style: GoogleFonts.kurale(
                     fontSize: 16.sp,
-                    textStyle:
-                        const TextStyle(overflow: TextOverflow.ellipsis)),
-              )
-            ]);
+                    textStyle: const TextStyle(overflow: TextOverflow.ellipsis),
+                  ),
+                )
+              ],
+            );
           },
           firstPageErrorIndicatorBuilder: (_) {
             return Center(
