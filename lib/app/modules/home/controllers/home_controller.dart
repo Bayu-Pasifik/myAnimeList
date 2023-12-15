@@ -136,28 +136,18 @@ class HomeController extends GetxController {
   }
 
   // ! fungsi untuk ganti tema yang sudah disimpan di local storage
-  void changeTheme() async {
-    // if (Get.isDarkMode == false) {
-    //   Get.snackbar("Error", "Can't change theme in dark mode");
-    //   isDark.value = true;
-    // }
-    isDark.isFalse
-        ? Get.changeTheme(ThemeData.dark())
-        : Get.changeTheme(ThemeData.light());
-    isDark.toggle();
-    final box = GetStorage();
-
-    if (isDark.isTrue) {
-      // ! light to dark
-      await box.write("themeDark", true);
-    } else if (isDark.isFalse) {
-      // ! dark to light
-      await box.remove("themeDark");
+  final box = GetStorage();
+  var isDarkmode = false.obs;
+  void changeTheme(bool val) {
+    if (val == true) {
+      box.write("darkmode", true);
+      Get.changeTheme(ThemeData.dark());
+    } else {
+      box.remove("darkmode");
+      Get.changeTheme(ThemeData.light());
     }
-
-    print("nilai get :" "${Get.isDarkMode}");
-    print(box.changes);
-    print("Nilai isDark : ${isDark.value}");
+    isDarkmode.value =
+        val; // Mengatur nilai isDarkmode sesuai dengan val yang diterima.
   }
 
   // ! fungsi untuk mencari anime berdasarkan nama

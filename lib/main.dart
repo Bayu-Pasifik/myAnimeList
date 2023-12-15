@@ -19,7 +19,7 @@ void main() async {
       debugShowCheckedModeBanner: false,
       title: "Animate",
       theme:
-          box.read("themeDark") == null ? ThemeData.light() : ThemeData.dark(),
+          box.read("darkmode") == true ? ThemeData.dark() : ThemeData.light(),
       initialRoute: Routes.INTRODUCTION,
       getPages: AppPages.routes,
     ),

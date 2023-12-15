@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
@@ -382,11 +381,12 @@ class HomeView extends GetView<HomeController> {
     return Obx(() => Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor:
-              controller.isDark.isTrue ? Colors.grey[900] : Colors.blue[900],
+          backgroundColor: controller.isDarkmode.isTrue
+              ? Colors.grey[900]
+              : Colors.blue[900],
           actions: [
             IconButton(onPressed: () {
-              controller.changeTheme();
+              controller.changeTheme(!controller.isDarkmode.value);
             }, icon: Obx(() {
               return controller.isDark.isTrue
                   ? const Icon(Icons.sunny)
@@ -446,7 +446,7 @@ class HomeView extends GetView<HomeController> {
                 TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
                 TabItem(icon: Icons.business, title: 'Studios'),
               ],
-              backgroundColor: controller.isDark.isTrue
+              backgroundColor: controller.isDarkmode.isTrue
                   ? Colors.grey[900]
                   : Colors.blue[900],
               initialActiveIndex: controller.selectIndex.value,

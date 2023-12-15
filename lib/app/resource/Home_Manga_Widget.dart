@@ -23,7 +23,9 @@ class HomeMangaWidget extends StatelessWidget {
                 Text(
                   "Top Manga",
                   style: GoogleFonts.squadaOne(
-                      color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                      color: controller.isDarkmode.isTrue
+                          ? Colors.white
+                          : Colors.blue[900],
                       fontSize: 18),
                 ),
                 TextButton(
@@ -33,8 +35,9 @@ class HomeMangaWidget extends StatelessWidget {
                     child: Text(
                       "Load More",
                       style: GoogleFonts.squadaOne(
-                          color:
-                              Get.isDarkMode ? Colors.white : Colors.blue[900],
+                          color: controller.isDarkmode.value
+                              ? Colors.white
+                              : Colors.blue[900],
                           fontSize: 18),
                     ))
               ],

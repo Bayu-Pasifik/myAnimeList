@@ -1,17 +1,17 @@
 import 'dart:convert';
-import 'dart:math';
+// import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
-// import 'package:my_anime_list/app/data/model/anime_model.dart';
-import 'package:my_anime_list/app/data/model/anime_models.dart';
+// import 'package:flutter/cupertino.dart';
+// // import 'package:my_anime_list/app/data/model/anime_model.dart';
+// import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
-    as detail;
-import 'package:my_anime_list/app/data/model/detail_anime_character.dart';
-import 'package:my_anime_list/app/data/model/manga/recomend_model.dart';
-import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
-import 'package:my_anime_list/app/data/model/character_model.dart' as char;
-import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
+// import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
+//     as detail;
+// import 'package:my_anime_list/app/data/model/detail_anime_character.dart';
+// import 'package:my_anime_list/app/data/model/manga/recomend_model.dart';
+// import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
+// import 'package:my_anime_list/app/data/model/character_model.dart' as char;
+// import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
 import 'package:my_anime_list/app/data/model/detail_voiceActor_model.dart'
     as Va;
 // void main() async {

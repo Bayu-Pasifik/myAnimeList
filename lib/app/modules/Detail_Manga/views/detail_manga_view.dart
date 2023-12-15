@@ -447,8 +447,9 @@ class DetailMangaView extends GetView<DetailMangaController> {
                         controller.listCharacterManga![index];
                     return GestureDetector(
                       onTap: () {
-                        Get.toNamed(Routes.ANIME_CHARACTER,
-                            arguments: character);
+                        // print(character.character!.malId);
+                        Get.toNamed(Routes.MANGA_CHARACTER,
+                            arguments: character.character);
                       },
                       child: Column(
                         children: [

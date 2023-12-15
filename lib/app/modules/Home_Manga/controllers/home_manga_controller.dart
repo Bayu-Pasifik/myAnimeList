@@ -101,6 +101,7 @@ class HomeMangaController extends GetxController {
     var res = await http.get(url);
     //! Masukkan data ke dalam variable
     List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
+    print(data);
     // ! cek data nya apakah null atau tidak
     if (data == null || data.isEmpty) {
       return [];
@@ -318,21 +319,18 @@ class HomeMangaController extends GetxController {
   }
 
   // ! fungsi untuk ganti tema yang sudah disimpan di local storage
-  void changeTheme() async {
-    isDark.isTrue
-        ? Get.changeTheme(ThemeData.dark())
-        : Get.changeTheme(ThemeData.light());
-
-    final box = GetStorage();
-
-    if (isDark.value == true) {
-      // ! dark to light
-      await box.write("themeDark", true);
+  final box = GetStorage();
+  var isDarkmode = false.obs;
+  void changeTheme(bool val) {
+    if (val == true) {
+      box.write("darkmode", true);
+      Get.changeTheme(ThemeData.dark());
     } else {
-      // ! light to dark
-      await box.remove("themeDark");
+      box.remove("darkmode");
+      Get.changeTheme(ThemeData.light());
     }
-    isDark.toggle();
+    isDarkmode.value =
+        val; // Mengatur nilai isDarkmode sesuai dengan val yang diterima.
   }
 
   // ! fungsi untuk top manga

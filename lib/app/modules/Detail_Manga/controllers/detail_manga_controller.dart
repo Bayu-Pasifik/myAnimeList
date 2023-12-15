@@ -12,6 +12,7 @@ class DetailMangaController extends GetxController {
     var res = await http.get(url);
     //! Masukkan data ke dalam variable
     List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
+    print(data);
     // ! cek data nya apakah null atau tidak
     if (data == null || data.isEmpty) {
       return [];
@@ -20,6 +21,7 @@ class DetailMangaController extends GetxController {
       List<char.Character> listChar =
           List<char.Character>.from(listCharacterManga!);
       update();
+      // print(listChar[0].);
       return listChar;
     }
   }

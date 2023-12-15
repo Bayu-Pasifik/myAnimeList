@@ -1,5 +1,6 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:get/get.dart';
@@ -150,49 +151,62 @@ class HomeMangaView extends GetView<HomeMangaController> {
       ),
       const DefaultTabController(length: 26, child: MangaIndex()),
       // ! Genre page
-      FutureBuilder<List<gen.Genre>?>(
-        future: controller.genreList,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          }
-          if (snapshot.hasData) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+      AnimationLimiter(
+        child: FutureBuilder<List<gen.Genre>?>(
+          future: controller.genreList,
+          builder: (context, snapshot) {
+            // if (snapshot.data.isEmpty) {
+            //   return const Center(
+            //     child: CircularProgressIndicator(),
+            //   );
+            // }
+            if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
             }
-          }
-          return ListView.separated(
-            itemCount: snapshot.data?.length ?? 0,
-            itemBuilder: (context, index) {
-              gen.Genre genre = controller.listGenreAnime[index];
-              return ListTile(
-                leading: CircleAvatar(
-                    backgroundColor:
-                        Get.isDarkMode ? Colors.white : Colors.grey[900],
-                    child: Center(
-                      child: Text("${index + 1}"),
-                    )),
-                title: Text(
-                  "${genre.name}",
-                  textAlign: TextAlign.start,
-                  style: GoogleFonts.breeSerif(
-                      textStyle:
-                          const TextStyle(overflow: TextOverflow.ellipsis)),
-                ),
-                onTap: () {
-                  Get.toNamed(Routes.GENRE_MANGA_PAGE, arguments: genre);
-                },
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return const Divider(
-                thickness: 2,
-              );
-            },
-          );
-        },
+            if (snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }
+            return ListView.separated(
+              itemCount: snapshot.data?.length ?? 0,
+              itemBuilder: (context, index) {
+                gen.Genre genre = controller.listGenreAnime[index];
+                return AnimationConfiguration.staggeredGrid(
+                  position: index,
+                  columnCount: index,
+                  delay: const Duration(seconds: 2),
+                  duration: const Duration(seconds: 2),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                        backgroundColor:
+                            Get.isDarkMode ? Colors.white : Colors.grey[900],
+                        child: Center(
+                          child: Text("${index + 1}"),
+                        )),
+                    title: Text(
+                      "${genre.name}",
+                      textAlign: TextAlign.start,
+                      style: GoogleFonts.breeSerif(
+                          textStyle:
+                              const TextStyle(overflow: TextOverflow.ellipsis)),
+                    ),
+                    onTap: () {
+                      Get.toNamed(Routes.GENRE_MANGA_PAGE, arguments: genre);
+                    },
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(
+                  thickness: 2,
+                );
+              },
+            );
+          },
+        ),
       ),
     ];
     return Scaffold(
@@ -202,10 +216,10 @@ class HomeMangaView extends GetView<HomeMangaController> {
           actions: [
             IconButton(
                 onPressed: () {
-                  controller.changeTheme();
+                  controller.changeTheme(!controller.isDarkmode.value);
                 },
                 icon: Obx(
-                  () => controller.isDark.isFalse
+                  () => controller.isDarkmode.isTrue
                       ? const Icon(Icons.sunny)
                       : const Icon(Icons.mode_night_outlined),
                 ))
@@ -260,7 +274,7 @@ class HomeMangaView extends GetView<HomeMangaController> {
         bottomNavigationBar: Obx(
           () => ConvexAppBar(
               backgroundColor:
-                  controller.isDark.isFalse ? Colors.grey[900] : Colors.blue,
+                  controller.isDarkmode.isTrue ? Colors.grey[900] : Colors.blue,
               items: const [
                 TabItem(icon: Icons.home, title: 'Home'),
                 TabItem(icon: Icons.search, title: 'search'),
