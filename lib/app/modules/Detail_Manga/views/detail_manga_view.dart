@@ -47,7 +47,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
             theme: ExpandableThemeData(
               iconColor: Get.isDarkMode
                   ? const Color.fromARGB(255, 255, 255, 255)
-                  : const Color.fromARGB(15, 37, 37, 37),
+                  : const Color.fromARGB(255, 0, 0, 0),
             ),
             collapsed: Padding(
               padding: const EdgeInsets.all(10),
@@ -57,7 +57,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                         fontWeight: FontWeight.w500,
                         color: Get.isDarkMode
                             ? const Color.fromARGB(255, 255, 255, 255)
-                            : const Color.fromARGB(15, 37, 37, 37),
+                            : const Color.fromARGB(255, 0, 0, 0),
                       )),
             ),
             header: Padding(
@@ -185,7 +185,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                                         style: GoogleFonts.kurale(),
                                       ))
                                   .toList())
-                          : const Text("NAN"),
+                          : const Text("-"),
                     )
                   ]),
                   TableRow(children: [
@@ -203,7 +203,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                               (mangas.status!),
                               style: GoogleFonts.kurale(),
                             )
-                          : const Text("NAN"),
+                          : const Text("-"),
                     )
                   ]),
                   TableRow(children: [
@@ -221,7 +221,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                               controller.formatDate(mangas.published!.from!),
                               style: GoogleFonts.kurale(),
                             )
-                          : const Text("NAN"),
+                          : const Text("-"),
                     )
                   ]),
                   TableRow(children: [
@@ -295,7 +295,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: (mangas.authors != [])
+                        child: (mangas.authors!.isNotEmpty)
                             ? Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: mangas.authors!.map((item) {
@@ -305,7 +305,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                                   );
                                 }).toList(),
                               )
-                            : const Text("NAN"),
+                            : const Text("-"),
                       ),
                     ],
                   ),
@@ -319,7 +319,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: (mangas.themes != [])
+                      child: (mangas.themes!.isNotEmpty)
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,7 +327,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                                   .map((item) => Text(item.name!,
                                       style: GoogleFonts.kurale()))
                                   .toList())
-                          : const Text("NAN"),
+                          : const Text("-"),
                     )
                   ]),
                   TableRow(children: [
@@ -340,7 +340,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: (mangas.serializations != [])
+                      child: (mangas.serializations!.isNotEmpty)
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: mangas.serializations!
@@ -349,7 +349,10 @@ class DetailMangaView extends GetView<DetailMangaController> {
                                         style: GoogleFonts.kurale(),
                                       ))
                                   .toList())
-                          : const Text("NAN"),
+                          : Text(
+                              "-",
+                              style: GoogleFonts.kurale(),
+                            ),
                     )
                   ]),
                 ],
@@ -366,7 +369,9 @@ class DetailMangaView extends GetView<DetailMangaController> {
                 style: GoogleFonts.squadaOne(color: Colors.blue, fontSize: 20),
               ),
               collapsed: Text(
-                "${mangas.synopsis}",
+                mangas.synopsis != null
+                    ? "${mangas.synopsis}"
+                    : "No Synopsis Yet",
                 softWrap: true,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -374,7 +379,9 @@ class DetailMangaView extends GetView<DetailMangaController> {
                     fontSize: 16, fontWeight: FontWeight.normal),
               ),
               expanded: Text(
-                "${mangas.synopsis}",
+                mangas.synopsis != null
+                    ? "${mangas.synopsis}"
+                    : "No Synopsis Yet",
                 softWrap: true,
                 style: GoogleFonts.kurale(
                     fontSize: 16, fontWeight: FontWeight.normal),
@@ -395,26 +402,36 @@ class DetailMangaView extends GetView<DetailMangaController> {
               ),
             ),
           ),
+
           SizedBox(
             height: MediaQuery.of(context).size.height / 2,
             // color: Colors.red,
-            child: FutureBuilder(
-              future: controller.getCharacterManga(mangas.malId ?? 0),
+            child: FutureBuilder<List<char.Character>?>(
+              future: controller.getCharacterManga(mangas.malId!),
               builder: (context, snapshot) {
+                // print(snapshot.data!.isEmpty);
+                if (snapshot.data == null || snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "No Data",
+                      style: GoogleFonts.kurale(
+                        fontSize: 18.sp,
+                        color: Get.isDarkMode
+                            ? const Color.fromARGB(255, 255, 255, 255)
+                            : const Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  );
+                }
                 if (snapshot.hasError) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Center(
+                    child: Text('${snapshot.error}'),
                   );
                 }
                 if (snapshot.hasData) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                       child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (snapshot.data == null) {
-                    return const Center(
-                      child: Text("No Data"),
                     );
                   }
                 }
@@ -458,12 +475,12 @@ class DetailMangaView extends GetView<DetailMangaController> {
                             height: 5,
                           ),
                           Text(
-                            character.character?.name ?? 'NaN',
+                            character.character?.name ?? '-',
                             style: GoogleFonts.breeSerif(fontSize: 16),
                           ),
                           Expanded(
                             child: Text(
-                              "(${character.role ?? 'NaN'})",
+                              "(${character.role ?? '-'})",
                               style: GoogleFonts.breeSerif(fontSize: 16),
                             ),
                           ),

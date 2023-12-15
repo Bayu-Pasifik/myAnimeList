@@ -17,8 +17,9 @@ class DetailMangaController extends GetxController {
       return [];
     } else {
       listCharacterManga = data.map((e) => char.Character.fromJson(e)).toList();
+      List<char.Character> listChar = List<char.Character>.from(listCharacterManga!);
       update();
-      return listCharacterManga;
+      return listChar;
     }
   }
 
