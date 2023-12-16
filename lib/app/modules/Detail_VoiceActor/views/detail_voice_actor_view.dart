@@ -8,7 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 // import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
     as detail;
+import 'package:my_anime_list/app/modules/Detail_VoiceActor/views/all_voiced_anime.dart';
 import 'package:my_anime_list/app/modules/utils.dart';
+// import 'package:my_anime_list/app/routes/app_pages.dart';
 // import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../controllers/detail_voice_actor_controller.dart';
 import 'package:my_anime_list/app/data/model/detail_voiceActor_model.dart'
@@ -278,86 +280,103 @@ class DetailVoiceActorView extends GetView<DetailVoiceActorController> {
                       ),
                     ),
                     SizedBox(height: 10.h),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(5),
-                    //   child: Text(
-                    //     "Voice Actors / Actresses",
-                    //     style: GoogleFonts.squadaOne(
-                    //         color: Colors.blue, fontSize: 20),
-                    //   ),
-                    // ),
-                    // Padding(
-                    //     padding: const EdgeInsets.all(5),
-                    //     child: SizedBox(
-                    //         height: MediaQuery.of(context).size.height / 2,
-                    //         // color: Colors.red,
-                    //         child: ListView.separated(
-                    //           separatorBuilder: (context, index) => SizedBox(
-                    //             width: 5.w,
-                    //           ),
-                    //           scrollDirection: Axis.horizontal,
-                    //           itemCount: detail.voices?.length ?? 0,
-                    //           itemBuilder: (context, index) {
-                    //             // char.Character character =
-                    //             //     controller.listCharacterAnime?[index];
-                    //             return GestureDetector(
-                    //               onTap: () {
-                    //                 // print(character.character!.malId);
-                    //                 // Get.toNamed(Routes.DETAIL_VOICE_ACTOR,
-                    //                 //     arguments: detail.voices![index]);
-                    //               },
-                    //               child: Column(
-                    //                 children: [
-                    //                   Expanded(
-                    //                     child: ClipRRect(
-                    //                       borderRadius:
-                    //                           BorderRadius.circular(10),
-                    //                       child: SizedBox(
-                    //                         width: 150.w,
-                    //                         height: 300.h,
-                    //                         // color: Colors.amber,
-                    //                         child: (detail
-                    //                                     .voices![index]
-                    //                                     .person!
-                    //                                     .images
-                    //                                     ?.jpg
-                    //                                     ?.imageUrl !=
-                    //                                 null)
-                    //                             ? Image.network(
-                    //                                 detail
-                    //                                         .voices![index]
-                    //                                         .person!
-                    //                                         .images
-                    //                                         ?.jpg
-                    //                                         ?.imageUrl ??
-                    //                                     'Kosong',
-                    //                                 fit: BoxFit.cover,
-                    //                               )
-                    //                             : const CircularProgressIndicator(),
-                    //                       ),
-                    //                     ),
-                    //                   ),
-                    //                   SizedBox(
-                    //                     height: 5.h,
-                    //                   ),
-                    //                   Text(
-                    //                     detail.voices![index].person!.name ??
-                    //                         '-',
-                    //                     style: GoogleFonts.breeSerif(
-                    //                         fontSize: 16.sp),
-                    //                   ),
-                    //                   Expanded(
-                    //                     child: Text(
-                    //                       "(${detail.voices![index].language ?? '-'})",
-                    //                       style: GoogleFonts.breeSerif(
-                    //                           fontSize: 16.sp),
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //             );
-                    //           },
-                    //         )))
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Voices",
+                            style: GoogleFonts.squadaOne(
+                                color: Colors.blue, fontSize: 20),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Get.to(() => const AllVoicedAnime(),
+                                  arguments: detail);
+                            },
+                            child: Text(
+                              "Load More",
+                              style: GoogleFonts.squadaOne(
+                                  color: Colors.blue, fontSize: 20),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: SizedBox(
+                            height: MediaQuery.of(context).size.height / 2,
+                            // color: Colors.red,
+                            child: ListView.separated(
+                              separatorBuilder: (context, index) => Container(
+                                width: 5.w,
+                                // color: Colors.amber,
+                              ),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 10,
+                              itemBuilder: (context, index) {
+                                // char.Character character =
+                                //     controller.listCharacterAnime?[index];
+                                return GestureDetector(
+                                  onTap: () {},
+                                  child: Column(
+                                    children: [
+                                      Expanded(
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Container(
+                                            width: 150.w,
+                                            height: 300.h,
+                                            color: Colors.amber,
+                                            child: (detail
+                                                        .voices?[index]
+                                                        .character
+                                                        ?.images
+                                                        ?.jpg !=
+                                                    null)
+                                                ? Image.network(
+                                                    detail
+                                                            .voices?[index]
+                                                            .character
+                                                            ?.images
+                                                            ?.jpg
+                                                            ?.imageUrl ??
+                                                        'Kosong',
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : const CircularProgressIndicator(),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(
+                                        detail.voices?[index].character?.name ??
+                                            '-',
+                                        style: GoogleFonts.kurale(
+                                            fontSize: 16.sp,
+                                            textStyle: const TextStyle(
+                                                overflow:
+                                                    TextOverflow.ellipsis)),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          "(${detail.voices?[index].role ?? '-'})"
+                                              .replaceAll("Role.", "")
+                                              .toLowerCase(),
+                                          style: GoogleFonts.kurale(
+                                              fontSize: 16.sp),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            )))
                   ]))
                 ],
               );
