@@ -445,7 +445,7 @@ class HomeController extends GetxController {
     }
   }
 
-  // ! fungsi untuk Upcoming Airing anime
+  // ! fungsi untuk Upcoming anime
   Future<List?> upcomingAnime() async {
     Uri url = Uri.parse('https://api.jikan.moe/v4/seasons/upcoming');
     var response = await http.get(url);

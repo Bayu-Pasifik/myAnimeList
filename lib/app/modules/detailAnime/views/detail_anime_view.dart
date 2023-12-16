@@ -361,7 +361,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10),
-                      child: (anime.aired!.from!.isNotEmpty)
+                      child: (anime.aired!.from! != "0")
                           ? Text(
                               controller.formatDate(anime.aired!.from!),
                               style: GoogleFonts.kurale(),
