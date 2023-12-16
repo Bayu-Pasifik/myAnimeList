@@ -1,39 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:my_anime_list/app/modules/home/controllers/home_controller.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexA.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexE.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexF.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexG.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexH.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexI.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexJ.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexK.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexL.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexM.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexN.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexO.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexP.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexQ.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexR.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexS.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexT.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexU.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexV.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexW.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexX.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexY.dart';
-import 'package:my_anime_list/app/resource/indexAnime/indexZ.dart';
-import 'indexAnime/indexB.dart';
-import 'indexAnime/indexC.dart';
-import 'indexAnime/indexD.dart';
+import 'package:my_anime_list/app/modules/template/template_anime_index.dart';
 
 class AnimeIndex extends StatelessWidget {
   const AnimeIndex({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<HomeController>();
-
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -70,33 +41,33 @@ class AnimeIndex extends StatelessWidget {
                 Tab(text: 'Z'),
               ]),
         ),
-        body: TabBarView(children: [
-          animeByIndexA(controller),
-          animeByIndexB(controller),
-          animeByIndexC(controller),
-          animeByIndexD(controller),
-          animeByIndexE(controller),
-          animeByIndexF(controller),
-          animeByIndexG(controller),
-          animeByIndexH(controller),
-          animeByIndexI(controller),
-          animeByIndexJ(controller),
-          animeByIndexK(controller),
-          animeByIndexL(controller),
-          animeByIndexM(controller),
-          animeByIndexN(controller),
-          animeByIndexO(controller),
-          animeByIndexP(controller),
-          animeByIndexQ(controller),
-          animeByIndexR(controller),
-          animeByIndexS(controller),
-          animeByIndexT(controller),
-          animeByIndexU(controller),
-          animeByIndexV(controller),
-          animeByIndexW(controller),
-          animeByIndexX(controller),
-          animeByIndexY(controller),
-          animeByIndexZ(controller),
+        body: const TabBarView(children: [
+          AnimeIndexTemplate(index: 'A'),
+          AnimeIndexTemplate(index: 'B'),
+          AnimeIndexTemplate(index: 'C'),
+          AnimeIndexTemplate(index: 'D'),
+          AnimeIndexTemplate(index: 'E'),
+          AnimeIndexTemplate(index: 'F'),
+          AnimeIndexTemplate(index: 'G'),
+          AnimeIndexTemplate(index: 'H'),
+          AnimeIndexTemplate(index: 'I'),
+          AnimeIndexTemplate(index: 'J'),
+          AnimeIndexTemplate(index: 'K'),
+          AnimeIndexTemplate(index: 'L'),
+          AnimeIndexTemplate(index: 'M'),
+          AnimeIndexTemplate(index: 'N'),
+          AnimeIndexTemplate(index: 'O'),
+          AnimeIndexTemplate(index: 'P'),
+          AnimeIndexTemplate(index: 'Q'),
+          AnimeIndexTemplate(index: 'R'),
+          AnimeIndexTemplate(index: 'S'),
+          AnimeIndexTemplate(index: 'T'),
+          AnimeIndexTemplate(index: 'U'),
+          AnimeIndexTemplate(index: 'V'),
+          AnimeIndexTemplate(index: 'W'),
+          AnimeIndexTemplate(index: 'X'),
+          AnimeIndexTemplate(index: 'Y'),
+          AnimeIndexTemplate(index: 'Z'),
         ]));
   }
 }

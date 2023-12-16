@@ -55,7 +55,7 @@ class HomeView extends GetView<HomeController> {
                   child: ElevatedButton(
                       onPressed: (() {
                         c.resultAnime.clear();
-                        c.refreshSearch(c.searchController.text);
+                        // c.refreshSearch(c.searchController.text);
                       }),
                       child: const Text("Search")),
                 ),
@@ -64,8 +64,8 @@ class HomeView extends GetView<HomeController> {
                   controller: c.refreshControllerSearch,
                   enablePullDown: true,
                   enablePullUp: true,
-                  onRefresh: () => c.refreshSearch(c.searchController.text),
-                  onLoading: () => c.loadSearch(c.searchController.text),
+                  onRefresh: () {},
+                  onLoading: () => {},
                   footer: CustomFooter(
                     builder: (context, mode) {
                       if (mode == LoadStatus.loading) {

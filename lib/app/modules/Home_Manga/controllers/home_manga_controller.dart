@@ -302,7 +302,6 @@ class HomeMangaController extends GetxController {
         } else {
           mangaIndexY.appendPage(listManga, hal + 1);
         }
-        ;
       } else if (letter == "Z") {
         if (isLastPage) {
           Get.snackbar("Error", "No more data");

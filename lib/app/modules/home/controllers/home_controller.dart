@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
@@ -10,6 +11,7 @@ import 'package:my_anime_list/app/modules/utils.dart';
 import 'dart:convert';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
+// import 'package:my_anime_list/app/data/model/anime_models.dart' as anime;
 
 class HomeController extends GetxController {
   final CarouselController carouselController = CarouselController();
@@ -27,58 +29,7 @@ class HomeController extends GetxController {
   RefreshController seasonRefresh = RefreshController(initialRefresh: true);
   RefreshController refreshControllerSearch =
       RefreshController(initialRefresh: true);
-  RefreshController refreshControllerA =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerB =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerC =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerD =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerE =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerF =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerG =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerH =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerI =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerJ =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerK =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerL =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerM =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerN =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerO =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerP =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerQ =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerR =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerS =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerT =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerU =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerV =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerW =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerX =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerY =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerZ =
-      RefreshController(initialRefresh: true);
+
   // !  variable untuk index anime
   int currentPage = 1;
   // ! variable untuk search anime
@@ -100,32 +51,58 @@ class HomeController extends GetxController {
   List<dynamic> listUpcoming = [];
   List<dynamic> listTopAnime = [];
   Rx<int> selectIndex = 0.obs;
-  List<dynamic> animeIndexA = [].obs;
-  List<dynamic> animeIndexB = [].obs;
-  List<dynamic> animeIndexC = [].obs;
-  List<dynamic> animeIndexD = [].obs;
-  List<dynamic> animeIndexE = [].obs;
-  List<dynamic> animeIndexF = [].obs;
-  List<dynamic> animeIndexG = [].obs;
-  List<dynamic> animeIndexH = [].obs;
-  List<dynamic> animeIndexI = [].obs;
-  List<dynamic> animeIndexJ = [].obs;
-  List<dynamic> animeIndexK = [].obs;
-  List<dynamic> animeIndexL = [].obs;
-  List<dynamic> animeIndexM = [].obs;
-  List<dynamic> animeIndexN = [].obs;
-  List<dynamic> animeIndexO = [].obs;
-  List<dynamic> animeIndexP = [].obs;
-  List<dynamic> animeIndexQ = [].obs;
-  List<dynamic> animeIndexR = [].obs;
-  List<dynamic> animeIndexS = [].obs;
-  List<dynamic> animeIndexT = [].obs;
-  List<dynamic> animeIndexU = [].obs;
-  List<dynamic> animeIndexV = [].obs;
-  List<dynamic> animeIndexW = [].obs;
-  List<dynamic> animeIndexX = [].obs;
-  List<dynamic> animeIndexY = [].obs;
-  List<dynamic> animeIndexZ = [].obs;
+  final PagingController<int, Animes> animeIndexA =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexB =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexC =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexD =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexE =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexF =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexG =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexH =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexI =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexJ =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexK =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexL =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexM =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexN =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexO =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexP =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexQ =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexR =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexS =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexT =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexU =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexV =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexW =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexX =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexY =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeIndexZ =
+      PagingController<int, Animes>(firstPageKey: 1);
 
   Map<String, dynamic> dataSeason = {};
 
@@ -166,147 +143,201 @@ class HomeController extends GetxController {
     return data;
   }
 
-  // ! fungsi untuk index Anime
-  Future<Map<String, dynamic>?> indexAnime(String letter, int hal) async {
+  // ! function untuk index manga
+  void indexAnime(String letter, int hal) async {
     Uri url = Uri.parse(
-        'https://api.jikan.moe/v4/anime?letter=$letter&page=$hal&order_by=title&sort=asc&sfw=false');
+        'https://api.jikan.moe/v4/anime?letter=$letter&page=$hal&order_by=title&sort=asc&sfw=false&genres_exclude=12,49,28');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
-      var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
+      var tempmangaList = data["data"].map((e) => Animes.fromJson(e)).toList();
+      List<Animes> listanime = List<Animes>.from(tempmangaList);
+      page = data["pagination"];
+      final isLastPage = page['has_next_page'] == false;
       if (letter == "A") {
-        animeIndexA.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexA.appendLastPage(listanime);
+        } else {
+          animeIndexA.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "B") {
-        animeIndexB.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexB.appendLastPage(listanime);
+        } else {
+          animeIndexB.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "C") {
-        animeIndexC.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexC.appendLastPage(listanime);
+        } else {
+          animeIndexC.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "D") {
-        animeIndexD.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexD.appendLastPage(listanime);
+        } else {
+          animeIndexD.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "E") {
-        animeIndexE.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexE.appendLastPage(listanime);
+        } else {
+          animeIndexE.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "F") {
-        animeIndexF.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexF.appendLastPage(listanime);
+        } else {
+          animeIndexF.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "G") {
-        animeIndexG.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexG.appendLastPage(listanime);
+        } else {
+          animeIndexG.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "H") {
-        animeIndexH.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexH.appendLastPage(listanime);
+        } else {
+          animeIndexH.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "I") {
-        animeIndexI.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexI.appendLastPage(listanime);
+        } else {
+          animeIndexI.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "J") {
-        animeIndexJ.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexJ.appendLastPage(listanime);
+        } else {
+          animeIndexJ.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "K") {
-        animeIndexK.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexK.appendLastPage(listanime);
+        } else {
+          animeIndexK.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "L") {
-        animeIndexL.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexL.appendLastPage(listanime);
+        } else {
+          animeIndexL.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "M") {
-        animeIndexM.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexM.appendLastPage(listanime);
+        } else {
+          animeIndexM.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "N") {
-        animeIndexN.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexN.appendLastPage(listanime);
+        } else {
+          animeIndexN.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "O") {
-        animeIndexO.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexO.appendLastPage(listanime);
+        } else {
+          animeIndexO.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "P") {
-        animeIndexP.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexP.appendLastPage(listanime);
+        } else {
+          animeIndexP.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "Q") {
-        animeIndexQ.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexQ.appendLastPage(listanime);
+        } else {
+          animeIndexQ.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "R") {
-        animeIndexR.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexR.appendLastPage(listanime);
+        } else {
+          animeIndexR.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "S") {
-        animeIndexS.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexS.appendLastPage(listanime);
+        } else {
+          animeIndexS.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "T") {
-        animeIndexT.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexT.appendLastPage(listanime);
+        } else {
+          animeIndexT.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "U") {
-        animeIndexU.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexU.appendLastPage(listanime);
+        } else {
+          animeIndexU.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "V") {
-        animeIndexV.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexV.appendLastPage(listanime);
+        } else {
+          animeIndexV.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "W") {
-        animeIndexW.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexW.appendLastPage(listanime);
+        } else {
+          animeIndexW.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "X") {
-        animeIndexX.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexX.appendLastPage(listanime);
+        } else {
+          animeIndexX.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "Y") {
-        animeIndexY.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexY.appendLastPage(listanime);
+        } else {
+          animeIndexY.appendPage(listanime, hal + 1);
+        }
       } else if (letter == "Z") {
-        animeIndexZ.addAll(tempAnimeList);
-        update();
-        page = data["pagination"];
-        return data;
+        if (isLastPage) {
+          Get.snackbar("Error", "No more data");
+          animeIndexZ.appendLastPage(listanime);
+        } else {
+          animeIndexZ.appendPage(listanime, hal + 1);
+        }
       }
     }
-    return null;
   }
 
   // ! fungsi untuk season anime
@@ -430,515 +461,28 @@ class HomeController extends GetxController {
     }
   }
 
-  // ! fungsi load data index
-  void loadData(String h) async {
-    if (h == "A") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerA.loadComplete();
-      } else {
-        return refreshControllerA.loadNoData();
-      }
-    } else if (h == "B") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerB.loadComplete();
-      } else {
-        return refreshControllerB.loadNoData();
-      }
-    } else if (h == "C") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerC.loadComplete();
-      } else {
-        return refreshControllerC.loadNoData();
-      }
-    } else if (h == "D") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerD.loadComplete();
-      } else {
-        return refreshControllerD.loadNoData();
-      }
-    } else if (h == "E") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerE.loadComplete();
-      } else {
-        return refreshControllerE.loadNoData();
-      }
-    } else if (h == "F") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerF.loadComplete();
-      } else {
-        return refreshControllerF.loadNoData();
-      }
-    } else if (h == "G") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerG.loadComplete();
-      } else {
-        return refreshControllerG.loadNoData();
-      }
-    } else if (h == "H") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerH.loadComplete();
-      } else {
-        return refreshControllerH.loadNoData();
-      }
-    } else if (h == "I") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerI.loadComplete();
-      } else {
-        return refreshControllerI.loadNoData();
-      }
-    } else if (h == "J") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerJ.loadComplete();
-      } else {
-        return refreshControllerJ.loadNoData();
-      }
-    } else if (h == "K") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerK.loadComplete();
-      } else {
-        return refreshControllerK.loadNoData();
-      }
-    } else if (h == "L") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerK.loadComplete();
-      } else {
-        return refreshControllerK.loadNoData();
-      }
-    } else if (h == "L") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerK.loadComplete();
-      } else {
-        return refreshControllerK.loadNoData();
-      }
-    } else if (h == "M") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerM.loadComplete();
-      } else {
-        return refreshControllerM.loadNoData();
-      }
-    } else if (h == "N") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerN.loadComplete();
-      } else {
-        return refreshControllerN.loadNoData();
-      }
-    } else if (h == "O") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerO.loadComplete();
-      } else {
-        return refreshControllerO.loadNoData();
-      }
-    } else if (h == "P") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerP.loadComplete();
-      } else {
-        return refreshControllerP.loadNoData();
-      }
-    } else if (h == "Q") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerQ.loadComplete();
-      } else {
-        return refreshControllerQ.loadNoData();
-      }
-    } else if (h == "R") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerR.loadComplete();
-      } else {
-        return refreshControllerR.loadNoData();
-      }
-    } else if (h == "S") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerS.loadComplete();
-      } else {
-        return refreshControllerS.loadNoData();
-      }
-    } else if (h == "T") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerT.loadComplete();
-      } else {
-        return refreshControllerT.loadNoData();
-      }
-    } else if (h == "U") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerU.loadComplete();
-      } else {
-        return refreshControllerU.loadNoData();
-      }
-    } else if (h == "V") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerV.loadComplete();
-      } else {
-        return refreshControllerV.loadNoData();
-      }
-    } else if (h == "W") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerW.loadComplete();
-      } else {
-        return refreshControllerW.loadNoData();
-      }
-    } else if (h == "X") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerX.loadComplete();
-      } else {
-        return refreshControllerX.loadNoData();
-      }
-    } else if (h == "Y") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerY.loadComplete();
-      } else {
-        return refreshControllerY.loadNoData();
-      }
-    } else if (h == "Z") {
-      if (page["has_next_page"] == true) {
-        currentPage = currentPage + 1;
-        update();
-        await indexAnime(h, currentPage);
-        return refreshControllerZ.loadComplete();
-      } else {
-        return refreshControllerZ.loadNoData();
-      }
-    }
-  }
+  // void refreshSearch(String key) async {
+  //   if (refreshControllerSearch.initialRefresh == true) {
+  //     hal = 1;
+  //     await searchAnime(key, hal);
+  //     update();
+  //     return refreshControllerSearch.refreshCompleted();
+  //   } else {
+  //     return refreshControllerSearch.refreshFailed();
+  //   }
+  // }
 
-  // ! fungsi refresh data index
-  void refreshData(String h) async {
-    if (h == "A") {
-      if (refreshControllerA.initialRefresh == true) {
-        animeIndexA.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerA.refreshCompleted();
-      } else {
-        return refreshControllerA.refreshFailed();
-      }
-    } else if (h == "B") {
-      if (refreshControllerB.initialRefresh == true) {
-        animeIndexB.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerB.refreshCompleted();
-      } else {
-        return refreshControllerB.refreshFailed();
-      }
-    } else if (h == "C") {
-      if (refreshControllerC.initialRefresh == true) {
-        animeIndexC.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerC.refreshCompleted();
-      } else {
-        return refreshControllerC.refreshFailed();
-      }
-    } else if (h == "D") {
-      if (refreshControllerD.initialRefresh == true) {
-        animeIndexD.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerD.refreshCompleted();
-      } else {
-        return refreshControllerD.refreshFailed();
-      }
-    } else if (h == "E") {
-      if (refreshControllerE.initialRefresh == true) {
-        animeIndexE.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerE.refreshCompleted();
-      } else {
-        return refreshControllerE.refreshFailed();
-      }
-    } else if (h == "F") {
-      if (refreshControllerF.initialRefresh == true) {
-        animeIndexF.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerF.refreshCompleted();
-      } else {
-        return refreshControllerF.refreshFailed();
-      }
-    } else if (h == "G") {
-      if (refreshControllerG.initialRefresh == true) {
-        animeIndexG.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerG.refreshCompleted();
-      } else {
-        return refreshControllerG.refreshFailed();
-      }
-    } else if (h == "H") {
-      if (refreshControllerH.initialRefresh == true) {
-        animeIndexH.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerH.refreshCompleted();
-      } else {
-        return refreshControllerH.refreshFailed();
-      }
-    } else if (h == "I") {
-      if (refreshControllerI.initialRefresh == true) {
-        animeIndexI.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerI.refreshCompleted();
-      } else {
-        return refreshControllerI.refreshFailed();
-      }
-    } else if (h == "J") {
-      if (refreshControllerJ.initialRefresh == true) {
-        animeIndexJ.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerJ.refreshCompleted();
-      } else {
-        return refreshControllerJ.refreshFailed();
-      }
-    } else if (h == "K") {
-      if (refreshControllerK.initialRefresh == true) {
-        animeIndexK.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerK.refreshCompleted();
-      } else {
-        return refreshControllerK.refreshFailed();
-      }
-    } else if (h == "L") {
-      if (refreshControllerL.initialRefresh == true) {
-        animeIndexL.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerL.refreshCompleted();
-      } else {
-        return refreshControllerL.refreshFailed();
-      }
-    } else if (h == "M") {
-      if (refreshControllerM.initialRefresh == true) {
-        animeIndexM.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerM.refreshCompleted();
-      } else {
-        return refreshControllerM.refreshFailed();
-      }
-    } else if (h == "N") {
-      if (refreshControllerN.initialRefresh == true) {
-        animeIndexN.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerN.refreshCompleted();
-      } else {
-        return refreshControllerN.refreshFailed();
-      }
-    } else if (h == "O") {
-      if (refreshControllerO.initialRefresh == true) {
-        animeIndexO.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerO.refreshCompleted();
-      } else {
-        return refreshControllerO.refreshFailed();
-      }
-    } else if (h == "P") {
-      if (refreshControllerP.initialRefresh == true) {
-        animeIndexP.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerP.refreshCompleted();
-      } else {
-        return refreshControllerP.refreshFailed();
-      }
-    } else if (h == "Q") {
-      if (refreshControllerQ.initialRefresh == true) {
-        animeIndexQ.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerQ.refreshCompleted();
-      } else {
-        return refreshControllerQ.refreshFailed();
-      }
-    } else if (h == "R") {
-      if (refreshControllerR.initialRefresh == true) {
-        animeIndexR.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerR.refreshCompleted();
-      } else {
-        return refreshControllerR.refreshFailed();
-      }
-    } else if (h == "S") {
-      if (refreshControllerS.initialRefresh == true) {
-        animeIndexS.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerS.refreshCompleted();
-      } else {
-        return refreshControllerS.refreshFailed();
-      }
-    } else if (h == "T") {
-      if (refreshControllerT.initialRefresh == true) {
-        animeIndexT.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerT.refreshCompleted();
-      } else {
-        return refreshControllerT.refreshFailed();
-      }
-    } else if (h == "U") {
-      if (refreshControllerU.initialRefresh == true) {
-        animeIndexU.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerU.refreshCompleted();
-      } else {
-        return refreshControllerU.refreshFailed();
-      }
-    } else if (h == "V") {
-      if (refreshControllerV.initialRefresh == true) {
-        animeIndexV.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerV.refreshCompleted();
-      } else {
-        return refreshControllerV.refreshFailed();
-      }
-    } else if (h == "W") {
-      if (refreshControllerW.initialRefresh == true) {
-        animeIndexW.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerW.refreshCompleted();
-      } else {
-        return refreshControllerW.refreshFailed();
-      }
-    } else if (h == "X") {
-      if (refreshControllerX.initialRefresh == true) {
-        animeIndexX.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerX.refreshCompleted();
-      } else {
-        return refreshControllerX.refreshFailed();
-      }
-    } else if (h == "Y") {
-      if (refreshControllerY.initialRefresh == true) {
-        animeIndexY.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerY.refreshCompleted();
-      } else {
-        return refreshControllerY.refreshFailed();
-      }
-    } else if (h == "Z") {
-      if (refreshControllerZ.initialRefresh == true) {
-        animeIndexZ.clear();
-        currentPage = 1;
-        await indexAnime(h, currentPage);
-        return refreshControllerZ.refreshCompleted();
-      } else {
-        return refreshControllerZ.refreshFailed();
-      }
-    }
-  }
-
-  void refreshSearch(String key) async {
-    if (refreshControllerSearch.initialRefresh == true) {
-      hal = 1;
-      await searchAnime(key, hal);
-      update();
-      return refreshControllerSearch.refreshCompleted();
-    } else {
-      return refreshControllerSearch.refreshFailed();
-    }
-  }
-
-  void loadSearch(String key) async {
-    if (pageSearch["has_next_page"] == true) {
-      hal = hal + 1;
-      await searchAnime(key, hal);
-      debugPrint(hal.toString());
-      update();
-      return refreshControllerSearch.loadComplete();
-    } else {
-      return refreshControllerSearch.loadNoData();
-    }
-  }
+  // void loadSearch(String key) async {
+  //   if (pageSearch["has_next_page"] == true) {
+  //     hal = hal + 1;
+  //     await searchAnime(key, hal);
+  //     debugPrint(hal.toString());
+  //     update();
+  //     return refreshControllerSearch.loadComplete();
+  //   } else {
+  //     return refreshControllerSearch.loadNoData();
+  //   }
+  // }
 
   void refreshSeason(int th, String key) async {
     if (seasonRefresh.initialRefresh == true) {
@@ -1005,7 +549,84 @@ class HomeController extends GetxController {
     animeUpcoming =
         Future.delayed(const Duration(seconds: 1), () => upcomingAnime());
     genreList = Future.delayed(const Duration(seconds: 2), () => getAllGenre());
-
+    animeIndexA.addPageRequestListener((pageKey) {
+      indexAnime("A", pageKey);
+    });
+    animeIndexB.addPageRequestListener((pageKey) {
+      indexAnime("B", pageKey);
+    });
+    animeIndexB.addPageRequestListener((pageKey) {
+      indexAnime("C", pageKey);
+    });
+    animeIndexD.addPageRequestListener((pageKey) {
+      indexAnime("D", pageKey);
+    });
+    animeIndexE.addPageRequestListener((pageKey) {
+      indexAnime("E", pageKey);
+    });
+    animeIndexF.addPageRequestListener((pageKey) {
+      indexAnime("F", pageKey);
+    });
+    animeIndexG.addPageRequestListener((pageKey) {
+      indexAnime("G", pageKey);
+    });
+    animeIndexH.addPageRequestListener((pageKey) {
+      indexAnime("H", pageKey);
+    });
+    animeIndexI.addPageRequestListener((pageKey) {
+      indexAnime("I", pageKey);
+    });
+    animeIndexJ.addPageRequestListener((pageKey) {
+      indexAnime("J", pageKey);
+    });
+    animeIndexK.addPageRequestListener((pageKey) {
+      indexAnime("K", pageKey);
+    });
+    animeIndexL.addPageRequestListener((pageKey) {
+      indexAnime("L", pageKey);
+    });
+    animeIndexM.addPageRequestListener((pageKey) {
+      indexAnime("M", pageKey);
+    });
+    animeIndexN.addPageRequestListener((pageKey) {
+      indexAnime("N", pageKey);
+    });
+    animeIndexO.addPageRequestListener((pageKey) {
+      indexAnime("O", pageKey);
+    });
+    animeIndexP.addPageRequestListener((pageKey) {
+      indexAnime("P", pageKey);
+    });
+    animeIndexQ.addPageRequestListener((pageKey) {
+      indexAnime("Q", pageKey);
+    });
+    animeIndexR.addPageRequestListener((pageKey) {
+      indexAnime("R", pageKey);
+    });
+    animeIndexS.addPageRequestListener((pageKey) {
+      indexAnime("S", pageKey);
+    });
+    animeIndexT.addPageRequestListener((pageKey) {
+      indexAnime("T", pageKey);
+    });
+    animeIndexU.addPageRequestListener((pageKey) {
+      indexAnime("U", pageKey);
+    });
+    animeIndexV.addPageRequestListener((pageKey) {
+      indexAnime("V", pageKey);
+    });
+    animeIndexW.addPageRequestListener((pageKey) {
+      indexAnime("W", pageKey);
+    });
+    animeIndexX.addPageRequestListener((pageKey) {
+      indexAnime("X", pageKey);
+    });
+    animeIndexY.addPageRequestListener((pageKey) {
+      indexAnime("Y", pageKey);
+    });
+    animeIndexZ.addPageRequestListener((pageKey) {
+      indexAnime("Z", pageKey);
+    });
     super.onInit();
   }
 
