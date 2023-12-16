@@ -104,6 +104,9 @@ class HomeController extends GetxController {
   final PagingController<int, Animes> animeIndexZ =
       PagingController<int, Animes>(firstPageKey: 1);
 
+  final PagingController<int, Animes> animeSearch =
+      PagingController<int, Animes>(firstPageKey: 1);
+
   Map<String, dynamic> dataSeason = {};
 
   // ! fungsi untuk pindah halaman pada home
@@ -126,21 +129,44 @@ class HomeController extends GetxController {
         val; // Mengatur nilai isDarkmode sesuai dengan val yang diterima.
   }
 
-  // ! fungsi untuk mencari anime berdasarkan nama
-  Future<Map<String, dynamic>?> searchAnime(String keyword, int p) async {
-    Uri link = Uri.parse(
-        'https://api.jikan.moe/v4/anime?q=$keyword&page=$p&sfw=false');
-    var hasil = await http.get(link);
-    //! Masukkan data ke dalam variable
-    Map<String, dynamic>? data = (json.decode(hasil.body));
-    if (data == null) {
-      return null;
+  RxBool isSearch = false.obs;
+  void resultQuery(String keyword, int p) async {
+    try {
+      Uri url = Uri.parse(
+          'https://api.jikan.moe/v4/anime?q=$keyword&page=$p&sort=asc&sfw=false&genres_exclude=12,49,28');
+      var response = await http.get(url);
+      var tempdata = json.decode(response.body)["data"];
+      var data = tempdata.map((e) => Animes.fromJson(e)).toList();
+      List<Animes> listAnimeSearch = List<Animes>.from(data);
+
+      if (listAnimeSearch.isEmpty) {
+        // No data found
+        Get.snackbar("Error", "No data found");
+      } else {
+        final nextPage = json.decode(response.body)["next"];
+        final isLastPage = nextPage == null;
+
+        if (isLastPage) {
+          animeSearch.appendLastPage(listAnimeSearch);
+          // Get.snackbar("Error", "No more data");
+        } else {
+          animeSearch.appendPage(listAnimeSearch, hal + 1);
+        }
+      }
+    } catch (e) {
+      animeSearch.error = e;
     }
-    var tempData = data["data"].map((e) => Animes?.fromJson(e)).toList();
-    resultAnime.addAll(tempData);
-    pageSearch = data["pagination"];
-    update();
-    return data;
+  }
+
+  void clearSearch() {
+    animeSearch.itemList?.clear();
+    animeSearch.firstPageKey;
+    animeSearch.refresh();
+    searchController.clear();
+  }
+
+  void setIsSearching(bool value) {
+    isSearch.value = value;
   }
 
   // ! function untuk index manga
@@ -460,29 +486,6 @@ class HomeController extends GetxController {
       return null;
     }
   }
-
-  // void refreshSearch(String key) async {
-  //   if (refreshControllerSearch.initialRefresh == true) {
-  //     hal = 1;
-  //     await searchAnime(key, hal);
-  //     update();
-  //     return refreshControllerSearch.refreshCompleted();
-  //   } else {
-  //     return refreshControllerSearch.refreshFailed();
-  //   }
-  // }
-
-  // void loadSearch(String key) async {
-  //   if (pageSearch["has_next_page"] == true) {
-  //     hal = hal + 1;
-  //     await searchAnime(key, hal);
-  //     debugPrint(hal.toString());
-  //     update();
-  //     return refreshControllerSearch.loadComplete();
-  //   } else {
-  //     return refreshControllerSearch.loadNoData();
-  //   }
-  // }
 
   void refreshSeason(int th, String key) async {
     if (seasonRefresh.initialRefresh == true) {

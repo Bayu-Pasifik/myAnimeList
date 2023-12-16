@@ -1,15 +1,18 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
-import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
+import 'package:my_anime_list/app/data/model/anime_models.dart' as anime;
 import 'package:my_anime_list/app/modules/utils.dart';
 import 'package:my_anime_list/app/resource/anime_index.dart';
 import 'package:my_anime_list/app/resource/home_widget.dart';
@@ -32,122 +35,264 @@ class HomeView extends GetView<HomeController> {
       const HomeWidget(),
       // Text("home"),
       // ! search page
-      GetBuilder<HomeController>(
-        builder: (c) {
-          return SafeArea(
-              child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              children: [
-                TextField(
-                  autofocus: false,
-                  controller: c.searchController,
-                  decoration: const InputDecoration(
-                      labelText: "Search",
-                      hintText: 'Search Anime',
-                      border: OutlineInputBorder()),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: ElevatedButton(
-                      onPressed: (() {
-                        c.resultAnime.clear();
-                        // c.refreshSearch(c.searchController.text);
-                      }),
-                      child: const Text("Search")),
-                ),
-                Expanded(
-                    child: SmartRefresher(
-                  controller: c.refreshControllerSearch,
-                  enablePullDown: true,
-                  enablePullUp: true,
-                  onRefresh: () {},
-                  onLoading: () => {},
-                  footer: CustomFooter(
-                    builder: (context, mode) {
-                      if (mode == LoadStatus.loading) {
-                        return LoadingAnimationWidget.inkDrop(
-                            color: const Color.fromARGB(255, 6, 98, 173),
-                            size: 50);
-                      }
-                      return const SizedBox(
-                        height: 5,
-                        width: 5,
-                      );
-                    },
-                  ),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(10),
-                    itemCount: c.resultAnime.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200,
-                            childAspectRatio: 0.8,
-                            crossAxisSpacing: 40,
-                            mainAxisExtent: 200,
-                            mainAxisSpacing: 20),
-                    itemBuilder: (context, index) {
-                      ani.Animes animes = c.resultAnime[index];
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: 200,
-                              height: 300,
-                              color: Colors.blue,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed(Routes.DETAIL_ANIME,
-                                    arguments: animes);
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: SizedBox(
-                                      width: 200,
-                                      height: 250,
-                                      child: Image.network(
-                                        animes.images?["jpg"]?.imageUrl ??
-                                            'Kosong',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    "${animes.title}",
-                                    style: const TextStyle(
-                                        fontSize: 15,
-                                        overflow: TextOverflow.ellipsis,
-                                        color: Colors.white),
-                                  ),
-                                  Center(
-                                    child: Text(
-                                      "${animes.status}",
-                                      style: const TextStyle(
-                                          fontSize: 15, color: Colors.white),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                )),
-              ],
+      SafeArea(
+          child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            TextField(
+              // autofocus: c.myFocusNode,
+              // focusNode: controller.myFocusNode,
+              controller: controller.searchController,
+              decoration: const InputDecoration(
+                  labelText: "Search",
+                  hintText: 'Search Manga',
+                  border: OutlineInputBorder()),
             ),
-          ));
-        },
-      ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Obx(() => (controller.isSearch.isFalse)
+                  ? ElevatedButton(
+                      onPressed: (controller.isSearch.isFalse)
+                          ? (() {
+                              controller.clearSearch();
+                              controller.setIsSearching(true);
+                              Future.delayed(const Duration(seconds: 3), () {
+                                controller.resultQuery(
+                                    controller.searchController.text,
+                                    controller.animeSearch.firstPageKey);
+                                controller.setIsSearching(false);
+                              });
+                            })
+                          : () {},
+                      child: const Text("Search"))
+                  : LoadingAnimationWidget.hexagonDots(
+                      color: const Color.fromARGB(255, 20, 106, 254),
+                      size: 20)),
+            ),
+            Obx(() => (controller.isSearch.isFalse)
+                ? Expanded(
+                    child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    // color: Colors.amber,
+                    child: PagedGridView<int, anime.Animes>(
+                        padding: EdgeInsets.all(10.h),
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 200,
+                                childAspectRatio: 1 / 1.6,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20),
+                        pagingController: controller.animeSearch,
+                        builderDelegate:
+                            PagedChildBuilderDelegate<anime.Animes>(
+                          animateTransitions: true,
+                          itemBuilder: (context, item, number) {
+                            // List<manga.Genres>? genres = item.genres;
+                            return Column(
+                              children: [
+                                Expanded(
+                                  child: Stack(
+                                    children: [
+                                      SizedBox(
+                                        width: 200.w,
+                                        height: 200.h,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Get.toNamed(Routes.DETAIL_ANIME,
+                                                arguments: item);
+                                          },
+                                          child: (item.genres != null &&
+                                                  number <
+                                                      item.genres!.length &&
+                                                  item.genres![number].name !=
+                                                      null &&
+                                                  item.genres![number].name!
+                                                      .contains('Erotica'))
+                                              ? Image.asset(
+                                                  "assets/images/Image_not_available.png")
+                                              : CachedNetworkImage(
+                                                  imageUrl:
+                                                      "${item.images!['jpg']!.imageUrl}",
+                                                  imageBuilder: (context,
+                                                          imageProvider) =>
+                                                      Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.r),
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  progressIndicatorBuilder:
+                                                      (context, url,
+                                                              downloadProgress) =>
+                                                          Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                            value:
+                                                                downloadProgress
+                                                                    .progress),
+                                                  ),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Image.asset(
+                                                    "assets/images/Image_not_available.png",
+                                                  ),
+                                                ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 6, vertical: 2),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.blue,
+                                                borderRadius:
+                                                    BorderRadius.circular(6.r)),
+                                            width: 50.w,
+                                            height: 20.h,
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.star,
+                                                  size: 18.h,
+                                                  color: Colors.yellow,
+                                                ),
+                                                Text("${item.score}",
+                                                    style: GoogleFonts.kurale())
+                                              ],
+                                            )),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Text(
+                                  "${item.title}",
+                                  style: GoogleFonts.kurale(
+                                    fontSize: 16.sp,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis),
+                                  ),
+                                ),
+                                Text(
+                                  "(${item.status})",
+                                  style: GoogleFonts.kurale(
+                                    fontSize: 16.sp,
+                                    textStyle: const TextStyle(
+                                        overflow: TextOverflow.ellipsis),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                          firstPageErrorIndicatorBuilder: (_) {
+                            return Center(
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "There is an error",
+                                  style: GoogleFonts.kurale(fontSize: 18.sp),
+                                ),
+                                SizedBox(height: 10.h),
+                                SizedBox(
+                                  width: 100.w,
+                                  height: 50.h,
+                                  child: ElevatedButton(
+                                    // style: ElevatedButton.styleFrom(
+                                    //     backgroundColor: const Color(0XFF54BAB9)),
+                                    onPressed: () {
+                                      return controller.animeSearch
+                                          .retryLastFailedRequest();
+                                    },
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.restart_alt),
+                                        Text("Retry"),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ));
+                          },
+                          newPageErrorIndicatorBuilder: (context) => Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "There is an error",
+                                style: GoogleFonts.kurale(fontSize: 18.sp),
+                              ),
+                              SizedBox(height: 10.h),
+                              SizedBox(
+                                width: 100.w,
+                                height: 50.h,
+                                child: ElevatedButton(
+                                  onPressed: (() => controller.animeSearch
+                                      .retryLastFailedRequest()),
+                                  child: const Row(
+                                    children: [
+                                      Icon(Icons.restart_alt),
+                                      Text("Retry"),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                          firstPageProgressIndicatorBuilder: (context) =>
+                              Center(
+                            child: LoadingAnimationWidget.hexagonDots(
+                                color: const Color.fromARGB(255, 20, 106, 254),
+                                size: 50),
+                          ),
+                          transitionDuration: const Duration(seconds: 3),
+                          newPageProgressIndicatorBuilder: (context) => Center(
+                            child: LoadingAnimationWidget.hexagonDots(
+                                color: const Color.fromARGB(255, 20, 106, 254),
+                                size: 50),
+                          ),
+                          noItemsFoundIndicatorBuilder: (_) {
+                            return const Center(
+                              child: Text('No data found'),
+                            );
+                          },
+                          noMoreItemsIndicatorBuilder: (_) {
+                            return Center(
+                              child: Text(
+                                'No more data found',
+                                style: GoogleFonts.kurale(),
+                              ),
+                            );
+                          },
+                        )),
+                  ))
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text("Please wait",
+                            style: GoogleFonts.poppins(fontSize: 14)),
+                        const SizedBox(height: 10),
+                        LoadingAnimationWidget.hexagonDots(
+                            color: const Color.fromARGB(255, 20, 106, 254),
+                            size: 50),
+                      ],
+                    ),
+                  ))
+          ],
+        ),
+      )),
       // ! index page
       const DefaultTabController(length: 26, child: AnimeIndex()),
 
@@ -309,7 +454,8 @@ class HomeView extends GetView<HomeController> {
                                         mainAxisExtent: 200,
                                         mainAxisSpacing: 20),
                                 itemBuilder: (context, index) {
-                                  ani.Animes animes = c.listSeasonAnime[index];
+                                  anime.Animes animes =
+                                      c.listSeasonAnime[index];
                                   return ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     child: Stack(
@@ -453,8 +599,11 @@ class HomeView extends GetView<HomeController> {
               initialActiveIndex: controller.selectIndex.value,
               style: TabStyle.textIn, //optional, default as 0
               onTap: (index) {
+                if (controller.selectIndex.value != 1) {
+                  controller.clearSearch();
+                }
                 controller.chagePage(index);
-                debugPrint("index: ");
+                debugPrint("index: $index");
                 debugPrint("controller index: ${controller.selectIndex}");
               }),
         )));
