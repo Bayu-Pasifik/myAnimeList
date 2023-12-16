@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_anime_list/app/modules/utils.dart';
 // import 'package:my_anime_list/app/routes/app_pages.dart';
 
 import '../controllers/manga_character_controller.dart';
@@ -84,7 +85,7 @@ class MangaCharacterView extends GetView<MangaCharacterController> {
                     SizedBox(height: 20.h),
                     ExpandablePanel(
                       theme: ExpandableThemeData(
-                        iconColor: Get.isDarkMode
+                        iconColor:  isDarkmode.isTrue || getDarkmode
                             ? const Color.fromARGB(255, 255, 255, 255)
                             : const Color.fromARGB(255, 0, 0, 0),
                       ),
@@ -94,7 +95,7 @@ class MangaCharacterView extends GetView<MangaCharacterController> {
                             "You can view more information about this character here",
                             style: GoogleFonts.kurale(
                               fontWeight: FontWeight.w500,
-                              color: Get.isDarkMode
+                              color:  isDarkmode.isTrue || getDarkmode
                                   ? const Color.fromARGB(255, 255, 255, 255)
                                   : const Color.fromARGB(255, 0, 0, 0),
                             )),
@@ -113,7 +114,7 @@ class MangaCharacterView extends GetView<MangaCharacterController> {
                             border: TableBorder.all(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8)),
-                              color: Get.isDarkMode
+                              color: isDarkmode.isTrue || getDarkmode
                                   ? const Color.fromARGB(255, 255, 255, 255)
                                   : const Color.fromARGB(15, 37, 37, 37),
                             ),
@@ -211,7 +212,7 @@ class MangaCharacterView extends GetView<MangaCharacterController> {
                       child: ExpandablePanel(
                         theme: ExpandableThemeData(
                             iconColor:
-                                Get.isDarkMode ? Colors.white : Colors.black),
+                                isDarkmode.isTrue || getDarkmode ? Colors.white : Colors.black),
                         header: Text(
                           "Background Story",
                           style: GoogleFonts.squadaOne(

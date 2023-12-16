@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/modules/Home_Manga/controllers/home_manga_controller.dart';
+import 'package:my_anime_list/app/modules/utils.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 
 class HomeMangaWidget extends StatelessWidget {
@@ -23,9 +24,7 @@ class HomeMangaWidget extends StatelessWidget {
                 Text(
                   "Top Manga",
                   style: GoogleFonts.squadaOne(
-                      color: controller.isDarkmode.isTrue
-                          ? Colors.white
-                          : Colors.blue[900],
+                      color: getDarkmode ? Colors.white : Colors.blue[900],
                       fontSize: 18),
                 ),
                 TextButton(
@@ -35,9 +34,7 @@ class HomeMangaWidget extends StatelessWidget {
                     child: Text(
                       "Load More",
                       style: GoogleFonts.squadaOne(
-                          color: controller.isDarkmode.value
-                              ? Colors.white
-                              : Colors.blue[900],
+                          color: getDarkmode ? Colors.white : Colors.blue[900],
                           fontSize: 18),
                     ))
               ],
@@ -887,7 +884,7 @@ class HomeMangaWidget extends StatelessWidget {
                 child: Text(
                   "All Manhwa",
                   style: GoogleFonts.squadaOne(
-                      color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                      color: getDarkmode ? Colors.white : Colors.blue[900],
                       fontSize: 18),
                 ),
               ),
@@ -898,7 +895,7 @@ class HomeMangaWidget extends StatelessWidget {
                   child: Text(
                     "Load More",
                     style: GoogleFonts.squadaOne(
-                        color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                        color: getDarkmode ? Colors.white : Colors.blue[900],
                         fontSize: 18),
                   ))
             ],
@@ -1352,7 +1349,7 @@ class HomeMangaWidget extends StatelessWidget {
                 child: Text(
                   "All Manhua",
                   style: GoogleFonts.squadaOne(
-                      color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                      color: getDarkmode ? Colors.white : Colors.blue[900],
                       fontSize: 18),
                 ),
               ),
@@ -1363,7 +1360,7 @@ class HomeMangaWidget extends StatelessWidget {
                   child: Text(
                     "Load More",
                     style: GoogleFonts.squadaOne(
-                        color: Get.isDarkMode ? Colors.white : Colors.blue[900],
+                        color: getDarkmode ? Colors.white : Colors.blue[900],
                         fontSize: 18),
                   ))
             ],

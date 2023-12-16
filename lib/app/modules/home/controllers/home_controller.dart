@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
+import 'package:my_anime_list/app/modules/utils.dart';
 import 'dart:convert';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
@@ -17,7 +18,6 @@ class HomeController extends GetxController {
   var season = 'Summer'.obs;
   var halSeason = 1.obs;
   int halStudios = 1;
-  Rx<bool> isDark = false.obs;
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSearch = {};
   Map<String, dynamic> pageSeason = {};
@@ -137,7 +137,6 @@ class HomeController extends GetxController {
 
   // ! fungsi untuk ganti tema yang sudah disimpan di local storage
   final box = GetStorage();
-  var isDarkmode = false.obs;
   void changeTheme(bool val) {
     if (val == true) {
       box.write("darkmode", true);

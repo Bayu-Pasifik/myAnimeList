@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
+import 'package:my_anime_list/app/modules/utils.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 import '../controllers/detail_manga_controller.dart';
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
@@ -45,7 +46,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
           SizedBox(height: 20.h),
           ExpandablePanel(
             theme: ExpandableThemeData(
-              iconColor: Get.isDarkMode
+              iconColor:  isDarkmode.isTrue || getDarkmode
                   ? const Color.fromARGB(255, 255, 255, 255)
                   : const Color.fromARGB(255, 0, 0, 0),
             ),
@@ -55,7 +56,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                   Text("You can view more information about this comics here",
                       style: GoogleFonts.kurale(
                         fontWeight: FontWeight.w500,
-                        color: Get.isDarkMode
+                        color:  isDarkmode.isTrue || getDarkmode
                             ? const Color.fromARGB(255, 255, 255, 255)
                             : const Color.fromARGB(255, 0, 0, 0),
                       )),
@@ -73,7 +74,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
               child: Table(
                 border: TableBorder.all(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  color: Get.isDarkMode
+                  color:  isDarkmode.isTrue || getDarkmode
                       ? const Color.fromARGB(255, 255, 255, 255)
                       : const Color.fromARGB(15, 37, 37, 37),
                 ),
@@ -363,7 +364,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
             padding: const EdgeInsets.all(5),
             child: ExpandablePanel(
               theme: ExpandableThemeData(
-                  iconColor: Get.isDarkMode ? Colors.white : Colors.black),
+                  iconColor:  isDarkmode.isTrue || getDarkmode ? Colors.white : Colors.black),
               header: Text(
                 "Synopsis",
                 style: GoogleFonts.squadaOne(color: Colors.blue, fontSize: 20),
@@ -429,7 +430,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                       "No Data",
                       style: GoogleFonts.kurale(
                         fontSize: 18.sp,
-                        color: Get.isDarkMode
+                        color:  isDarkmode.isTrue || getDarkmode
                             ? const Color.fromARGB(255, 255, 255, 255)
                             : const Color.fromARGB(255, 0, 0, 0),
                       ),

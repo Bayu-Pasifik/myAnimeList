@@ -13,6 +13,7 @@ import 'package:my_anime_list/app/resource/manga_index.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 import '../controllers/home_manga_controller.dart';
+import 'package:my_anime_list/app/modules/utils.dart';
 
 class HomeMangaView extends GetView<HomeMangaController> {
   const HomeMangaView({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class HomeMangaView extends GetView<HomeMangaController> {
   Widget build(BuildContext context) {
     List<Widget> widgets = [
       const HomeMangaWidget(),
+    //! Search Page
       SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(15),
@@ -310,7 +312,7 @@ class HomeMangaView extends GetView<HomeMangaController> {
                   child: ListTile(
                     leading: CircleAvatar(
                         backgroundColor:
-                            Get.isDarkMode ? Colors.white : Colors.grey[900],
+                           isDarkmode.isTrue || getDarkmode ? Colors.white : Colors.grey[900],
                         child: Center(
                           child: Text("${index + 1}"),
                         )),
@@ -344,10 +346,10 @@ class HomeMangaView extends GetView<HomeMangaController> {
           actions: [
             IconButton(
                 onPressed: () {
-                  controller.changeTheme(!controller.isDarkmode.value);
+                  controller.changeTheme(!isDarkmode.value);
                 },
                 icon: Obx(
-                  () => controller.isDarkmode.isTrue
+                  () =>  isDarkmode.isTrue || getDarkmode
                       ? const Icon(Icons.sunny)
                       : const Icon(Icons.mode_night_outlined),
                 ))
@@ -401,8 +403,9 @@ class HomeMangaView extends GetView<HomeMangaController> {
             builder: (controller) => widgets[controller.selectIndex.value]),
         bottomNavigationBar: Obx(
           () => ConvexAppBar(
-              backgroundColor:
-                  controller.isDarkmode.isTrue ? Colors.grey[900] : Colors.blue,
+              backgroundColor: isDarkmode.isTrue || getDarkmode
+                  ? Colors.grey[900]
+                  : Colors.blue,
               items: const [
                 TabItem(icon: Icons.home, title: 'Home'),
                 TabItem(icon: Icons.search, title: 'search'),

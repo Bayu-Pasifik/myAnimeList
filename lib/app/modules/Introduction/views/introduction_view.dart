@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:lottie/lottie.dart';
+import 'package:my_anime_list/app/modules/utils.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 
 import '../controllers/introduction_controller.dart';
@@ -36,8 +37,8 @@ class IntroductionView extends GetView<IntroductionController> {
         style: GoogleFonts.kurale(),
       ),
       dotsDecorator: DotsDecorator(
-          color: Get.isDarkMode ? Colors.white : Colors.black,
-          activeColor: Get.isDarkMode ? Colors.blue : Colors.blue),
+          color:  isDarkmode.isTrue || getDarkmode ? Colors.white : Colors.black,
+          activeColor:  isDarkmode.isTrue || getDarkmode ? Colors.blue : Colors.blue),
       dotsFlex: 2,
       pages: [
         PageViewModel(

@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
+import 'package:my_anime_list/app/modules/utils.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -322,7 +322,6 @@ class HomeMangaController extends GetxController {
 
   // ! fungsi untuk ganti tema yang sudah disimpan di local storage
   final box = GetStorage();
-  var isDarkmode = false.obs;
   void changeTheme(bool val) {
     if (val == true) {
       box.write("darkmode", true);
@@ -331,8 +330,9 @@ class HomeMangaController extends GetxController {
       box.remove("darkmode");
       Get.changeTheme(ThemeData.light());
     }
-    isDarkmode.value =
-        val; // Mengatur nilai isDarkmode sesuai dengan val yang diterima.
+    // isDarkmode.value = val;
+    saveDark(val);
+    print("value isDarkmode home manga: ${isDarkmode.value}");
   }
 
   // ! fungsi untuk top manga

@@ -5,12 +5,12 @@ import 'package:delayed_display/delayed_display.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
+import 'package:my_anime_list/app/modules/utils.dart';
 import 'package:my_anime_list/app/resource/anime_index.dart';
 import 'package:my_anime_list/app/resource/home_widget.dart';
 import 'package:my_anime_list/app/resource/studios_widget.dart';
@@ -23,10 +23,10 @@ class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final box = GetStorage();
-    if (box.read("themeDark") == true) {
-      controller.isDark.value = true;
-    }
+    // final box = GetStorage();
+    // if (box.read("themeDark") == true) {
+    //   controller.isDark.value = true;
+    // }
     List<Widget> widgets = [
       // ! home page
       const HomeWidget(),
@@ -381,14 +381,13 @@ class HomeView extends GetView<HomeController> {
     return Obx(() => Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: controller.isDarkmode.isTrue
-              ? Colors.grey[900]
-              : Colors.blue[900],
+          backgroundColor:
+              isDarkmode.isTrue ? Colors.grey[900] : Colors.blue[900],
           actions: [
             IconButton(onPressed: () {
-              controller.changeTheme(!controller.isDarkmode.value);
+              controller.changeTheme(!isDarkmode.value);
             }, icon: Obx(() {
-              return controller.isDark.isTrue
+              return isDarkmode.isTrue
                   ? const Icon(Icons.sunny)
                   : const Icon(Icons.mode_night_outlined);
             }))
@@ -446,9 +445,8 @@ class HomeView extends GetView<HomeController> {
                 TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
                 TabItem(icon: Icons.business, title: 'Studios'),
               ],
-              backgroundColor: controller.isDarkmode.isTrue
-                  ? Colors.grey[900]
-                  : Colors.blue[900],
+              backgroundColor:
+                  isDarkmode.isTrue ? Colors.grey[900] : Colors.blue[900],
               initialActiveIndex: controller.selectIndex.value,
               style: TabStyle.textIn, //optional, default as 0
               onTap: (index) {
