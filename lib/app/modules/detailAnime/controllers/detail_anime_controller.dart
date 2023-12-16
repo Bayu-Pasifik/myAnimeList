@@ -1,5 +1,5 @@
-
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -9,8 +9,22 @@ class DetailAnimeController extends GetxController {
   late YoutubePlayerController youtubePlayerController;
   Rx<String> url = ''.obs;
   List<char.Character>? listCharacterAnime = [];
-  // late Future characterList;
-  // int? id;
+  String formatDate(String? inputDate) {
+    print(inputDate);
+    try {
+      if (inputDate == null) {
+        return "-";
+      }
+
+      final inputFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+      final outputFormat = DateFormat("dd-MM-yyyy");
+
+      final date = inputFormat.parse(inputDate);
+      return outputFormat.format(date);
+    } catch (e) {
+      return e.toString();
+    }
+  }
 
   @override
   void onInit() {

@@ -19,7 +19,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
         body: CustomScrollView(
       slivers: [
         SliverAppBar(
-          expandedHeight: 10,
+          expandedHeight: 10.h,
           elevation: 0,
           stretch: true,
           pinned: true,
@@ -28,8 +28,8 @@ class DetailMangaView extends GetView<DetailMangaController> {
         ),
         SliverList(
             delegate: SliverChildListDelegate([
-          const SizedBox(
-            height: 5,
+           SizedBox(
+            height: 5.h,
           ),
           Center(
             child: ClipRRect(

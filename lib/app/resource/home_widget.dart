@@ -866,6 +866,7 @@ class HomeWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: GestureDetector(
                                 onTap: () {
+                                  print(c.listAiringAnime[0].malId);
                                   Get.toNamed(Routes.DETAIL_ANIME,
                                       arguments: c.listAiringAnime[0]);
                                 },
