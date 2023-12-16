@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,11 +38,25 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
             height: 5.h,
           ),
           Center(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                anime.images?['jpg']?.imageUrl ?? 'kosong',
-                fit: BoxFit.cover,
+            child: SizedBox(
+              height: 280.h,
+              width: 180.w,
+              child: CachedNetworkImage(
+                imageUrl: "${anime.images!['jpg']!.imageUrl}",
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                        image: imageProvider, fit: BoxFit.cover),
+                  ),
+                ),
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(
+                  child: CircularProgressIndicator(
+                      value: downloadProgress.progress),
+                ),
+                errorWidget: (context, url, error) =>
+                    Image.asset("assets/images/Image_not_available.png"),
               ),
             ),
           ),
@@ -609,7 +624,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                         controller.listCharacterAnime![index];
                     return GestureDetector(
                       onTap: () {
-                        // print(character.character!.malId);
+                        print(character.character!.malId);
                         Get.toNamed(Routes.ANIME_CHARACTER,
                             arguments: character.character);
                       },
