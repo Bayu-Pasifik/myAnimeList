@@ -171,8 +171,9 @@ class HomeView extends GetView<HomeController> {
               gen.Genre genre = controller.listGenreAnime[index];
               return ListTile(
                 leading: CircleAvatar(
-                    backgroundColor:
-                        Get.isDarkMode ? Colors.white : Colors.grey[900],
+                    backgroundColor: isDarkmode.isTrue || getDarkmode
+                        ? Colors.white
+                        : Colors.grey[900],
                     child: Center(
                       child: Text("${index + 1}"),
                     )),
@@ -381,13 +382,14 @@ class HomeView extends GetView<HomeController> {
     return Obx(() => Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor:
-              isDarkmode.isTrue ? Colors.grey[900] : Colors.blue[900],
+          backgroundColor: isDarkmode.isTrue || getDarkmode
+              ? Colors.grey[900]
+              : Colors.blue[900],
           actions: [
             IconButton(onPressed: () {
               controller.changeTheme(!isDarkmode.value);
             }, icon: Obx(() {
-              return isDarkmode.isTrue
+              return isDarkmode.isTrue || getDarkmode
                   ? const Icon(Icons.sunny)
                   : const Icon(Icons.mode_night_outlined);
             }))
@@ -445,8 +447,9 @@ class HomeView extends GetView<HomeController> {
                 TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
                 TabItem(icon: Icons.business, title: 'Studios'),
               ],
-              backgroundColor:
-                  isDarkmode.isTrue ? Colors.grey[900] : Colors.blue[900],
+              backgroundColor: isDarkmode.isTrue || getDarkmode
+                  ? Colors.grey[900]
+                  : Colors.blue[900],
               initialActiveIndex: controller.selectIndex.value,
               style: TabStyle.textIn, //optional, default as 0
               onTap: (index) {

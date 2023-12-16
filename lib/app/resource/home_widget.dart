@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_anime_list/app/modules/home/controllers/home_controller.dart';
+import 'package:my_anime_list/app/modules/utils.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
 
 class HomeWidget extends StatelessWidget {
@@ -21,8 +23,9 @@ class HomeWidget extends StatelessWidget {
                 Text(
                   "Top Airing",
                   style: GoogleFonts.squadaOne(
-                      color:
-                          Get.isDarkMode ? Colors.blue[400] : Colors.blue[900],
+                      color: isDarkmode.isTrue || getDarkmode
+                          ? Colors.white
+                          : Colors.blue[900],
                       fontSize: 18),
                 ),
                 TextButton(
@@ -32,8 +35,8 @@ class HomeWidget extends StatelessWidget {
                     child: Text(
                       "Load More",
                       style: GoogleFonts.squadaOne(
-                          color: Get.isDarkMode
-                              ? Colors.blue[400]
+                          color: isDarkmode.isTrue || getDarkmode
+                              ? Colors.white
                               : Colors.blue[900],
                           fontSize: 18),
                     ))
@@ -83,25 +86,38 @@ class HomeWidget extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listTopAnime[0].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  width: 60.w,
+                                  height: 20.h,
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 18.h,
+                                            color: Colors.amber[400],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "${c.listTopAnime[0].score}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              shadows: [
+                                                BoxShadow(blurRadius: 1)
+                                              ]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.bottomCenter,
@@ -139,25 +155,38 @@ class HomeWidget extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listTopAnime[1].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  width: 60.w,
+                                  height: 20.h,
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 18.h,
+                                            color: Colors.amber[400],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "${c.listTopAnime[1].score}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              shadows: [
+                                                BoxShadow(blurRadius: 1)
+                                              ]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.bottomCenter,
@@ -193,25 +222,38 @@ class HomeWidget extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listTopAnime[2].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  width: 60.w,
+                                  height: 20.h,
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 18.h,
+                                            color: Colors.amber[400],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "${c.listTopAnime[2].score}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              shadows: [
+                                                BoxShadow(blurRadius: 1)
+                                              ]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.bottomCenter,
@@ -247,25 +289,38 @@ class HomeWidget extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listTopAnime[3].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  width: 60.w,
+                                  height: 20.h,
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 18.h,
+                                            color: Colors.amber[400],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "${c.listTopAnime[3].score}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              shadows: [
+                                                BoxShadow(blurRadius: 1)
+                                              ]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.bottomCenter,
@@ -309,25 +364,38 @@ class HomeWidget extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listTopAnime[4].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  width: 60.w,
+                                  height: 20.h,
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 18.h,
+                                            color: Colors.amber[400],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "${c.listTopAnime[4].score}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              shadows: [
+                                                BoxShadow(blurRadius: 1)
+                                              ]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.bottomCenter,
@@ -365,23 +433,38 @@ class HomeWidget extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listTopAnime[5].score}",
-                                      style: GoogleFonts.breeSerif(
-                                          fontSize: 20, color: Colors.white),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  width: 60.w,
+                                  height: 20.h,
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 18.h,
+                                            color: Colors.amber[400],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "${c.listTopAnime[5].score}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              shadows: [
+                                                BoxShadow(blurRadius: 1)
+                                              ]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.bottomCenter,
@@ -421,25 +504,38 @@ class HomeWidget extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listTopAnime[6].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  width: 60.w,
+                                  height: 20.h,
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 18.h,
+                                            color: Colors.amber[400],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "${c.listTopAnime[6].score}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              shadows: [
+                                                BoxShadow(blurRadius: 1)
+                                              ]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.bottomCenter,
@@ -477,25 +573,38 @@ class HomeWidget extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listTopAnime[7].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  width: 60.w,
+                                  height: 20.h,
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 18.h,
+                                            color: Colors.amber[400],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "${c.listTopAnime[7].score}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              shadows: [
+                                                BoxShadow(blurRadius: 1)
+                                              ]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.bottomCenter,
@@ -530,25 +639,38 @@ class HomeWidget extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${c.listTopAnime[8].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  width: 60.w,
+                                  height: 20.h,
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 18.h,
+                                            color: Colors.amber[400],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "${c.listTopAnime[8].score}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              shadows: [
+                                                BoxShadow(blurRadius: 1)
+                                              ]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.bottomCenter,
@@ -586,25 +708,38 @@ class HomeWidget extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.amber[400],
-                                      )),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "${controller.listTopAnime[9].score}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [BoxShadow(blurRadius: 1)]),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  width: 60.w,
+                                  height: 20.h,
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 18.h,
+                                            color: Colors.amber[400],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "${c.listTopAnime[9].score}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              shadows: [
+                                                BoxShadow(blurRadius: 1)
+                                              ]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                               Align(
                                   alignment: Alignment.bottomCenter,
@@ -641,8 +776,8 @@ class HomeWidget extends StatelessWidget {
                               child: Obx(
                                 () {
                                   return Container(
-                                    width: 8,
-                                    height: 8,
+                                    width: 8.w,
+                                    height: 8.h,
                                     margin: const EdgeInsets.symmetric(
                                         vertical: 8.0, horizontal: 4.0),
                                     decoration: BoxDecoration(
@@ -667,8 +802,8 @@ class HomeWidget extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(
-            height: 5,
+          SizedBox(
+            height: 5.h,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
@@ -680,8 +815,8 @@ class HomeWidget extends StatelessWidget {
                   child: Text(
                     "Currently Airing",
                     style: GoogleFonts.squadaOne(
-                        color: Get.isDarkMode
-                            ? Colors.blue[400]
+                        color: isDarkmode.isTrue || getDarkmode
+                            ? Colors.white
                             : Colors.blue[900],
                         fontSize: 18),
                   ),
@@ -692,8 +827,8 @@ class HomeWidget extends StatelessWidget {
                     },
                     child: Text("Load More",
                         style: GoogleFonts.squadaOne(
-                            color: Get.isDarkMode
-                                ? Colors.blue[400]
+                            color: isDarkmode.isTrue || getDarkmode
+                                ? Colors.white
                                 : Colors.blue[900],
                             fontSize: 18)))
               ],
@@ -1133,8 +1268,8 @@ class HomeWidget extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(
-            height: 5,
+          SizedBox(
+            height: 5.h,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
@@ -1146,8 +1281,8 @@ class HomeWidget extends StatelessWidget {
                   child: Text(
                     "Upcoming Anime",
                     style: GoogleFonts.squadaOne(
-                        color: Get.isDarkMode
-                            ? Colors.blue[400]
+                        color: isDarkmode.isTrue || getDarkmode
+                            ? Colors.white
                             : Colors.blue[900],
                         fontSize: 18),
                   ),
@@ -1159,8 +1294,8 @@ class HomeWidget extends StatelessWidget {
                     child: Text(
                       "Load More",
                       style: GoogleFonts.squadaOne(
-                          color: Get.isDarkMode
-                              ? Colors.blue[400]
+                          color: isDarkmode.isTrue || getDarkmode
+                              ? Colors.white
                               : Colors.blue[900],
                           fontSize: 18),
                     ))
