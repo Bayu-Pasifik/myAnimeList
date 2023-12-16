@@ -10,7 +10,6 @@ class DetailAnimeController extends GetxController {
   Rx<String> url = ''.obs;
   List<char.Character>? listCharacterAnime = [];
   String formatDate(String? inputDate) {
-    print(inputDate);
     try {
       if (inputDate == null) {
         return "-";

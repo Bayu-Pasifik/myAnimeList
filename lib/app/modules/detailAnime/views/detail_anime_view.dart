@@ -624,7 +624,6 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                         controller.listCharacterAnime![index];
                     return GestureDetector(
                       onTap: () {
-                        print(character.character!.malId);
                         Get.toNamed(Routes.ANIME_CHARACTER,
                             arguments: character.character);
                       },

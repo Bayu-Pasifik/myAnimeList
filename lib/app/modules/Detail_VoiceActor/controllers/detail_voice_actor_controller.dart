@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:my_anime_list/app/data/model/detail_voiceActor_model.dart'
     as va;
@@ -17,6 +18,21 @@ class DetailVoiceActorController extends GetxController {
     // ! cek data nya apakah null atau tidak
     var data = va.DetailVoiceActor.fromJson(parsed);
     return data;
+  }
+  String formatDate(String? inputDate) {
+    try {
+      if (inputDate == null) {
+        return "-";
+      }
+
+      final inputFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+      final outputFormat = DateFormat("dd-MM-yyyy");
+
+      final date = inputFormat.parse(inputDate);
+      return outputFormat.format(date);
+    } catch (e) {
+      return e.toString();
+    }
   }
 
   void toglePanel() {

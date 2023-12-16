@@ -270,7 +270,7 @@ class AnimeCharacterView extends GetView<AnimeCharacterController> {
                                   onTap: () {
                                     // print(character.character!.malId);
                                     Get.toNamed(Routes.DETAIL_VOICE_ACTOR,
-                                        arguments: detail.voices);
+                                        arguments: detail.voices![index]);
                                   },
                                   child: Column(
                                     children: [
