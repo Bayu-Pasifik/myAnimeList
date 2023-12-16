@@ -83,6 +83,9 @@ class HomeMangaController extends GetxController {
   final PagingController<int, manga.Manga> mangaIndexZ =
       PagingController<int, manga.Manga>(firstPageKey: 1);
 
+  final PagingController<int, manga.Manga> mangaSearch =
+      PagingController<int, manga.Manga>(firstPageKey: 1);
+
   // ! End Section
 
   RefreshController refreshControllerSearch =
@@ -101,7 +104,6 @@ class HomeMangaController extends GetxController {
     var res = await http.get(url);
     //! Masukkan data ke dalam variable
     List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
-    print(data);
     // ! cek data nya apakah null atau tidak
     if (data == null || data.isEmpty) {
       return [];
@@ -386,6 +388,45 @@ class HomeMangaController extends GetxController {
     }
   }
 
+  RxBool isSearch = false.obs;
+  void resultQuery(String keyword, int p) async {
+    try {
+      Uri url = Uri.parse(
+          'https://api.jikan.moe/v4/manga?q=$keyword&page=$p&sort=asc&sfw=false&genres_exclude=12,49,28');
+      var response = await http.get(url);
+      var tempdata = json.decode(response.body)["data"];
+      var data = tempdata.map((e) => manga.Manga.fromJson(e)).toList();
+      List<manga.Manga> listMangaSearch = List<manga.Manga>.from(data);
+
+      if (listMangaSearch.isEmpty) {
+        // No data found
+        Get.snackbar("Error", "No data found");
+      } else {
+        final nextPage = json.decode(response.body)["next"];
+        final isLastPage = nextPage == null;
+
+        if (isLastPage) {
+          mangaSearch.appendLastPage(listMangaSearch);
+          // Get.snackbar("Error", "No more data");
+        } else {
+          mangaSearch.appendPage(listMangaSearch, hal + 1);
+        }
+      }
+    } catch (e) {
+      mangaSearch.error = e;
+    }
+  }
+
+  void clearSearch() {
+    mangaSearch.itemList?.clear();
+    mangaSearch.firstPageKey;
+    mangaSearch.refresh();
+  }
+
+  void setIsSearching(bool value) {
+    isSearch.value = value;
+  }
+
   // ! fungsi untuk mencari manga berdasarkan nama
   Future<Map<String, dynamic>?> searchManga(String keyword, int p) async {
     Uri link = Uri.parse(
@@ -448,6 +489,9 @@ class HomeMangaController extends GetxController {
     );
     searchController = TextEditingController();
     myFocusNode = FocusNode();
+    mangaSearch.addPageRequestListener((pageKey) {
+      resultQuery(searchController.text, pageKey);
+    });
     mangaIndexA.addPageRequestListener((pageKey) {
       indexManga("A", pageKey);
     });
@@ -533,6 +577,7 @@ class HomeMangaController extends GetxController {
   void onClose() {
     searchController.clear();
     searchController.dispose();
+    mangaSearch.dispose();
     resultManga.clear();
     mangaIndexA.dispose();
     mangaIndexB.dispose();
@@ -565,6 +610,7 @@ class HomeMangaController extends GetxController {
 
   @override
   void dispose() {
+    mangaSearch.dispose();
     myFocusNode.dispose();
     mangaIndexA.dispose();
     mangaIndexB.dispose();

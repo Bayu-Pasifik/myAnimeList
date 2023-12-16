@@ -39,7 +39,7 @@ class MangaCharacterView extends GetView<MangaCharacterController> {
                 }
               }
               detailChar.DetailAnimeCharacter detail = snapshot.data!;
-              print(detail.images!.jpg!.imageUrl);
+
               return CustomScrollView(
                 slivers: [
                   SliverAppBar(
@@ -52,13 +52,13 @@ class MangaCharacterView extends GetView<MangaCharacterController> {
                   ),
                   SliverList(
                       delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 5,
+                    SizedBox(
+                      height: 5.h,
                     ),
                     Center(
                       child: SizedBox(
-                        height: 250.h,
-                        width: 250.w,
+                        height: 280.h,
+                        width: 180.w,
                         child: CachedNetworkImage(
                           imageUrl: "${detail.images!.jpg!.imageUrl}",
                           imageBuilder: (context, imageProvider) => Container(
@@ -108,7 +108,7 @@ class MangaCharacterView extends GetView<MangaCharacterController> {
                         ),
                       ),
                       expanded: Padding(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           child: Table(
                             border: TableBorder.all(
                               borderRadius:

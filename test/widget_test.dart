@@ -236,17 +236,43 @@ import 'package:my_anime_list/app/data/model/detail_voiceActor_model.dart'
 //   print(dataSeason['data']);
 // }
 
-void main() async {
-  //! Ambil data dari API
-  Uri url = Uri.parse('https://api.jikan.moe/v4/people/4328/full');
-  var res = await http.get(url);
-  //! Masukkan data ke dalam variable
-  Map<String, dynamic> parsed = json.decode(res.body)["data"];
-  // ! cek data nya apakah null atau tidak
+// void main() async {
+//   //! Ambil data dari API
+//   Uri url = Uri.parse('https://api.jikan.moe/v4/people/4328/full');
+//   var res = await http.get(url);
+//   //! Masukkan data ke dalam variable
+//   Map<String, dynamic> parsed = json.decode(res.body)["data"];
+//   // ! cek data nya apakah null atau tidak
 
-  var data = Va.DetailVoiceActor.fromJson(parsed);
-  // animeCharacter.addAll();
-  print(data.name);
-  print("${data.givenName} " "${data.familyName}");
-  print(data.about);
-}
+//   var data = Va.DetailVoiceActor.fromJson(parsed);
+//   // animeCharacter.addAll();
+//   print(data.name);
+//   print("${data.givenName} " "${data.familyName}");
+//   print(data.about);
+// }
+
+void main() async {
+    // try {
+      Uri url = Uri.parse(
+          'https://api.jikan.moe/v4/manga?q=naruto&page=1&sfw=false');
+      var response = await http.get(url);
+      var tempdata = json.decode(response.body)["data"];
+      print(tempdata);
+      // var data = tempdata.map((e) => manga.Manga.fromJson(e)).toList();
+      // print(data);
+      // List<manga.Manga> listMangaSearch = List<manga.Manga>.from(data);
+      // print("page key genre puzzle $pageKey");
+      final nextPage = json.decode(response.body)["next"];
+      final isLastPage = nextPage == null;
+
+    //   if (isLastPage) {
+    //     Get.snackbar("Error", "No more data");
+    //     mangaSearch.appendLastPage(listMangaSearch);
+    //   } else {
+    //     mangaSearch.appendPage(listMangaSearch, hal + 1);
+    //   }
+    // } catch (e) {
+    //   mangaSearch.error = e;
+    // }
+    }
+  
