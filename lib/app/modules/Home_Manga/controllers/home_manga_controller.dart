@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:my_anime_list/app/modules/utils.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -88,8 +87,6 @@ class HomeMangaController extends GetxController {
 
   // ! End Section
 
-  RefreshController refreshControllerSearch =
-      RefreshController(initialRefresh: true);
 
   // !  variable untuk page index manga
   int currentPage = 1;
@@ -401,7 +398,7 @@ class HomeMangaController extends GetxController {
         // No data found
         Get.snackbar("Error", "No data found");
       } else {
-        final nextPage = json.decode(response.body)["next"];
+        final nextPage = json.decode(response.body)['pagination']["has_next_page"];
         final isLastPage = nextPage == null;
 
         if (isLastPage) {

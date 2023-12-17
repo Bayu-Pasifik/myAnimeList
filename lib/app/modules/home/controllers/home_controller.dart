@@ -143,7 +143,7 @@ class HomeController extends GetxController {
         // No data found
         Get.snackbar("Error", "No data found");
       } else {
-        final nextPage = json.decode(response.body)["next"];
+        final nextPage = json.decode(response.body)['pagination']["has_next_page"];
         final isLastPage = nextPage == null;
 
         if (isLastPage) {

@@ -12,7 +12,8 @@ class GenreMangaPageController extends GetxController {
       PagingController<int, manga.Manga>(firstPageKey: 1);
   // ! fungsi untuk fetching genre anime berdasarkan index
   void genreAnime(int g, int p) async {
-    Uri url = Uri.parse('https://api.jikan.moe/v4/manga?genres=$g&page=$p');
+    Uri url = Uri.parse(
+        'https://api.jikan.moe/v4/manga?genres=$g&page=$p&order_by=title&sort=asc&sfw=false&genres_exclude=12,49,28');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);

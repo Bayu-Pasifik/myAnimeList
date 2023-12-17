@@ -13,7 +13,8 @@ class DetailAnimeStudioController extends GetxController {
   // ! fungsi untuk anime pada sebuah studio
   void getAnimeStudio(int id, int p) async {
     //! Ambil data dari API
-    Uri url = Uri.parse('https://api.jikan.moe/v4/anime?producers=$id&page=$p');
+    Uri url = Uri.parse(
+        'https://api.jikan.moe/v4/anime?producers=$id&page=$p&order_by=title&sort=asc&sfw=false&genres_exclude=12,49,28');
     var res = await http.get(url);
     //! Masukkan data ke dalam variable
     Map<String, dynamic> data = json.decode(res.body);

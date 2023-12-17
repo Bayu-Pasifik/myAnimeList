@@ -11,7 +11,7 @@ class ManhwaPageController extends GetxController {
   // ! fungsi untuk top anime
   void allManhua(int p) async {
     Uri url = Uri.parse(
-        'https://api.jikan.moe/v4/manga?type=manhwa&page=$p&sfw=false');
+        'https://api.jikan.moe/v4/manga?type=manhwa&page=$p&sfw=false&order_by=title&sort=asc&sfw=false&genres_exclude=12,49,28');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
