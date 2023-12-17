@@ -138,12 +138,13 @@ class HomeController extends GetxController {
       var tempdata = json.decode(response.body)["data"];
       var data = tempdata.map((e) => Animes.fromJson(e)).toList();
       List<Animes> listAnimeSearch = List<Animes>.from(data);
-
+      print(listAnimeSearch);
       if (listAnimeSearch.isEmpty) {
         // No data found
         Get.snackbar("Error", "No data found");
       } else {
-        final nextPage = json.decode(response.body)['pagination']["has_next_page"];
+        final nextPage =
+            json.decode(response.body)['pagination']["has_next_page"];
         final isLastPage = nextPage == null;
 
         if (isLastPage) {
@@ -162,7 +163,7 @@ class HomeController extends GetxController {
     animeSearch.itemList?.clear();
     animeSearch.firstPageKey;
     animeSearch.refresh();
-    searchController.clear();
+    // searchController.clear();
   }
 
   void setIsSearching(bool value) {
@@ -601,6 +602,9 @@ class HomeController extends GetxController {
     animeIndexZ.addPageRequestListener((pageKey) {
       indexAnime("Z", pageKey);
     });
+    animeSearch.addPageRequestListener((pageKey) {
+      resultQuery(searchController.text, pageKey);
+    });
     animeSeason.addPageRequestListener((pageKey) {
       getSeason(year.value, season.value, pageKey);
     });
@@ -615,6 +619,8 @@ class HomeController extends GetxController {
     searchController.clear();
     searchController.dispose();
     resultAnime.clear();
+    clearSearch();
+    animeSearch.dispose();
     animeSeason.dispose();
     studioAnime.dispose();
     super.onClose();
@@ -648,6 +654,10 @@ class HomeController extends GetxController {
     animeIndexX.dispose();
     animeIndexY.dispose();
     animeIndexZ.dispose();
+    animeSeason.dispose();
+    studioAnime.dispose();
+    clearSearch();
+    animeSearch.dispose();
     animeSeason.dispose();
     studioAnime.dispose();
     super.dispose();

@@ -729,6 +729,7 @@ class HomeView extends GetView<HomeController> {
               onTap: (index) {
                 if (controller.selectIndex.value != 1) {
                   controller.clearSearch();
+                  controller.searchController.clear();
                 }
                 controller.chagePage(index);
                 debugPrint("index: $index");
