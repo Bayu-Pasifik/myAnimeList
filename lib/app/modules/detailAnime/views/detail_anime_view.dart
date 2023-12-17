@@ -72,19 +72,18 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
             ),
             collapsed: Padding(
               padding: const EdgeInsets.all(10),
-              child:
-                  Text("You can view more information about this comics here",
-                      style: GoogleFonts.kurale(
-                        fontWeight: FontWeight.w500,
-                        color: isDarkmode.isTrue || getDarkmode
-                            ? const Color.fromARGB(255, 255, 255, 255)
-                            : const Color.fromARGB(255, 0, 0, 0),
-                      )),
+              child: Text("You can view more information about this anime here",
+                  style: GoogleFonts.kurale(
+                    fontWeight: FontWeight.w500,
+                    color: isDarkmode.isTrue || getDarkmode
+                        ? const Color.fromARGB(255, 255, 255, 255)
+                        : const Color.fromARGB(255, 0, 0, 0),
+                  )),
             ),
             header: Padding(
               padding: const EdgeInsets.all(5),
               child: Text(
-                "About comics",
+                "About Anime",
                 style:
                     GoogleFonts.squadaOne(color: Colors.blue, fontSize: 20.sp),
               ),

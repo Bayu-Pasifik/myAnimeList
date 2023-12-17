@@ -69,9 +69,7 @@ class HomeView extends GetView<HomeController> {
                             })
                           : () {},
                       child: const Text("Search"))
-                  : LoadingAnimationWidget.hexagonDots(
-                      color: const Color.fromARGB(255, 20, 106, 254),
-                      size: 20)),
+                  : const CircularProgressIndicator()),
             ),
             Obx(() => (controller.isSearch.isFalse)
                 ? Expanded(
@@ -344,183 +342,314 @@ class HomeView extends GetView<HomeController> {
       ),
 
       // ! Season Page
-      GetBuilder<HomeController>(
-        builder: (c) {
-          return SafeArea(
-              child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              children: [
-                // ! dropdown tahun
-                DropdownSearch<String>(
-                  popupProps: const PopupProps.dialog(
-                      showSelectedItems: true,
-                      showSearchBox: true,
-                      searchFieldProps: TextFieldProps(
-                          keyboardType: TextInputType.numberWithOptions())),
-                  asyncItems: (String filter) async {
-                    Uri url = Uri.parse('https://api.jikan.moe/v4/seasons');
-                    var res = await http.get(url);
-                    List<String> allYear = [];
-                    var data =
-                        (json.decode(res.body) as Map<String, dynamic>)['data'];
-                    data!.forEach(((element) {
-                      allYear.add(element['year'].toString());
-                    }));
+      SafeArea(
+          child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            // ! dropdown tahun
+            DropdownSearch<String>(
+              popupProps: const PopupProps.dialog(
+                  showSelectedItems: true,
+                  showSearchBox: true,
+                  searchFieldProps: TextFieldProps(
+                      keyboardType: TextInputType.numberWithOptions())),
+              asyncItems: (String filter) async {
+                Uri url = Uri.parse('https://api.jikan.moe/v4/seasons');
+                var res = await http.get(url);
+                List<String> allYear = [];
+                var data =
+                    (json.decode(res.body) as Map<String, dynamic>)['data'];
+                data!.forEach(((element) {
+                  allYear.add(element['year'].toString());
+                }));
 
-                    return allYear;
-                  },
-                  onChanged: (yearValue) {
-                    c.year.value = int.parse(yearValue!);
-                    c.listSeasonAnime.clear();
-                    c.pageSeason.clear();
-                    c.seasonRefresh.resetNoData();
-                  },
-                  selectedItem: c.year.value.toString(),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                // ! dropdown musim
-                DropdownSearch<String>(
-                  popupProps: const PopupProps.dialog(showSelectedItems: true),
-                  items: const ["WINTER", "SPRING", "SUMMER", "FALL"],
-                  onChanged: (seasonValue) {
-                    c.season.value = seasonValue!;
-                    c.listSeasonAnime.clear();
-                    c.pageSeason.clear();
-                    c.seasonRefresh.resetNoData();
-                  },
-                  selectedItem: c.season.value,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: ElevatedButton(
-                      onPressed: (() {
-                        c.listSeasonAnime.clear();
-                        c.pageSeason.clear();
-                        c.refreshSeason(c.year.value, c.season.value);
-                      }),
-                      child: const Text("Search")),
-                ),
-                Expanded(
-                    child: SmartRefresher(
-                        controller: c.seasonRefresh,
-                        enablePullDown: true,
-                        enablePullUp: true,
-                        onRefresh: () =>
-                            c.refreshSeason(c.year.value, c.season.value),
-                        onLoading: () =>
-                            c.loadSeason(c.year.value, c.season.value),
-                        footer: CustomFooter(
-                          builder: (context, mode) {
-                            if (mode == LoadStatus.loading) {
-                              return LoadingAnimationWidget.inkDrop(
-                                  color: const Color.fromARGB(255, 6, 98, 173),
-                                  size: 50);
-                            } else if (mode == LoadStatus.noMore) {
-                              return Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Text(
-                                    "No More Data",
-                                    style: GoogleFonts.kurale(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                ),
-                              );
-                            }
-                            return const SizedBox(
-                              height: 5,
-                              width: 5,
-                            );
-                          },
-                        ),
-                        child: (c.listSeasonAnime.isNotEmpty &&
-                                c.dataSeason['data'] != [])
-                            ? GridView.builder(
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.all(10),
-                                itemCount: c.listSeasonAnime.length,
-                                gridDelegate:
-                                    const SliverGridDelegateWithMaxCrossAxisExtent(
-                                        maxCrossAxisExtent: 200,
-                                        childAspectRatio: 0.8,
-                                        crossAxisSpacing: 40,
-                                        mainAxisExtent: 200,
-                                        mainAxisSpacing: 20),
-                                itemBuilder: (context, index) {
-                                  anime.Animes animes =
-                                      c.listSeasonAnime[index];
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
+                return allYear;
+              },
+              onChanged: (yearValue) {
+                controller.year.value = int.parse(yearValue!);
+                // controller.listSeasonAnime.clear();
+                // controller.pageSeason.clear();
+                // controller.seasonRefresh.resetNoData();
+              },
+              selectedItem: controller.year.value.toString(),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            // ! dropdown musim
+            DropdownSearch<String>(
+              popupProps: const PopupProps.dialog(showSelectedItems: true),
+              items: const ["WINTER", "SPRING", "SUMMER", "FALL"],
+              onChanged: (seasonValue) {
+                controller.season.value = seasonValue!;
+                controller.listSeasonAnime.clear();
+                controller.pageSeason.clear();
+                controller.seasonRefresh.resetNoData();
+              },
+              selectedItem: controller.season.value,
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Obx(() => (controller.isSeasonSearch.isFalse)
+                  ? ElevatedButton(
+                      onPressed: (controller.isSeasonSearch.isFalse)
+                          ? (() {
+                              controller.clearSeason();
+                              controller.setIsSearchingSeason(true);
+                              Future.delayed(const Duration(seconds: 3), () {
+                                controller.resultQuery(
+                                    controller.searchController.text,
+                                    controller.animeSearch.firstPageKey);
+                                controller.setIsSearchingSeason(false);
+                              });
+                            })
+                          : () {},
+                      child: const Text("Search"))
+                  : const CircularProgressIndicator()),
+            ),
+            Obx(() => (controller.isSeasonSearch.isFalse)
+                ? Expanded(
+                    child: PagedGridView<int, anime.Animes>(
+                        padding: EdgeInsets.all(10.h),
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 200,
+                                childAspectRatio: 1 / 1.6,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20),
+                        pagingController: controller.animeSeason,
+                        builderDelegate:
+                            PagedChildBuilderDelegate<anime.Animes>(
+                          animateTransitions: true,
+                          itemBuilder: (context, item, number) {
+                            if (controller.animeSeason.itemList!.isNotEmpty) {
+                              return Column(
+                                children: [
+                                  Expanded(
                                     child: Stack(
                                       children: [
-                                        Container(
-                                          width: 200,
-                                          height: 300,
-                                          color: Colors.blue,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Get.toNamed(Routes.DETAIL_ANIME,
-                                                arguments: animes);
-                                          },
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Expanded(
-                                                child: SizedBox(
-                                                  width: 200,
-                                                  height: 250,
-                                                  child: Image.network(
-                                                    animes.images?["jpg"]
-                                                            ?.imageUrl ??
-                                                        'Kosong',
-                                                    fit: BoxFit.cover,
+                                        SizedBox(
+                                          width: 200.w,
+                                          height: 200.h,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(Routes.DETAIL_ANIME,
+                                                  arguments: item);
+                                            },
+                                            child: (item.genres != null &&
+                                                    number <
+                                                        item.genres!.length &&
+                                                    item.genres![number].name !=
+                                                        null &&
+                                                    item.genres![number].name!
+                                                        .contains('Erotica'))
+                                                ? Image.asset(
+                                                    "assets/images/Image_not_available.png")
+                                                : CachedNetworkImage(
+                                                    imageUrl:
+                                                        "${item.images!['jpg']!.imageUrl}",
+                                                    imageBuilder: (context,
+                                                            imageProvider) =>
+                                                        Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16.r),
+                                                        image: DecorationImage(
+                                                          image: imageProvider,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    progressIndicatorBuilder:
+                                                        (context, url,
+                                                                downloadProgress) =>
+                                                            Center(
+                                                      child: CircularProgressIndicator(
+                                                          value:
+                                                              downloadProgress
+                                                                  .progress),
+                                                    ),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Image.asset(
+                                                      "assets/images/Image_not_available.png",
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                              Text(
-                                                "${animes.title}",
-                                                textAlign: TextAlign.center,
-                                                style: GoogleFonts.breeSerif(
-                                                    textStyle: const TextStyle(
-                                                        overflow: TextOverflow
-                                                            .ellipsis)),
-                                              ),
-                                              Center(
-                                                child: Text(
-                                                  "${animes.status}",
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.breeSerif(
-                                                      textStyle: const TextStyle(
-                                                          overflow: TextOverflow
-                                                              .ellipsis)),
-                                                ),
-                                              )
-                                            ],
                                           ),
                                         ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 6, vertical: 2),
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.blue,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          6.r)),
+                                              width: 50.w,
+                                              height: 20.h,
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.star,
+                                                    size: 18.h,
+                                                    color: Colors.yellow,
+                                                  ),
+                                                  Text("${item.score}",
+                                                      style:
+                                                          GoogleFonts.kurale())
+                                                ],
+                                              )),
+                                        )
                                       ],
                                     ),
-                                  );
-                                },
-                              )
-                            : DelayedDisplay(
-                                delay: const Duration(seconds: 3),
+                                  ),
+                                  Text(
+                                    "${item.title}",
+                                    style: GoogleFonts.kurale(
+                                      fontSize: 16.sp,
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis),
+                                    ),
+                                  ),
+                                  Text(
+                                    "(${item.status})",
+                                    style: GoogleFonts.kurale(
+                                      fontSize: 16.sp,
+                                      textStyle: const TextStyle(
+                                          overflow: TextOverflow.ellipsis),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Center(
                                 child: Lottie.asset(
-                                    "assets/lottie/kesalahan.json")))),
-              ],
-            ),
-          ));
-        },
-      ),
+                                    'assets/lottie/kesalahan.json'),
+                              );
+                            }
+                          },
+                          firstPageErrorIndicatorBuilder: (_) {
+                            return Center(
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "There is an error",
+                                  style: GoogleFonts.kurale(fontSize: 18.sp),
+                                ),
+                                SizedBox(height: 10.h),
+                                SizedBox(
+                                  width: 100.w,
+                                  height: 50.h,
+                                  child: ElevatedButton(
+                                    // style: ElevatedButton.styleFrom(
+                                    //     backgroundColor: const Color(0XFF54BAB9)),
+                                    onPressed: () {
+                                      return controller.animeSeason
+                                          .retryLastFailedRequest();
+                                    },
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.restart_alt),
+                                        Text("Retry"),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ));
+                          },
+                          newPageErrorIndicatorBuilder: (context) => Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "${controller.animeSeason.error}",
+                                style: GoogleFonts.kurale(fontSize: 18.sp),
+                              ),
+                              SizedBox(height: 10.h),
+                              SizedBox(
+                                width: 100.w,
+                                height: 50.h,
+                                child: ElevatedButton(
+                                  onPressed: (() => controller.animeSeason
+                                      .retryLastFailedRequest()),
+                                  child: const Row(
+                                    children: [
+                                      Icon(Icons.restart_alt),
+                                      Text("Retry"),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                          firstPageProgressIndicatorBuilder: (context) {
+                            if (controller.animeSeason.itemList == null) {
+                              return Center(
+                                  child: DelayedDisplay(
+                                delay: const Duration(seconds: 5),
+                                child: Lottie.asset(
+                                    'assets/lottie/kesalahan.json'),
+                              ));
+                            }
+                            return Center(
+                              child: LoadingAnimationWidget.hexagonDots(
+                                  color:
+                                      const Color.fromARGB(255, 20, 106, 254),
+                                  size: 50),
+                              // child: Center(
+                              //     child: Text("${controller.animeSeason.error}")),
+                            );
+                          },
+                          transitionDuration: const Duration(seconds: 3),
+                          newPageProgressIndicatorBuilder: (context) => Center(
+                            child: LoadingAnimationWidget.hexagonDots(
+                                color: const Color.fromARGB(255, 20, 106, 254),
+                                size: 50),
+                            // child: Center(
+                            //     child: Text("${controller.animeSeason.error}")),
+                          ),
+                          noItemsFoundIndicatorBuilder: (_) {
+                            return Center(
+                              child: Text(
+                                'No data found',
+                                style: GoogleFonts.kurale(fontSize: 18.sp),
+                              ),
+                            );
+                          },
+                          noMoreItemsIndicatorBuilder: (_) {
+                            return Center(
+                              child: Text(
+                                "${controller.animeSeason.error}",
+                                style: GoogleFonts.kurale(),
+                              ),
+                            );
+                          },
+                        )))
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text("Please wait",
+                            style: GoogleFonts.poppins(fontSize: 14)),
+                        const SizedBox(height: 10),
+                        LoadingAnimationWidget.hexagonDots(
+                            color: const Color.fromARGB(255, 20, 106, 254),
+                            size: 50),
+                      ],
+                    ),
+                  )),
+          ],
+        ),
+      )),
 
       // ! Studios Page
       animeStudios()

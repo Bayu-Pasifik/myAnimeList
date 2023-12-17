@@ -21,14 +21,10 @@ class HomeController extends GetxController {
   var halSeason = 1.obs;
   int halStudios = 1;
   Map<String, dynamic> page = {};
-  Map<String, dynamic> pageSearch = {};
   Map<String, dynamic> pageSeason = {};
   Map<String, dynamic> pageStudios = {};
   RefreshController studiosRefresh = RefreshController(initialRefresh: true);
-  RefreshController genreRefresh = RefreshController(initialRefresh: true);
   RefreshController seasonRefresh = RefreshController(initialRefresh: true);
-  RefreshController refreshControllerSearch =
-      RefreshController(initialRefresh: true);
 
   // !  variable untuk index anime
   int currentPage = 1;
@@ -105,6 +101,8 @@ class HomeController extends GetxController {
       PagingController<int, Animes>(firstPageKey: 1);
 
   final PagingController<int, Animes> animeSearch =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, Animes> animeSeason =
       PagingController<int, Animes>(firstPageKey: 1);
 
   Map<String, dynamic> dataSeason = {};
@@ -367,23 +365,45 @@ class HomeController extends GetxController {
   }
 
   // ! fungsi untuk season anime
-  Future<Map<String, dynamic>?> getSession(
-      int tahun, String musim, int p) async {
-    //! Ambil data dari API
-    Uri url =
-        Uri.parse('https://api.jikan.moe/v4/seasons/$tahun/$musim?page=$p');
-    var res = await http.get(url);
-    //! Masukkan data ke dalam variable
-    // Map<String, dynamic> data = json.decode(res.body);
-    dataSeason = json.decode(res.body);
-    var tempSeason = dataSeason['data'].map((e) => Animes.fromJson(e)).toList();
-    update();
-    listSeasonAnime.addAll(tempSeason);
-    // debugPrint("Isi dataSeason anime: ${listSeasonAnime}");
-    update();
-    pageSeason = dataSeason['pagination'];
-    update();
-    return dataSeason;
+
+  void getSeason(int tahun, String musim, int p) async {
+    try {
+      Uri url = Uri.parse(
+          'https://api.jikan.moe/v4/seasons/$tahun/$musim?page=$p&sort=asc&sfw=false&genres_exclude=12,49,28');
+      var response = await http.get(url);
+      var tempdata = json.decode(response.body)["data"];
+      // print(tempdata);
+      var data = tempdata.map((e) => Animes.fromJson(e)).toList();
+      List<Animes> listAnimeSearch = List<Animes>.from(data);
+      if (listAnimeSearch.isEmpty) {
+        // No data found
+        Get.snackbar("Error", "No data found");
+      } else {
+        final nextPage =
+            json.decode(response.body)["pagination"]['has_next_page'];
+        final isLastPage = nextPage == false;
+
+        if (isLastPage) {
+          animeSeason.appendLastPage(listAnimeSearch);
+        } else {
+          animeSeason.appendPage(listAnimeSearch, hal + 1);
+        }
+      }
+    } catch (e) {
+      animeSeason.error = e;
+    }
+  }
+
+
+  RxBool isSeasonSearch = false.obs;
+  void clearSeason() {
+    animeSeason.itemList?.clear();
+    animeSeason.firstPageKey;
+    animeSeason.refresh();
+  }
+
+  void setIsSearchingSeason(bool value) {
+    isSeasonSearch.value = value;
   }
 
   // ! fungsi untuk studios anime
@@ -484,34 +504,6 @@ class HomeController extends GetxController {
       return listUpcoming;
     } else {
       return null;
-    }
-  }
-
-  void refreshSeason(int th, String key) async {
-    if (seasonRefresh.initialRefresh == true) {
-      listSeasonAnime.clear();
-      halSeason.value = 1;
-      update();
-      await getSession(year.value, season.value, halSeason.value);
-      update();
-      return seasonRefresh.refreshCompleted();
-    } else {
-      return seasonRefresh.refreshFailed();
-    }
-  }
-
-  void loadSeason(int th, String key) async {
-    if (pageSeason["has_next_page"] == true) {
-      halSeason = halSeason + 1;
-      update();
-      await getSession(year.value, season.value, halSeason.value);
-      update();
-      return seasonRefresh.loadComplete();
-    } else {
-      Get.snackbar("No Data", "There is no more data",
-          snackPosition: SnackPosition.BOTTOM);
-      pageSeason.clear();
-      return seasonRefresh.loadNoData();
     }
   }
 
@@ -630,6 +622,9 @@ class HomeController extends GetxController {
     animeIndexZ.addPageRequestListener((pageKey) {
       indexAnime("Z", pageKey);
     });
+    animeSeason.addPageRequestListener((pageKey) {
+      getSeason(year.value, season.value, pageKey);
+    });
     super.onInit();
   }
 
@@ -638,69 +633,39 @@ class HomeController extends GetxController {
     searchController.clear();
     searchController.dispose();
     resultAnime.clear();
+    animeSeason.dispose();
     super.onClose();
   }
 
   @override
   void dispose() {
-    // refreshControllerA.dispose();
-    // refreshControllerB.dispose();
-    // refreshControllerC.dispose();
-    // refreshControllerD.dispose();
-    // refreshControllerE.dispose();
-    // refreshControllerF.dispose();
-    // refreshControllerG.dispose();
-    // refreshControllerH.dispose();
-    // refreshControllerI.dispose();
-    // refreshControllerJ.dispose();
-    // refreshControllerK.dispose();
-    // refreshControllerL.dispose();
-    // refreshControllerM.dispose();
-    // refreshControllerN.dispose();
-    // refreshControllerO.dispose();
-    // refreshControllerP.dispose();
-    // refreshControllerQ.dispose();
-    // refreshControllerR.dispose();
-    // refreshControllerS.dispose();
-    // refreshControllerT.dispose();
-    // refreshControllerU.dispose();
-    // refreshControllerV.dispose();
-    // refreshControllerW.dispose();
-    // refreshControllerX.dispose();
-    // refreshControllerY.dispose();
-    // refreshControllerZ.dispose();
-    // resultAnime.clear();
-    // animeIndexA.clear();
-    // animeIndexB.clear();
-    // animeIndexC.clear();
-    // animeIndexD.clear();
-    // animeIndexE.clear();
-    // animeIndexF.clear();
-    // animeIndexG.clear();
-    // animeIndexH.clear();
-    // animeIndexI.clear();
-    // animeIndexJ.clear();
-    // animeIndexK.clear();
-    // animeIndexL.clear();
-    // animeIndexM.clear();
-    // animeIndexN.clear();
-    // animeIndexO.clear();
-    // animeIndexP.clear();
-    // animeIndexQ.clear();
-    // animeIndexR.clear();
-    // animeIndexS.clear();
-    // animeIndexT.clear();
-    // animeIndexU.clear();
-    // animeIndexV.clear();
-    // animeIndexW.clear();
-    // animeIndexX.clear();
-    // animeIndexY.clear();
-    // animeIndexZ.clear();
-    // listAiringAnime.clear();
-    // listTopAnime.clear();
-    // listUpcoming.clear();
-    // searchController.clear();
-    // searchController.dispose();
+    animeIndexA.dispose();
+    animeIndexB.dispose();
+    animeIndexC.dispose();
+    animeIndexD.dispose();
+    animeIndexE.dispose();
+    animeIndexF.dispose();
+    animeIndexG.dispose();
+    animeIndexH.dispose();
+    animeIndexI.dispose();
+    animeIndexJ.dispose();
+    animeIndexK.dispose();
+    animeIndexL.dispose();
+    animeIndexM.dispose();
+    animeIndexN.dispose();
+    animeIndexO.dispose();
+    animeIndexP.dispose();
+    animeIndexQ.dispose();
+    animeIndexR.dispose();
+    animeIndexS.dispose();
+    animeIndexT.dispose();
+    animeIndexU.dispose();
+    animeIndexV.dispose();
+    animeIndexW.dispose();
+    animeIndexX.dispose();
+    animeIndexY.dispose();
+    animeIndexZ.dispose();
+    animeSeason.dispose();
     super.dispose();
   }
 }
