@@ -104,6 +104,8 @@ class HomeController extends GetxController {
       PagingController<int, Animes>(firstPageKey: 1);
   final PagingController<int, Animes> animeSeason =
       PagingController<int, Animes>(firstPageKey: 1);
+  final PagingController<int, studio.Studios> studioAnime =
+      PagingController<int, studio.Studios>(firstPageKey: 1);
 
   Map<String, dynamic> dataSeason = {};
 
@@ -394,7 +396,6 @@ class HomeController extends GetxController {
     }
   }
 
-
   RxBool isSeasonSearch = false.obs;
   void clearSeason() {
     animeSeason.itemList?.clear();
@@ -407,20 +408,27 @@ class HomeController extends GetxController {
   }
 
   // ! fungsi untuk studios anime
-  Future<Map<String, dynamic>?> getStudios(int p) async {
+  void getStudios(int p) async {
     //! Ambil data dari API
-    Uri url = Uri.parse('https://api.jikan.moe/v4/producers?page=$p');
-    var res = await http.get(url);
-    //! Masukkan data ke dalam variable
-    Map<String, dynamic> data = json.decode(res.body);
-    var tempStudios =
-        data['data'].map((e) => studio.Studios.fromJson(e)).toList();
-    update();
-    listStudios.addAll(tempStudios);
-    update();
-    pageStudios = data['pagination'];
-    update();
-    return data;
+    try {
+      Uri url = Uri.parse('https://api.jikan.moe/v4/producers?page=$p');
+      var res = await http.get(url);
+      //! Masukkan data ke dalam variable
+      var data = json.decode(res.body)['data'];
+      var tempStudios = data.map((e) => studio.Studios.fromJson(e)).toList();
+      List<studio.Studios> listStudio = List<studio.Studios>.from(tempStudios);
+
+      final nextPage = json.decode(res.body)["pagination"]['has_next_page'];
+      final isLastPage = nextPage == false;
+
+      if (isLastPage) {
+        studioAnime.appendLastPage(listStudio);
+      } else {
+        studioAnime.appendPage(listStudio, hal + 1);
+      }
+    } catch (e) {
+      studioAnime.error = e;
+    }
   }
 
   // ! fungsi untuk genre anime
@@ -504,35 +512,6 @@ class HomeController extends GetxController {
       return listUpcoming;
     } else {
       return null;
-    }
-  }
-
-  void refreshStudios() async {
-    if (studiosRefresh.initialRefresh == true) {
-      // ls.clear();
-      halStudios = 1;
-      update();
-      await getStudios(halStudios);
-      update();
-      return studiosRefresh.refreshCompleted();
-    } else {
-      return studiosRefresh.refreshFailed();
-    }
-  }
-
-  void loadStudio() async {
-    if (pageStudios["has_next_page"] == true) {
-      // debugPrint(pageSeason["has_next_page"].toString());
-      halStudios = halStudios + 1;
-      update();
-      await getStudios(halStudios);
-      update();
-      return studiosRefresh.loadComplete();
-    } else {
-      Get.snackbar("No Data", "There is no more data",
-          snackPosition: SnackPosition.BOTTOM);
-      pageSeason.clear();
-      return studiosRefresh.loadNoData();
     }
   }
 
@@ -625,6 +604,9 @@ class HomeController extends GetxController {
     animeSeason.addPageRequestListener((pageKey) {
       getSeason(year.value, season.value, pageKey);
     });
+    studioAnime.addPageRequestListener((pageKey) {
+      getStudios(pageKey);
+    });
     super.onInit();
   }
 
@@ -634,6 +616,7 @@ class HomeController extends GetxController {
     searchController.dispose();
     resultAnime.clear();
     animeSeason.dispose();
+    studioAnime.dispose();
     super.onClose();
   }
 
@@ -666,6 +649,7 @@ class HomeController extends GetxController {
     animeIndexY.dispose();
     animeIndexZ.dispose();
     animeSeason.dispose();
+    studioAnime.dispose();
     super.dispose();
   }
 }

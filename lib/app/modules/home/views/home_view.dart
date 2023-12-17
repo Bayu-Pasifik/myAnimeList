@@ -18,7 +18,6 @@ import 'package:my_anime_list/app/resource/anime_index.dart';
 import 'package:my_anime_list/app/resource/home_widget.dart';
 import 'package:my_anime_list/app/resource/studios_widget.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../data/model/genre_model.dart' as gen;
 import '../controllers/home_controller.dart';
 
@@ -652,7 +651,7 @@ class HomeView extends GetView<HomeController> {
       )),
 
       // ! Studios Page
-      animeStudios()
+      const AnimeStudios()
     ];
     return Obx(() => Scaffold(
         appBar: AppBar(
