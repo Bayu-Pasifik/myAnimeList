@@ -1,12 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
 import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
+import 'package:my_anime_list/app/modules/utils.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../controllers/detail_studios_controller.dart';
 
 class DetailStudiosView extends GetView<DetailStudiosController> {
@@ -15,293 +18,295 @@ class DetailStudiosView extends GetView<DetailStudiosController> {
   Widget build(BuildContext context) {
     studio.Studios studios = Get.arguments;
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            '${studios.titles![0].title}',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.breeSerif(
-                textStyle: const TextStyle(overflow: TextOverflow.ellipsis)),
-          ),
+        body: CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          expandedHeight: 10,
+          elevation: 0,
+          stretch: true,
+          pinned: true,
           centerTitle: true,
+          title: Text('${studios.titles![0].title}'),
         ),
-        body: SlidingUpPanel(
-          maxHeight: Get.mediaQuery.size.height * 0.63,
-          controller: controller.panelController,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-          backdropColor: Colors.amber,
-          color: Get.isDarkMode
-              ? const Color.fromARGB(255, 32, 32, 32)
-              : const Color.fromARGB(255, 220, 220, 220),
-          parallaxEnabled: true,
-          parallaxOffset: 0.5,
-          padding: const EdgeInsets.all(10),
-          panel: SizedBox(
-            width: 200,
-            height: Get.mediaQuery.size.height,
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                // ! sliding panel
-                GestureDetector(
-                  onTap: () => controller.toglePanel(),
-                  child: UnconstrainedBox(
-                    child: Container(
-                      height: 5,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(15)),
-                    ),
+        SliverList(
+            delegate: SliverChildListDelegate([
+          SizedBox(
+            height: 5.h,
+          ),
+          Center(
+            child: SizedBox(
+              height: 280.h,
+              width: 180.w,
+              child: CachedNetworkImage(
+                imageUrl: "${studios.images!.jpg!.imageUrl}",
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                        image: imageProvider, fit: BoxFit.cover),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(
+                  child: CircularProgressIndicator(
+                      value: downloadProgress.progress),
                 ),
-                // ! center image
-                UnconstrainedBox(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Container(
-                      width: Get.mediaQuery.size.width / 3,
-                      height: Get.mediaQuery.size.height / 4,
-                      color: Colors.green,
-                      child: Image.network(
-                        studios.images?.jpg?.imageUrl ?? '',
-                        fit: BoxFit.cover,
+                errorWidget: (context, url, error) =>
+                    Image.asset("assets/images/Image_not_available.png"),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          SizedBox(height: 20.h),
+          ExpandablePanel(
+            theme: ExpandableThemeData(
+              iconColor: isDarkmode.isTrue || getDarkmode
+                  ? const Color.fromARGB(255, 255, 255, 255)
+                  : const Color.fromARGB(255, 0, 0, 0),
+            ),
+            collapsed: Padding(
+              padding: const EdgeInsets.all(10),
+              child:
+                  Text("You can view more information about this studio here",
+                      style: GoogleFonts.kurale(
+                        fontWeight: FontWeight.w500,
+                        color: isDarkmode.isTrue || getDarkmode
+                            ? const Color.fromARGB(255, 255, 255, 255)
+                            : const Color.fromARGB(255, 0, 0, 0),
+                      )),
+            ),
+            header: Padding(
+              padding: const EdgeInsets.all(5),
+              child: Text(
+                "About Studio",
+                style:
+                    GoogleFonts.squadaOne(color: Colors.blue, fontSize: 20.sp),
+              ),
+            ),
+            expanded: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Table(
+                  border: TableBorder.all(
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    color: isDarkmode.isTrue || getDarkmode
+                        ? const Color.fromARGB(255, 255, 255, 255)
+                        : const Color.fromARGB(15, 37, 37, 37),
+                  ),
+                  children: [
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          "Original Name",
+                          style: GoogleFonts.squadaOne(),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                // ! title
-                Center(
-                    child: Text(
-                  "${studios.titles![0].title}",
-                  style: GoogleFonts.robotoSlab(fontSize: 18),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          (studios.titles![0].title != "")
+                              ? "${studios.titles![0].title}"
+                              : "-",
+                          style: GoogleFonts.kurale(),
+                        ),
+                      )
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          "Japanese Name",
+                          style: GoogleFonts.squadaOne(),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          (studios.titles![1].title != "")
+                              ? "${studios.titles![1].title}"
+                              : "-",
+                          style: GoogleFonts.kurale(),
+                        ),
+                      )
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          "Anime Created",
+                          style: GoogleFonts.squadaOne(),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          (studios.count != 0)
+                              ? "${studios.count} Animes"
+                              : "-",
+                          style: GoogleFonts.kurale(),
+                        ),
+                      )
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          "Established At",
+                          style: GoogleFonts.squadaOne(),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          (studios.established != "")
+                              ? controller.formatDate(studios.established)
+                              : "-",
+                          style: GoogleFonts.kurale(),
+                        ),
+                      )
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          "Favored By",
+                          style: GoogleFonts.squadaOne(),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          (studios.favorites != 0)
+                              ? "${studios.favorites} Peoples"
+                              : "0 People",
+                          style: GoogleFonts.kurale(),
+                        ),
+                      )
+                    ]),
+                  ],
                 )),
-                const SizedBox(
-                  height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: ExpandablePanel(
+              theme: ExpandableThemeData(
+                  iconColor: isDarkmode.isTrue || getDarkmode
+                      ? Colors.white
+                      : Colors.black),
+              header: Text(
+                "Background Story",
+                style: GoogleFonts.squadaOne(color: Colors.blue, fontSize: 20.sp),
+              ),
+              collapsed: Text(
+                studios.about != ""
+                    ? "${studios.about}"
+                    : "No Background Story",
+                softWrap: true,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.kurale(
+                    fontSize: 16.sp, fontWeight: FontWeight.normal),
+              ),
+              expanded: Text(
+                studios.about != ""
+                    ? "${studios.about}"
+                    : "No Background Story",
+                softWrap: true,
+                style: GoogleFonts.kurale(
+                    fontSize: 16, fontWeight: FontWeight.normal),
+              ),
+            ),
+          ),
+          SizedBox(height: 10.h),
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Anime Created",
+                  style:
+                      GoogleFonts.squadaOne(color: Colors.blue, fontSize: 20.sp),
                 ),
-                // ! japanese title
-                Center(
-                    child: Text(
-                  "( ${studios.titles![1].title} )",
-                  style: GoogleFonts.notoSans(
-                      fontSize: 15, fontWeight: FontWeight.bold),
-                )),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                        child: Text(
-                      "Established At : ",
-                      style: GoogleFonts.squadaOne(fontSize: 15),
-                    )),
-                    Center(
-                        child: Text(
-                      studios.established!.replaceAll("T00:00:00+00:00", ""),
-                      style: GoogleFonts.squadaOne(fontSize: 15),
-                    )),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                // ! total created anime
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                        child: Text(
-                      "Total Anime Created : ",
-                      style: GoogleFonts.squadaOne(fontSize: 15),
-                    )),
-                    Center(
-                        child: Text(
-                      "${studios.count}",
-                      style: GoogleFonts.squadaOne(fontSize: 15),
-                    )),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                // ! Favorites
-                Center(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Favorites : ",
-                      style: GoogleFonts.squadaOne(fontSize: 15),
-                    ),
-                    Text(
-                      "${studios.favorites}",
-                      style: GoogleFonts.squadaOne(fontSize: 15),
-                    ),
-                  ],
-                )),
-                const SizedBox(
-                  height: 20,
-                ),
-                // ! Description
-                ExpandablePanel(
-                  theme: ExpandableThemeData(
-                      iconColor: Get.isDarkMode ? Colors.white : Colors.black),
-                  header: Text(
-                    "Description",
-                    style: GoogleFonts.squadaOne(
-                        fontSize: 16, color: Colors.blue[400]),
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.DETAIL_ANIME_STUDIO, arguments: studios);
+                  },
+                  child: Text(
+                    "Load More",
+                    style:
+                        GoogleFonts.squadaOne(color: Colors.blue, fontSize: 20.sp),
                   ),
-                  collapsed: Text(
-                    "${studios.about}",
-                    style: GoogleFonts.kurale(
-                        fontSize: 16, fontWeight: FontWeight.normal),
-                    softWrap: true,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  expanded: Text(
-                    "${studios.about}",
-                    style: GoogleFonts.kurale(fontSize: 16),
-                    softWrap: true,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                // ! anime created
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Created Anime",
-                      style: GoogleFonts.squadaOne(
-                          fontSize: 16, color: Colors.blue[400]),
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          Get.toNamed(Routes.DETAIL_ANIME_STUDIO,
-                              arguments: studios);
-                        },
-                        child: Text(
-                          "Load More",
-                          style: GoogleFonts.squadaOne(
-                              fontSize: 16, color: Colors.blue[400]),
-                        ))
-                  ],
-                ),
-                // ! list anime created
-                Container(
-                    height: MediaQuery.of(context).size.height / 2,
-                    width: Get.mediaQuery.size.width,
-                    // color: Colors.red,
-                    child: (studios.malId != null)
-                        ? SizedBox(
-                            height: MediaQuery.of(context).size.height / 2,
-                            // color: Colors.red,
-                            child: FutureBuilder<Map<String, dynamic>?>(
-                              future: controller.getAnimeStudio(
-                                  studios.malId ?? 0, 1),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasError) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
-                                if (snapshot.hasData) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  }
-                                  if (snapshot.data == null) {
-                                    return const Center(
-                                      child: Text("No Data"),
-                                    );
-                                  }
-                                }
-                                return ListView.separated(
-                                  // shrinkWrap: true,
-                                  // physics: NeverScrollableScrollPhysics(),
-                                  separatorBuilder: (context, index) =>
-                                      const SizedBox(
-                                    width: 5,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: controller.listAnime.length,
-                                  itemBuilder: (context, index) {
-                                    ani.Animes animes =
-                                        controller.listAnime[index];
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Get.toNamed(Routes.DETAIL_ANIME,
-                                            arguments: animes);
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Expanded(
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: SizedBox(
-                                                width: 150,
-                                                height: 300,
-                                                // color: Colors.amber,
-                                                child: (animes.images?['jpg']
-                                                            ?.imageUrl !=
-                                                        null)
-                                                    ? Image.network(
-                                                        animes.images?['jpg']
-                                                                ?.imageUrl ??
-                                                            'Kosong',
-                                                        fit: BoxFit.cover,
-                                                      )
-                                                    : const CircularProgressIndicator(),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            "( ${animes.title ?? 'NaN'} )",
-                                            style: GoogleFonts.breeSerif(
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              "(${animes.status ?? 'NaN'})",
-                                              style: GoogleFonts.breeSerif(
-                                                  fontSize: 16),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          )
-                        : const Center(
-                            child: CircularProgressIndicator(),
-                          ))
+                )
               ],
             ),
           ),
-          body: SizedBox(
-            width: Get.mediaQuery.size.width,
-            height: Get.mediaQuery.size.height,
-            child: Image.network(
-              studios.images?.jpg?.imageUrl ?? '',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ));
+          Padding(
+              padding: const EdgeInsets.all(5),
+              child: SizedBox(
+                  height: MediaQuery.of(context).size.height / 3,
+                  // color: Colors.red,
+                  child: PagedListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    pagingController: controller.animeByStudio,
+                    builderDelegate: PagedChildBuilderDelegate<ani.Animes>(
+                        itemBuilder: (context, item, index) => Column(
+                              children: [
+                                Container(
+                                  width: 150.w,
+                                  height: 150.h,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        "${item.images?['jpg']?.imageUrl}",
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover),
+                                      ),
+                                    ),
+                                    progressIndicatorBuilder:
+                                        (context, url, downloadProgress) =>
+                                            Center(
+                                      child: CircularProgressIndicator(
+                                          value: downloadProgress.progress),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(
+                                            "assets/images/Image_not_available.png"),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 150.w,
+                                  height: 60.h,
+                                  // color: Colors.amber,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "${item.title}",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.kurale(),
+                                      ),
+                                      Text("${item.status}",
+                                          style: GoogleFonts.kurale())
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )),
+                    separatorBuilder: (context, index) => SizedBox(
+                      width: 10.w,
+                    ),
+                  )))
+        ]))
+      ],
+    ));
   }
 }

@@ -1,11 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
 import 'package:get/get.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:my_anime_list/app/data/model/anime_models.dart' as ani;
+import 'package:my_anime_list/app/data/model/anime_models.dart' as anime;
 import '../controllers/detail_anime_studio_controller.dart';
 
 class DetailAnimeStudioView extends GetView<DetailAnimeStudioController> {
@@ -14,116 +16,188 @@ class DetailAnimeStudioView extends GetView<DetailAnimeStudioController> {
   Widget build(BuildContext context) {
     studio.Studios studios = Get.arguments;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${studios.titles![0].title}'),
-        centerTitle: true,
-      ),
-      body: GetBuilder<DetailAnimeStudioController>(
-        builder: (c) {
-          return SafeArea(
-              child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: SmartRefresher(
-              controller: c.animeStudioRefresh,
-              enablePullDown: true,
-              enablePullUp: true,
-              onRefresh: () {
-                c.idStudio.value = studios.malId!;
-                c.refreshStudios();
+        appBar: AppBar(
+          title: Text('Animes By ${studios.titles![0].title}'),
+          centerTitle: true,
+          elevation: 0,
+        ),
+        body: PagedGridView<int, anime.Animes>(
+            padding: EdgeInsets.all(10.h),
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 300,
+                childAspectRatio: 1 / 1.6,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
+            pagingController: controller.animeByStudio,
+            builderDelegate: PagedChildBuilderDelegate<anime.Animes>(
+              animateTransitions: true,
+              itemBuilder: (context, item, number) {
+                // List<Anime.Genres>? genres = item.genres;
+                return Column(
+                  children: [
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                            width: 200.w,
+                            height: 200.h,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_ANIME,
+                                    arguments: item);
+                              },
+                              child: (item.genres != null &&
+                                      number < item.genres!.length &&
+                                      item.genres![number].name != null &&
+                                      item.genres![number].name!
+                                          .contains('Erotica'))
+                                  ? Image.asset(
+                                      "assets/images/Image_not_available.png")
+                                  : CachedNetworkImage(
+                                      imageUrl:
+                                          "${item.images!['jpg']!.imageUrl}",
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16.r),
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      progressIndicatorBuilder:
+                                          (context, url, downloadProgress) =>
+                                              Center(
+                                        child: CircularProgressIndicator(
+                                            value: downloadProgress.progress),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                        "assets/images/Image_not_available.png",
+                                      ),
+                                    ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 2),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(6.r)),
+                                width: 50.w,
+                                height: 20.h,
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      size: 18.h,
+                                      color: Colors.yellow,
+                                    ),
+                                    Text("${item.score}",
+                                        style: GoogleFonts.kurale())
+                                  ],
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
+                    Text(
+                      "${item.title}",
+                      style: GoogleFonts.kurale(
+                        fontSize: 16.sp,
+                        textStyle:
+                            const TextStyle(overflow: TextOverflow.ellipsis),
+                      ),
+                    ),
+                    Text(
+                      "(${item.status})",
+                      style: GoogleFonts.kurale(
+                        fontSize: 16.sp,
+                        textStyle:
+                            const TextStyle(overflow: TextOverflow.ellipsis),
+                      ),
+                    ),
+                  ],
+                );
               },
-              onLoading: () {
-                c.idStudio.value = studios.malId!;
-                c.loadStudio();
-              },
-              footer: CustomFooter(
-                builder: (context, mode) {
-                  if (mode == LoadStatus.loading) {
-                    return LoadingAnimationWidget.inkDrop(
-                        color: const Color.fromARGB(255, 6, 98, 173), size: 50);
-                  } else if (mode == LoadStatus.noMore) {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Text(
-                          "No More Data",
-                          style: GoogleFonts.kurale(
-                              fontSize: 25, fontWeight: FontWeight.normal),
+              firstPageErrorIndicatorBuilder: (_) {
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "There is an error",
+                      style: GoogleFonts.inter(fontSize: 18.sp),
+                    ),
+                    SizedBox(height: 10.h),
+                    SizedBox(
+                      width: 100.w,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        // style: ElevatedButton.styleFrom(
+                        //     backgroundColor: const Color(0XFF54BAB9)),
+                        onPressed: () {
+                          return controller.animeByStudio
+                              .retryLastFailedRequest();
+                        },
+                        child: const Row(
+                          children: [
+                            Icon(Icons.restart_alt),
+                            Text("Retry"),
+                          ],
                         ),
                       ),
-                    );
-                  }
-                  return const SizedBox(
-                    height: 5,
-                    width: 5,
-                  );
-                },
-              ),
-              child: GridView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(10),
-                itemCount: c.listAnime.length,
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 0.8,
-                    crossAxisSpacing: 40,
-                    mainAxisExtent: 200,
-                    mainAxisSpacing: 20),
-                itemBuilder: (context, index) {
-                  ani.Animes animes = c.listAnime[index];
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: 200,
-                          height: 300,
-                          color: Colors.blue,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(Routes.DETAIL_ANIME, arguments: animes);
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: SizedBox(
-                                  width: 200,
-                                  height: 250,
-                                  child: Image.network(
-                                    animes.images?["jpg"]?.imageUrl ?? 'Kosong',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                "${animes.title}",
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.breeSerif(
-                                    textStyle: const TextStyle(
-                                        overflow: TextOverflow.ellipsis)),
-                              ),
-                              Center(
-                                child: Text(
-                                  "${animes.status}",
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.breeSerif(
-                                      textStyle: const TextStyle(
-                                          overflow: TextOverflow.ellipsis)),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
                     ),
-                  );
-                },
+                  ],
+                ));
+              },
+              newPageErrorIndicatorBuilder: (context) => Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "There is an error",
+                    style: GoogleFonts.inter(fontSize: 18.sp),
+                  ),
+                  SizedBox(height: 10.h),
+                  SizedBox(
+                    width: 100.w,
+                    height: 50.h,
+                    child: ElevatedButton(
+                      onPressed: (() =>
+                          controller.animeByStudio.retryLastFailedRequest()),
+                      child: const Row(
+                        children: [
+                          Icon(Icons.restart_alt),
+                          Text("Retry"),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+              firstPageProgressIndicatorBuilder: (context) => Center(
+                child: LoadingAnimationWidget.hexagonDots(
+                    color: const Color.fromARGB(255, 84, 154, 186), size: 50),
               ),
-            ),
-          ));
-        },
-      ),
-    );
+              transitionDuration: const Duration(seconds: 3),
+              newPageProgressIndicatorBuilder: (context) => Center(
+                child: LoadingAnimationWidget.hexagonDots(
+                    color: const Color.fromARGB(255, 84, 154, 186), size: 50),
+              ),
+              noItemsFoundIndicatorBuilder: (_) {
+                return const Center(
+                  child: Text('No data found'),
+                );
+              },
+              noMoreItemsIndicatorBuilder: (_) {
+                return const Center(
+                  child: Text('No data found'),
+                );
+              },
+            )));
   }
 }

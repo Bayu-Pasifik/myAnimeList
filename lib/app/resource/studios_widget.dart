@@ -27,86 +27,94 @@ class AnimeStudios extends StatelessWidget {
           animateTransitions: true,
           itemBuilder: (context, item, number) {
             if (controller.studioAnime.itemList!.isNotEmpty) {
-              return Column(
-                children: [
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        SizedBox(
-                          width: 200.w,
-                          height: 200.h,
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.DETAIL_STUDIOS,
-                                  arguments: item);
-                            },
-                            child: CachedNetworkImage(
-                              imageUrl: "${item.images!.jpg!.imageUrl}",
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16.r),
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
+              return Material(
+                elevation: 5,
+                borderRadius: BorderRadius.circular(18),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          Container(
+                            width: 200.w,
+                            height: 200.h,
+                            decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(18)),
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_STUDIOS,
+                                    arguments: item);
+                              },
+                              child: CachedNetworkImage(
+                                imageUrl: "${item.images!.jpg!.imageUrl}",
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.r),
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) => Center(
-                                child: CircularProgressIndicator(
-                                    value: downloadProgress.progress),
-                              ),
-                              errorWidget: (context, url, error) => Image.asset(
-                                "assets/images/Image_not_available.png",
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) => Center(
+                                  child: CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                  "assets/images/Image_not_available.png",
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(
-                        //       horizontal: 6, vertical: 2),
-                        //   child: Container(
-                        //       decoration: BoxDecoration(
-                        //           color: Colors.blue,
-                        //           borderRadius:
-                        //               BorderRadius.circular(
-                        //                   6.r)),
-                        //       width: 50.w,
-                        //       height: 20.h,
-                        //       child: Row(
-                        //         children: [
-                        //           Icon(
-                        //             Icons.star,
-                        //             size: 18.h,
-                        //             color: Colors.yellow,
-                        //           ),
-                        //           Text("${item.score}",
-                        //               style:
-                        //                   GoogleFonts.kurale())
-                        //         ],
-                        //       )),
-                        // )
-                      ],
+                          // Padding(
+                          //   padding: const EdgeInsets.symmetric(
+                          //       horizontal: 6, vertical: 2),
+                          //   child: Container(
+                          //       decoration: BoxDecoration(
+                          //           color: Colors.blue,
+                          //           borderRadius:
+                          //               BorderRadius.circular(
+                          //                   6.r)),
+                          //       width: 50.w,
+                          //       height: 20.h,
+                          //       child: Row(
+                          //         children: [
+                          //           Icon(
+                          //             Icons.star,
+                          //             size: 18.h,
+                          //             color: Colors.yellow,
+                          //           ),
+                          //           Text("${item.score}",
+                          //               style:
+                          //                   GoogleFonts.kurale())
+                          //         ],
+                          //       )),
+                          // )
+                        ],
+                      ),
                     ),
-                  ),
-                  Text(
-                    "${item.titles![0].title}",
-                    style: GoogleFonts.kurale(
-                      fontSize: 16.sp,
-                      textStyle:
-                          const TextStyle(overflow: TextOverflow.ellipsis),
+                    Text(
+                      "${item.titles![0].title}",
+                      style: GoogleFonts.kurale(
+                        fontSize: 16.sp,
+                        textStyle:
+                            const TextStyle(overflow: TextOverflow.ellipsis),
+                      ),
                     ),
-                  ),
-                  Text(
-                    "(${item.count} Animes) ",
-                    style: GoogleFonts.kurale(
-                      fontSize: 16.sp,
-                      textStyle:
-                          const TextStyle(overflow: TextOverflow.ellipsis),
+                    Text(
+                      "(${item.count} Animes) ",
+                      style: GoogleFonts.kurale(
+                        fontSize: 16.sp,
+                        textStyle:
+                            const TextStyle(overflow: TextOverflow.ellipsis),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             } else {
               return Center(
