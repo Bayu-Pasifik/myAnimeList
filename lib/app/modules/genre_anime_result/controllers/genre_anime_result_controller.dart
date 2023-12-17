@@ -1,51 +1,55 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'dart:convert';
 import 'package:my_anime_list/app/data/model/anime_models.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 
 class GenreAnimeResultController extends GetxController {
-  List<dynamic> listAnime = [];
   Map<String, dynamic> page = {};
-  int hal = 1;
-  RefreshController genreRefresh = RefreshController(initialRefresh: true);
-  // ! fungsi untuk fetching genre anime berdasarkan index
-  Future<List?> genreAnime(int g, int p) async {
-    Uri url = Uri.parse('https://api.jikan.moe/v4/anime?genres=$g&page=$p');
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      Map<String, dynamic> data = json.decode(response.body);
-      var tempAnimeList = data["data"].map((e) => Animes.fromJson(e)).toList();
-      listAnime.addAll(tempAnimeList);
-      page = data["pagination"];
-      update();
-      return listAnime;
-    } else {
-      return null;
+  final PagingController<int, Animes> animeByGenre =
+      PagingController<int, Animes>(firstPageKey: 1);
+  final gen.Genre genre = Get.arguments;
+  // ! fungsi untuk fetching anime based genre
+  void genreAnime(int g, int p) async {
+    try {
+      Uri url = Uri.parse(
+          'https://api.jikan.moe/v4/anime?genres=$g&page=$p&sort=asc&sfw=false&genres_exclude=12,49,28');
+      var response = await http.get(url);
+      var tempdata = json.decode(response.body)["data"];
+      var data = tempdata.map((e) => Animes.fromJson(e)).toList();
+      List<Animes> listAnimeByGenre = List<Animes>.from(data);
+
+      if (listAnimeByGenre.isEmpty) {
+        // No data found
+        Get.snackbar("Error", "No data found");
+      } else {
+        final nextPage = json.decode(response.body)["next"];
+        final isLastPage = nextPage == null;
+
+        if (isLastPage) {
+          animeByGenre.appendLastPage(listAnimeByGenre);
+          // Get.snackbar("Error", "No more data");
+        } else {
+          animeByGenre.appendPage(listAnimeByGenre, p + 1);
+        }
+      }
+    } catch (e) {
+      animeByGenre.error = e;
     }
   }
 
-  void refreshData(int gen) async {
-    if (genreRefresh.initialRefresh == true) {
-      hal = 1;
-      await genreAnime(gen, hal);
-      update();
-      return genreRefresh.refreshCompleted();
-    } else {
-      return genreRefresh.refreshFailed();
-    }
+  @override
+  void onInit() {
+    animeByGenre.addPageRequestListener((pageKey) {
+      genreAnime(genre.malId!, pageKey);
+    });
+    super.onInit();
   }
 
-  void loadData(int gen) async {
-    if (page["has_next_page"] == true) {
-      hal = hal + 1;
-      await genreAnime(gen, hal);
-      debugPrint(hal.toString());
-      update();
-      return genreRefresh.loadComplete();
-    } else {
-      return genreRefresh.loadNoData();
-    }
+  @override
+  void dispose() {
+    animeByGenre.dispose();
+    super.dispose();
   }
 }

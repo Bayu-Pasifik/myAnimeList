@@ -406,7 +406,7 @@ class HomeController extends GetxController {
   // ! fungsi untuk genre anime
   Future<List<gen.Genre>?> getAllGenre() async {
     //! Ambil data dari API
-    Uri url = Uri.parse('https://api.jikan.moe/v4/genres/anime');
+    Uri url = Uri.parse('https://api.jikan.moe/v4/genres/anime?filter=genres');
     var res = await http.get(url);
     //! Masukkan data ke dalam variable
     List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
