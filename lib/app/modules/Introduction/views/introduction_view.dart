@@ -6,6 +6,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:my_anime_list/app/modules/utils.dart';
 import 'package:my_anime_list/app/routes/app_pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/introduction_controller.dart';
 
@@ -15,7 +16,9 @@ class IntroductionView extends GetView<IntroductionController> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: IntroductionScreen(
-      onDone: () {
+      onDone: () async {
+        final  SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('skipIntro', true);
         Get.offNamed(Routes.HOME);
       },
       showDoneButton: true,
@@ -29,7 +32,7 @@ class IntroductionView extends GetView<IntroductionController> {
         style: GoogleFonts.kurale(),
       ),
       isProgress: true,
-      safeAreaList: const [true,true,true,true,true,true,true],
+      safeAreaList: const [true, true, true, true, true, true, true],
       // isTopSafeArea: true,
       showBackButton: true,
       back: Text(
@@ -37,8 +40,9 @@ class IntroductionView extends GetView<IntroductionController> {
         style: GoogleFonts.kurale(),
       ),
       dotsDecorator: DotsDecorator(
-          color:  isDarkmode.isTrue || getDarkmode ? Colors.white : Colors.black,
-          activeColor:  isDarkmode.isTrue || getDarkmode ? Colors.blue : Colors.blue),
+          color: isDarkmode.isTrue || getDarkmode ? Colors.white : Colors.black,
+          activeColor:
+              isDarkmode.isTrue || getDarkmode ? Colors.blue : Colors.blue),
       dotsFlex: 2,
       pages: [
         PageViewModel(
