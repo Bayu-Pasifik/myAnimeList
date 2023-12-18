@@ -580,7 +580,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
           ),
 
           SizedBox(
-            height: MediaQuery.of(context).size.height / 2,
+            height: MediaQuery.of(context).size.height / 3,
             // color: Colors.red,
             child: FutureBuilder<List<char.Character>?>(
               future: controller.getCharacterAnime(anime.malId!),
@@ -613,6 +613,7 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                   );
                 }
                 return ListView.separated(
+                  physics: const BouncingScrollPhysics(),
                   separatorBuilder: (context, index) => SizedBox(
                     width: 5.w,
                   ),
@@ -622,48 +623,57 @@ class DetailAnimeView extends GetView<DetailAnimeController> {
                     char.Character character =
                         controller.listCharacterAnime![index];
                     return GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.ANIME_CHARACTER,
-                            arguments: character.character);
-                      },
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: SizedBox(
-                                width: 150.w,
-                                height: 300.h,
-                                // color: Colors.amber,
-                                child: (character
-                                            .character!.images!.jpg!.imageUrl !=
-                                        null)
-                                    ? Image.network(
-                                        character.character!.images?.jpg
-                                                ?.imageUrl ??
-                                            'Kosong',
-                                        fit: BoxFit.cover,
-                                      )
-                                    : const CircularProgressIndicator(),
+                        onTap: () {
+                          Get.toNamed(Routes.ANIME_CHARACTER,
+                              arguments: character.character);
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 150.w,
+                              height: 150.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    "${snapshot.data?[index].character?.images?.jpg?.imageUrl}",
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) => Center(
+                                  child: CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                        "assets/images/Image_not_available.png"),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Text(
-                            character.character?.name ?? '-',
-                            style: GoogleFonts.breeSerif(fontSize: 16.sp),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "(${character.role ?? '-'})",
-                              style: GoogleFonts.breeSerif(fontSize: 16.sp),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                            SizedBox(
+                              width: 150.w,
+                              height: 60.h,
+                              // color: Colors.amber,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "${snapshot.data?[index].character?.name}",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.kurale(),
+                                  ),
+                                  Text("${snapshot.data?[index].role}",
+                                      style: GoogleFonts.kurale())
+                                ],
+                              ),
+                            )
+                          ],
+                        ));
                   },
                 );
               },

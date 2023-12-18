@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +29,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
         ),
         SliverList(
             delegate: SliverChildListDelegate([
-           SizedBox(
+          SizedBox(
             height: 5.h,
           ),
           Center(
@@ -46,7 +47,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
           SizedBox(height: 20.h),
           ExpandablePanel(
             theme: ExpandableThemeData(
-              iconColor:  isDarkmode.isTrue || getDarkmode
+              iconColor: isDarkmode.isTrue || getDarkmode
                   ? const Color.fromARGB(255, 255, 255, 255)
                   : const Color.fromARGB(255, 0, 0, 0),
             ),
@@ -56,7 +57,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                   Text("You can view more information about this comics here",
                       style: GoogleFonts.kurale(
                         fontWeight: FontWeight.w500,
-                        color:  isDarkmode.isTrue || getDarkmode
+                        color: isDarkmode.isTrue || getDarkmode
                             ? const Color.fromARGB(255, 255, 255, 255)
                             : const Color.fromARGB(255, 0, 0, 0),
                       )),
@@ -74,7 +75,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
               child: Table(
                 border: TableBorder.all(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  color:  isDarkmode.isTrue || getDarkmode
+                  color: isDarkmode.isTrue || getDarkmode
                       ? const Color.fromARGB(255, 255, 255, 255)
                       : const Color.fromARGB(15, 37, 37, 37),
                 ),
@@ -364,7 +365,9 @@ class DetailMangaView extends GetView<DetailMangaController> {
             padding: const EdgeInsets.all(5),
             child: ExpandablePanel(
               theme: ExpandableThemeData(
-                  iconColor:  isDarkmode.isTrue || getDarkmode ? Colors.white : Colors.black),
+                  iconColor: isDarkmode.isTrue || getDarkmode
+                      ? Colors.white
+                      : Colors.black),
               header: Text(
                 "Synopsis",
                 style: GoogleFonts.squadaOne(color: Colors.blue, fontSize: 20),
@@ -405,7 +408,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
           ),
 
           SizedBox(
-            height: MediaQuery.of(context).size.height / 2,
+            height: MediaQuery.of(context).size.height / 3,
             // color: Colors.red,
             child: FutureBuilder<List<char.Character>?>(
               future: controller.getCharacterManga(mangas.malId!),
@@ -430,7 +433,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                       "No Data",
                       style: GoogleFonts.kurale(
                         fontSize: 18.sp,
-                        color:  isDarkmode.isTrue || getDarkmode
+                        color: isDarkmode.isTrue || getDarkmode
                             ? const Color.fromARGB(255, 255, 255, 255)
                             : const Color.fromARGB(255, 0, 0, 0),
                       ),
@@ -438,6 +441,7 @@ class DetailMangaView extends GetView<DetailMangaController> {
                   );
                 }
                 return ListView.separated(
+                  physics: const BouncingScrollPhysics(),
                   separatorBuilder: (context, index) => const SizedBox(
                     width: 5,
                   ),
@@ -447,49 +451,58 @@ class DetailMangaView extends GetView<DetailMangaController> {
                     char.Character character =
                         controller.listCharacterManga![index];
                     return GestureDetector(
-                      onTap: () {
-                        // print(character.character!.malId);
-                        Get.toNamed(Routes.MANGA_CHARACTER,
-                            arguments: character.character);
-                      },
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: SizedBox(
-                                width: 150,
-                                height: 300,
-                                // color: Colors.amber,
-                                child: (character
-                                            .character!.images!.jpg!.imageUrl !=
-                                        null)
-                                    ? Image.network(
-                                        character.character!.images?.jpg
-                                                ?.imageUrl ??
-                                            'Kosong',
-                                        fit: BoxFit.cover,
-                                      )
-                                    : const CircularProgressIndicator(),
+                        onTap: () {
+                          // print(character.character!.malId);
+                          Get.toNamed(Routes.MANGA_CHARACTER,
+                              arguments: character.character);
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 150.w,
+                              height: 150.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    "${character.character?.images?.jpg?.imageUrl}",
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) => Center(
+                                  child: CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                        "assets/images/Image_not_available.png"),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            character.character?.name ?? '-',
-                            style: GoogleFonts.breeSerif(fontSize: 16),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "(${character.role ?? '-'})",
-                              style: GoogleFonts.breeSerif(fontSize: 16),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                            SizedBox(
+                              width: 150.w,
+                              height: 60.h,
+                              // color: Colors.amber,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "${character.character?.name}",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.kurale(),
+                                  ),
+                                  Text("${character.role}",
+                                      style: GoogleFonts.kurale())
+                                ],
+                              ),
+                            )
+                          ],
+                        ));
                   },
                 );
               },
