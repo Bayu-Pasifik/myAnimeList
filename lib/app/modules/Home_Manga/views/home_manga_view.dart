@@ -438,6 +438,10 @@ class HomeMangaView extends GetView<HomeMangaController> {
                 initialActiveIndex: controller.selectIndex.value,
                 style: TabStyle.textIn, //optional, default as 0
                 onTap: (index) {
+                  if (controller.selectIndex.value != 1) {
+                    controller.clearSearch();
+                    controller.searchController.clear();
+                  }
                   controller.chagePage(index);
                   debugPrint("index: $index");
                   debugPrint("controller index: ${controller.selectIndex}");

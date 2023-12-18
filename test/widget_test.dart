@@ -5,6 +5,7 @@ import 'dart:convert';
 // // import 'package:my_anime_list/app/data/model/anime_model.dart';
 // import 'package:my_anime_list/app/data/model/anime_models.dart';
 import 'package:http/http.dart' as http;
+import 'package:in_app_update/in_app_update.dart';
 // import 'package:my_anime_list/app/data/model/detail_anime_character.dart'
 //     as detail;
 // import 'package:my_anime_list/app/data/model/detail_anime_character.dart';
@@ -252,27 +253,16 @@ import 'package:my_anime_list/app/data/model/detail_voiceActor_model.dart'
 // }
 
 void main() async {
-    // try {
-      Uri url = Uri.parse(
-          'https://api.jikan.moe/v4/manga?q=naruto&page=1&sfw=false');
-      var response = await http.get(url);
-      var tempdata = json.decode(response.body)["data"];
-      print(tempdata);
-      // var data = tempdata.map((e) => manga.Manga.fromJson(e)).toList();
-      // print(data);
-      // List<manga.Manga> listMangaSearch = List<manga.Manga>.from(data);
-      // print("page key genre puzzle $pageKey");
-      final nextPage = json.decode(response.body)["next"];
-      final isLastPage = nextPage == null;
+  // InAppUpdate inAppUpdate = InAppUpdate();
+  // Future<void> checkForUpdates() async {
+  //   try {
+  //     final isUpdateAvailable = await inAppUpdate.checkForUpdate();
 
-    //   if (isLastPage) {
-    //     Get.snackbar("Error", "No more data");
-    //     mangaSearch.appendLastPage(listMangaSearch);
-    //   } else {
-    //     mangaSearch.appendPage(listMangaSearch, hal + 1);
-    //   }
-    // } catch (e) {
-    //   mangaSearch.error = e;
-    // }
-    }
-  
+  //     if (isUpdateAvailable == UpdateStatus.updateAvailable) {
+  //       await inAppUpdate.performImmediateUpdate();
+  //     }
+  //   } catch (e) {
+  //     print('Error checking for updates: $e');
+  //   }
+  // }
+}

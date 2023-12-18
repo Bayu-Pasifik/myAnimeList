@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:in_app_update/in_app_update.dart';
 import 'dart:convert';
 import 'package:my_anime_list/app/data/model/manga/manga_model.dart' as manga;
 import 'package:my_anime_list/app/modules/utils.dart';
@@ -86,7 +87,6 @@ class HomeMangaController extends GetxController {
       PagingController<int, manga.Manga>(firstPageKey: 1);
 
   // ! End Section
-
 
   // !  variable untuk page index manga
   int currentPage = 1;
@@ -328,7 +328,6 @@ class HomeMangaController extends GetxController {
     }
     // isDarkmode.value = val;
     saveDark(val);
-    print("value isDarkmode home manga: ${isDarkmode.value}");
   }
 
   // ! fungsi untuk top manga
@@ -398,7 +397,8 @@ class HomeMangaController extends GetxController {
         // No data found
         Get.snackbar("Error", "No data found");
       } else {
-        final nextPage = json.decode(response.body)['pagination']["has_next_page"];
+        final nextPage =
+            json.decode(response.body)['pagination']["has_next_page"];
         final isLastPage = nextPage == null;
 
         if (isLastPage) {
@@ -423,11 +423,21 @@ class HomeMangaController extends GetxController {
     isSearch.value = value;
   }
 
-
-  
+  // InAppUpdate inAppUpdate = InAppUpdate();
+  Future<void> checkForUpdates() async {
+    try {
+      final isUpdateAvailable = await InAppUpdate.checkForUpdate();
+      if (isUpdateAvailable == UpdateAvailability.updateAvailable) {
+        await InAppUpdate.performImmediateUpdate();
+      }
+    } catch (e) {
+      print('Error checking for updates: $e');
+    }
+  }
 
   @override
   void onInit() {
+    checkForUpdates();
     mangaTop = Future.delayed(
       const Duration(seconds: 1),
       () => topManga(),

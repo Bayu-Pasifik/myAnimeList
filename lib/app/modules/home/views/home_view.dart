@@ -46,7 +46,7 @@ class HomeView extends GetView<HomeController> {
               controller: controller.searchController,
               decoration: const InputDecoration(
                   labelText: "Search",
-                  hintText: 'Search Manga',
+                  hintText: 'Search Anime',
                   border: OutlineInputBorder()),
             ),
             SizedBox(
