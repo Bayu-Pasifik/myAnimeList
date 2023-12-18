@@ -25,6 +25,7 @@ class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    DateTime? currentBackPressTime;
     // final box = GetStorage();
     // if (box.read("themeDark") == true) {
     //   controller.isDark.value = true;
@@ -653,88 +654,110 @@ class HomeView extends GetView<HomeController> {
       // ! Studios Page
       const AnimeStudios()
     ];
-    return Obx(() => Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: isDarkmode.isTrue || getDarkmode
-              ? Colors.grey[900]
-              : Colors.blue[900],
-          actions: [
-            IconButton(onPressed: () {
-              controller.changeTheme(!isDarkmode.value);
-            }, icon: Obx(() {
-              return isDarkmode.isTrue || getDarkmode
-                  ? const Icon(Icons.sunny)
-                  : const Icon(Icons.mode_night_outlined);
-            }))
-          ],
-        ),
-        drawer: Drawer(
-          elevation: 200,
-          child: Column(children: [
-            Container(
-              width: double.infinity,
-              height: 150,
-              color: Colors.blue[300],
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Text("Chose Your Destination",
-                        style: GoogleFonts.breeSerif(fontSize: 20)),
-                  )),
-            ),
-            ListTile(
-              leading: const Icon(Icons.movie_creation_outlined),
-              title: Text(
-                "Anime",
-                style: GoogleFonts.breeSerif(fontSize: 16),
+    return Obx(() => WillPopScope(
+          onWillPop: () async {
+            DateTime now = DateTime.now();
+
+            if (currentBackPressTime == null ||
+                now.difference(currentBackPressTime!) >
+                    const Duration(seconds: 5)) {
+              currentBackPressTime = now;
+              Get.snackbar("Info", "Press back button again to exit",
+                  shouldIconPulse: true,
+                  duration: const Duration(milliseconds: 1000),
+                  icon: const Icon(Icons.warning),
+                  snackPosition: SnackPosition.BOTTOM,
+                  instantInit: true,
+                  barBlur: 1000);
+
+              return false;
+            }
+            return true;
+          },
+          child: Scaffold(
+              appBar: AppBar(
+                elevation: 0,
+                backgroundColor: isDarkmode.isTrue || getDarkmode
+                    ? Colors.grey[900]
+                    : Colors.blue[900],
+                actions: [
+                  IconButton(onPressed: () {
+                    controller.changeTheme(!isDarkmode.value);
+                  }, icon: Obx(() {
+                    return isDarkmode.isTrue || getDarkmode
+                        ? const Icon(Icons.sunny)
+                        : const Icon(Icons.mode_night_outlined);
+                  }))
+                ],
               ),
-              onTap: () {
-                // Get.offNamed(Routes.HOME_PAGE);
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ListTile(
-              leading: const Icon(Icons.book_outlined),
-              title: Text(
-                "Manga",
-                style: GoogleFonts.breeSerif(fontSize: 16),
+              drawer: Drawer(
+                elevation: 200,
+                child: Column(children: [
+                  Container(
+                    width: double.infinity,
+                    height: 150,
+                    color: Colors.blue[300],
+                    child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Text("Chose Your Destination",
+                              style: GoogleFonts.breeSerif(fontSize: 20)),
+                        )),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.movie_creation_outlined),
+                    title: Text(
+                      "Anime",
+                      style: GoogleFonts.breeSerif(fontSize: 16),
+                    ),
+                    onTap: () {
+                      // Get.offNamed(Routes.HOME_PAGE);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.book_outlined),
+                    title: Text(
+                      "Manga",
+                      style: GoogleFonts.breeSerif(fontSize: 16),
+                    ),
+                    onTap: () {
+                      Get.offNamed(Routes.HOME_MANGA);
+                    },
+                  ),
+                ]),
               ),
-              onTap: () {
-                Get.offNamed(Routes.HOME_MANGA);
-              },
-            ),
-          ]),
-        ),
-        body: GetBuilder<HomeController>(
-            builder: (c) => widgets[c.selectIndex.value]),
-        bottomNavigationBar: Obx(
-          () => ConvexAppBar(
-              items: const [
-                TabItem(icon: Icons.home, title: 'Home'),
-                TabItem(icon: Icons.search, title: 'search'),
-                TabItem(icon: Icons.bookmarks_outlined, title: 'index'),
-                TabItem(icon: Icons.movie_filter_outlined, title: 'Genres'),
-                TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
-                TabItem(icon: Icons.business, title: 'Studios'),
-              ],
-              backgroundColor: isDarkmode.isTrue || getDarkmode
-                  ? Colors.grey[900]
-                  : Colors.blue[900],
-              initialActiveIndex: controller.selectIndex.value,
-              style: TabStyle.textIn, //optional, default as 0
-              onTap: (index) {
-                if (controller.selectIndex.value != 1) {
-                  controller.clearSearch();
-                  controller.searchController.clear();
-                }
-                controller.chagePage(index);
-                debugPrint("index: $index");
-                debugPrint("controller index: ${controller.selectIndex}");
-              }),
-        )));
+              body: GetBuilder<HomeController>(
+                  builder: (c) => widgets[c.selectIndex.value]),
+              bottomNavigationBar: Obx(
+                () => ConvexAppBar(
+                    items: const [
+                      TabItem(icon: Icons.home, title: 'Home'),
+                      TabItem(icon: Icons.search, title: 'search'),
+                      TabItem(icon: Icons.bookmarks_outlined, title: 'index'),
+                      TabItem(
+                          icon: Icons.movie_filter_outlined, title: 'Genres'),
+                      TabItem(icon: Icons.cloudy_snowing, title: 'Season'),
+                      TabItem(icon: Icons.business, title: 'Studios'),
+                    ],
+                    backgroundColor: isDarkmode.isTrue || getDarkmode
+                        ? Colors.grey[900]
+                        : Colors.blue[900],
+                    initialActiveIndex: controller.selectIndex.value,
+                    style: TabStyle.textIn, //optional, default as 0
+                    onTap: (index) {
+                      if (controller.selectIndex.value != 1) {
+                        controller.clearSearch();
+                        controller.searchController.clear();
+                      }
+                      controller.chagePage(index);
+                      debugPrint("index: $index");
+                      debugPrint("controller index: ${controller.selectIndex}");
+                    }),
+              )),
+        ));
   }
 }
