@@ -2,17 +2,17 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+// import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../data/model/anime_models.dart';
 // import '../../../data/model/anime_model.dart';
 
 class AnimeTestController extends GetxController {
   final CarouselController carouselController = CarouselController();
-  RefreshController refreshControllerA =
-      RefreshController(initialRefresh: true);
-  RefreshController refreshControllerB =
-      RefreshController(initialRefresh: true);
+  // RefreshController refreshControllerA =
+  //     RefreshController(initialRefresh: true);
+  // RefreshController refreshControllerB =
+  //     RefreshController(initialRefresh: true);
   int currentPage = 1;
   Rx<int> currentSlider = 0.obs;
   List<dynamic> listTopAnime = [];
@@ -60,15 +60,15 @@ class AnimeTestController extends GetxController {
     }
   }
 
-  void loadDataA() async {
-    if (page["has_next_page"] == true) {
-      currentPage = currentPage + 1;
-      update();
-      await getAnimeA(currentPage);
-      return refreshControllerA.loadComplete();
-    }
-    return refreshControllerA.loadNoData();
-  }
+  // void loadDataA() async {
+  //   if (page["has_next_page"] == true) {
+  //     currentPage = currentPage + 1;
+  //     update();
+  //     await getAnimeA(currentPage);
+  //     return refreshControllerA.loadComplete();
+  //   }
+  //   return refreshControllerA.loadNoData();
+  // }
 
   // void refreshDataA() async {
   //   if (refreshControllerA.initialRefresh == true) {
@@ -91,15 +91,15 @@ class AnimeTestController extends GetxController {
   //   return refreshControllerB.loadNoData();
   // }
 
-  void refreshDataB() async {
-    if (refreshControllerB.initialRefresh == true) {
-      currentPage = 1;
-      await getAnimeA(currentPage);
-      return refreshControllerB.refreshCompleted();
-    } else {
-      return refreshControllerB.refreshFailed();
-    }
-  }
+  // void refreshDataB() async {
+  //   if (refreshControllerB.initialRefresh == true) {
+  //     currentPage = 1;
+  //     await getAnimeA(currentPage);
+  //     return refreshControllerB.refreshCompleted();
+  //   } else {
+  //     return refreshControllerB.refreshFailed();
+  //   }
+  // }
 
   // ! fungsi untuk top anime
   Future<List?> topAnime() async {

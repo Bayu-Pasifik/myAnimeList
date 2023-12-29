@@ -19,7 +19,7 @@ void main() async {
     splitScreenMode: true,
     builder: (context, child) => GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Animate",
+      title: "Jikan List",
       theme: getDarkmode ? ThemeData.dark() : ThemeData.light(),
       initialRoute: prefs.getBool("skipIntro") == true
           ? Routes.HOME

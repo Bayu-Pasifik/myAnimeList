@@ -9,7 +9,7 @@ import 'package:my_anime_list/app/data/model/genre_model.dart' as gen;
 import 'package:my_anime_list/app/data/model/character_model.dart' as char;
 import 'package:my_anime_list/app/modules/utils.dart';
 import 'dart:convert';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+// import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:my_anime_list/app/data/model/studios_model.dart' as studio;
 // import 'package:my_anime_list/app/data/model/anime_models.dart' as anime;
 
@@ -23,8 +23,8 @@ class HomeController extends GetxController {
   Map<String, dynamic> page = {};
   Map<String, dynamic> pageSeason = {};
   Map<String, dynamic> pageStudios = {};
-  RefreshController studiosRefresh = RefreshController(initialRefresh: true);
-  RefreshController seasonRefresh = RefreshController(initialRefresh: true);
+  // RefreshController studiosRefresh = RefreshController(initialRefresh: true);
+  // RefreshController seasonRefresh = RefreshController(initialRefresh: true);
 
   // !  variable untuk index anime
   int currentPage = 1;

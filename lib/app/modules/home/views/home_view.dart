@@ -385,7 +385,7 @@ class HomeView extends GetView<HomeController> {
                 controller.season.value = seasonValue!;
                 controller.listSeasonAnime.clear();
                 controller.pageSeason.clear();
-                controller.seasonRefresh.resetNoData();
+                // controller.seasonRefresh.resetNoData();
               },
               selectedItem: controller.season.value,
             ),
